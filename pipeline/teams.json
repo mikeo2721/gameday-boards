@@ -1,0 +1,15 @@
+{
+  "poll": "AP Top 10, week 7 (Oct 12, 2026)",
+  "teams": [
+    {"id": 61,   "slug": "georgia",    "name": "Georgia Bulldogs"},
+    {"id": 87,   "slug": "notre-dame", "name": "Notre Dame Fighting Irish"},
+    {"id": 2390, "slug": "miami",      "name": "Miami Hurricanes"},
+    {"id": 194,  "slug": "ohio-state", "name": "Ohio State Buckeyes"},
+    {"id": 84,   "slug": "indiana",    "name": "Indiana Hoosiers"},
+    {"id": 333,  "slug": "alabama",    "name": "Alabama Crimson Tide"},
+    {"id": 251,  "slug": "texas",      "name": "Texas Longhorns"},
+    {"id": 252,  "slug": "byu",        "name": "BYU Cougars"},
+    {"id": 145,  "slug": "ole-miss",   "name": "Ole Miss Rebels"},
+    {"id": 2641, "slug": "texas-tech", "name": "Texas Tech Red Raiders"}
+  ]
+}

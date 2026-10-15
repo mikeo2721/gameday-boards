@@ -49,6 +49,7 @@ THEMES.update({
     252:  {"title": "Cougars Gameday Board", **theme("#002e5d", "#0062b8", "#6aaee8", "#6aaee8", "#0062b8")},
     145:  {"title": "Rebels Gameday Board", **theme("#14213d", "#ce1126", "#6cace4", "#f2566a", "#ce1126")},
     99:   {"title": "Tigers Gameday Board", **theme("#461d7c", "#461d7c", "#fdd023", "#fdd023", "#fdd023")},
+    2641: {"title": "Red Raiders Gameday Board", **theme("#cc0000", "#cc0000", "#ff5a5a", "#ff5a5a", "#000000")},
 })
 
 tpl = open("template.html").read()
