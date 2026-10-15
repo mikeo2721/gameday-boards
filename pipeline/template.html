@@ -1,0 +1,294 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: scoreboard header -> season tabs -> KPI strip -> efficiency + chart -> game log -> leaders -> 3-year trend */
+:root{
+  --bg:#f6f3f0; --surface:#ffffff; --ink:#1f1a17; --muted:#6e645c; --line:#e3dcd5;
+  --orange:#bf5700; --on-accent:#ffffff; --win:#1f7a4d; --win-soft:#dcefe4; --loss:#b3261e; --loss-soft:#f6dcda;
+  --bar-neutral:#cfc5bc;
+  --display:"Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#161311; --surface:#211c19; --ink:#f1ebe6; --muted:#a89c92; --line:#3a322c;
+  --orange:#f07a2a; --on-accent:#ffffff; --win:#5cc28c; --win-soft:#17321f; --loss:#f07b72; --loss-soft:#3a1a18;
+  --bar-neutral:#544a42; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161311; --surface:#211c19; --ink:#f1ebe6; --muted:#a89c92; --line:#3a322c;
+  --orange:#f07a2a; --on-accent:#ffffff; --win:#5cc28c; --win-soft:#17321f; --loss:#f07b72; --loss-soft:#3a1a18;
+  --bar-neutral:#544a42; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 48px;display:flex;flex-direction:column;gap:22px}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;letter-spacing:.01em}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* header */
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid var(--orange);padding-bottom:16px}
+.brand h1{font-size:clamp(34px,6vw,52px);line-height:1;text-transform:uppercase}
+.brand h1 span{color:var(--name, var(--orange))}
+.brand .sub{color:var(--muted);margin-top:6px}
+.next{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 16px;min-width:0;max-width:100%}
+.next .opp{font-family:var(--display);font-size:24px;font-weight:600}
+.next .meta{color:var(--muted);font-size:13px}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font:600 15px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:var(--on-accent)}
+.tabs button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.kpi{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi .v{font-family:var(--display);font-size:34px;font-weight:700;line-height:1.05}
+.kpi .s{font-size:13px;color:var(--muted)}
+
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:22px}
+@media (max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.panel h2{font-size:22px;text-transform:uppercase}
+.panel .note{font-size:12.5px;color:var(--muted)}
+
+/* efficiency ranks */
+.eff{display:flex;flex-direction:column;gap:12px}
+.eff-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline}
+.eff-row .lbl{font-weight:600;font-size:14px}
+.eff-row .val{font-family:var(--display);font-size:20px;font-weight:600}
+.eff-row .track{grid-column:1/-1;height:8px;background:var(--line);border-radius:4px;position:relative;overflow:hidden}
+.eff-row .fill{position:absolute;inset:0 auto 0 0;border-radius:4px}
+.eff-row .rk{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+.tier-good{background:var(--win)} .tier-mid{background:var(--bar-neutral)} .tier-bad{background:var(--loss)}
+
+/* chart */
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:12px var(--body)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
+
+/* game log */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font:600 12px var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.r,th.r{text-align:right}
+tr.upcoming td{color:var(--muted)}
+.pill{display:inline-block;font:700 13px var(--display);letter-spacing:.05em;padding:2px 8px;border-radius:3px;min-width:26px;text-align:center}
+.pill.W{background:var(--win-soft);color:var(--win)} .pill.L{background:var(--loss-soft);color:var(--loss)} .pill.U{background:var(--line);color:var(--muted)}
+.opp-cell b{font-weight:600}
+.rk{color:var(--muted);font-size:12px;margin-right:3px}
+.tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-left:6px}
+.pos{color:var(--win)} .neg{color:var(--loss)}
+
+/* leaders */
+.leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+@media (max-width:760px){.leaders{grid-template-columns:minmax(0,1fr)}}
+.leaders .panel table td,.leaders .panel table th{padding:7px 6px}
+.leaders td.name{white-space:normal}
+.jersey{color:var(--muted);font-size:12px;margin-right:4px}
+
+footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:520px){.kpi .v{font-size:28px}.wrap{padding-inline:16px}}
+
+/*THEME*/
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="eyebrow" id="hdr-eyebrow">College football</div>
+      <h1 id="hdr-name"></h1>
+      <div class="sub" id="hdr-sub"></div>
+    </div>
+    <div class="next" id="next"></div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="Season"></nav>
+
+  <section class="kpis" id="kpis" aria-label="Season summary"></section>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2>Efficiency vs. FBS</h2>
+      <div class="eff" id="eff"></div>
+      <div class="note" id="eff-note"></div>
+    </section>
+    <section class="panel chart">
+      <h2>Game by game</h2>
+      <div class="legend"><span><i style="background:var(--win)"></i>Win margin</span><span><i style="background:var(--loss)"></i>Loss margin</span><span><i style="background:var(--orange);height:3px;vertical-align:3px"></i>Offense EPA/play</span><span><i style="background:var(--muted);height:3px;vertical-align:3px"></i>Defense EPA/play allowed</span></div>
+      <div id="chart"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>Schedule &amp; results</h2>
+    <div class="tbl-wrap"><table id="log"></table></div>
+  </section>
+
+  <section class="leaders" id="leaders"></section>
+
+  <section class="panel">
+    <h2>Three-season trend</h2>
+    <div class="tbl-wrap"><table id="trend"></table></div>
+  </section>
+
+  <footer>
+    <div id="gen"></div>
+    <div>Source: ESPN data via the SportsDataverse (sportsdataverse-py) data releases. EPA = expected points added per scrimmage play; success rate uses the standard down-and-distance definition. Efficiency ranks cover FBS teams with 100+ plays. Early-season ranks swing a lot on small samples.</div>
+  </footer>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const M = D.meta || {school:'Texas',mascot:'Longhorns',conf:'SEC',independent:false};
+document.getElementById('hdr-name').innerHTML = `<span>${M.school}</span> ${M.mascot}`;
+document.getElementById('hdr-eyebrow').textContent = 'College football · ' + (M.independent ? 'FBS Independent' : M.conf);
+const seasons = Object.keys(D.seasons).sort();
+let cur = seasons[seasons.length-1];
+try{ const s = localStorage.getItem('season'); if(s && D.seasons[s]) cur = s; }catch(e){}
+
+const isPost = g => g.season_type===3 || g.season_type==='postseason';
+const f1 = x => x==null ? '–' : x.toFixed(1);
+const f2 = x => x==null ? '–' : (x>=0?'+':'') + x.toFixed(2);
+const pct = x => x==null ? '–' : Math.round(x*100)+'%';
+const sgn = x => x==null ? '–' : (x>0?'+':'')+x;
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtDate = iso => { const d=new Date(iso); return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}); };
+const ord = n => { const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); };
+
+function renderTabs(){
+  const el=document.getElementById('tabs');
+  el.innerHTML = seasons.slice().reverse().map(s=>`<button type="button" id="tab-${s}" aria-pressed="${s===cur}" data-s="${s}">${s}</button>`).join('');
+  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.s; try{localStorage.setItem('season',cur)}catch(e){} render();});
+}
+
+function renderHeader(S){
+  const sm=S.summary, done=S.games.filter(g=>g.completed);
+  const lastRank = done.length ? done[done.length-1].rank : null;
+  const nextG = S.games.find(g=>!g.completed);
+  const rankTxt = nextG && nextG.rank ? `AP No. ${nextG.rank}` : (lastRank? `AP No. ${lastRank} (last game)`:'Unranked');
+  document.getElementById('hdr-sub').innerHTML = `<span class="num">${sm.season}: ${sm.w}–${sm.l}${M.independent?'':`, ${sm.cw}–${sm.cl} ${M.conf}`}</span> · ${rankTxt}`;
+  const n=document.getElementById('next');
+  if(nextG){
+    const site = nextG.neutral ? 'vs.' : (nextG.home ? 'vs.' : 'at');
+    n.innerHTML = `<div class="eyebrow">Next game · Week ${nextG.week}</div>
+      <div class="opp">${site} ${nextG.opp_rank?`<span class="rk">#${nextG.opp_rank}</span>`:''}${esc(nextG.opp)}</div>
+      <div class="meta">${new Date(nextG.date).toLocaleString(undefined,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})} · ${esc(nextG.venue)}</div>`;
+  } else {
+    const last=done[done.length-1];
+    n.innerHTML = `<div class="eyebrow">Season complete</div><div class="opp">${sm.w}–${sm.l}</div><div class="meta">Final: ${last?`${last.result} ${last.pf}–${last.pa} vs. ${esc(last.opp)}`:''}</div>`;
+  }
+}
+
+function renderKpis(S){
+  const s=S.summary;
+  const items=[
+    ['Record', `${s.w}–${s.l}`, M.independent ? 'Independent schedule' : `${s.cw}–${s.cl} in conference`],
+    ['Points / game', f1(s.ppg), `Allowed ${f1(s.opp_ppg)}`],
+    ['Point margin', s.ppg==null?'–':(s.ppg-s.opp_ppg>0?'+':'')+f1(s.ppg-s.opp_ppg), 'Per game'],
+    ['Yards / game', s.ypg==null?'–':Math.round(s.ypg), `Allowed ${s.opp_ypg==null?'–':Math.round(s.opp_ypg)}`],
+    ['Turnover margin', sgn(s.to_margin), 'Takeaways minus giveaways'],
+    ['3rd-down conv.', pct(s.third_pct), 'Offense'],
+  ];
+  document.getElementById('kpis').innerHTML = items.map(([l,v,sub])=>`<div class="kpi"><div class="eyebrow">${l}</div><div class="v num">${v}</div><div class="s">${sub}</div></div>`).join('');
+}
+
+function renderEff(S){
+  const e=S.efficiency, el=document.getElementById('eff');
+  if(!e){ el.innerHTML='<div class="note">No play-by-play data yet for this season.</div>'; return; }
+  const N=e.n_fbs;
+  const rows=[
+    ['Offense EPA / play', f2(e.epa), e.epa_rk],
+    ['Offense success rate', pct(e.sr), e.sr_rk],
+    ['Defense EPA / play allowed', f2(e.d_epa), e.d_epa_rk],
+    ['Defense success rate allowed', pct(e.d_sr), e.d_sr_rk],
+    ['Net EPA / play', f2(e.net_epa), e.net_rk],
+  ];
+  el.innerHTML = rows.map(([l,v,rk])=>{
+    const p = 1-(rk-1)/(N-1); const tier = rk<=Math.round(N*0.25)?'good':(rk>Math.round(N*0.6)?'bad':'mid');
+    return `<div class="eff-row"><div class="lbl">${l}</div><div class="val num">${v}</div>
+      <div class="track"><div class="fill tier-${tier}" style="width:${Math.max(3,p*100).toFixed(1)}%"></div></div>
+      <div class="rk num">${ord(rk)} of ${N} FBS</div></div>`;}).join('');
+  document.getElementById('eff-note').innerHTML = `Passing EPA/play ${f2(e.epa_pass)} · rushing ${f2(e.epa_rush)} on offense. Allowed ${f2(e.d_epa_pass)} passing, ${f2(e.d_epa_rush)} rushing. Based on ${e.plays} offensive plays.`;
+}
+
+function renderChart(S){
+  const G=S.games.filter(g=>g.completed && g.pf!=null);
+  const el=document.getElementById('chart');
+  if(!G.length){el.innerHTML='<div class="note">No games played yet.</div>';return;}
+  const W=640,H=300,ml=40,mr=44,mt=14,mb=46, iw=W-ml-mr, ih=H-mt-mb;
+  const margins=G.map(g=>g.pf-g.pa);
+  const mMax=Math.max(10,Math.ceil(Math.max(...margins.map(Math.abs))/10)*10);
+  const y=v=>mt+ih/2 - (v/mMax)*(ih/2);
+  const eMax=0.6, ye=v=>mt+ih/2-(Math.max(-eMax,Math.min(eMax,v))/eMax)*(ih/2);
+  const bw=iw/G.length, x=i=>ml+bw*i+bw/2;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Scoring margin and EPA per game">`;
+  [-mMax,-mMax/2,0,mMax/2,mMax].forEach(t=>{s+=`<line x1="${ml}" x2="${W-mr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" stroke-width="${t===0?1.5:1}"/><text x="${ml-6}" y="${y(t)+4}" text-anchor="end">${t>0?'+':''}${t}</text>`;});
+  [-0.6,-0.3,0.3,0.6].forEach(t=>{s+=`<text x="${W-mr+6}" y="${ye(t)+4}">${t>0?'+':''}${t.toFixed(1)}</text>`;});
+  s+=`<text x="${ml-6}" y="${H-6}" text-anchor="end" style="font-size:11px">pts</text><text x="${W-mr+6}" y="${H-6}" style="font-size:11px">EPA</text>`;
+  G.forEach((g,i)=>{const m=g.pf-g.pa, bwid=Math.min(34,bw*0.55);
+    s+=`<rect x="${x(i)-bwid/2}" y="${Math.min(y(0),y(m))}" width="${bwid}" height="${Math.max(1,Math.abs(y(m)-y(0)))}" fill="${m>=0?'var(--win)':'var(--loss)'}" opacity=".8" rx="2"><title>${esc(g.opp)}: ${g.pf}–${g.pa}</title></rect>`;
+    s+=`<text x="${x(i)}" y="${H-mb+18}" text-anchor="middle" style="font-size:11.5px;fill:var(--ink)">${esc(g.opp_abbr||g.opp.slice(0,4))}</text><text x="${x(i)}" y="${H-mb+32}" text-anchor="middle" style="font-size:11px">${g.pf}–${g.pa}</text>`;});
+  const line=(key,col)=>{const pts=G.map((g,i)=>g[key]==null?null:[x(i),ye(g[key])]).filter(Boolean); if(pts.length<1)return '';
+    return `<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>`+pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${col}"/>`).join('');};
+  s+=line('def_epa','var(--muted)')+line('off_epa','var(--orange)');
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
+function renderLog(S){
+  const rows=S.games.map(g=>{
+    const site=g.neutral?'N':(g.home?'H':'A');
+    const tag = isPost(g) ? `<span class="tag">${esc((g.bowl||'Postseason').replace(/\s+presented by.*$/i,'').replace(/^College Football Playoff/,'CFP'))}</span>` : ((g.conf||M.independent)?'':'<span class="tag" style="color:var(--muted)">Non-conf</span>');
+    const b=g.box||{}, us=b.us||{}, th=b.them||{};
+    const res = g.completed ? `<span class="pill ${g.result}">${g.result}</span>` : '<span class="pill U">–</span>';
+    return `<tr class="${g.completed?'':'upcoming'}">
+      <td class="num">${isPost(g)?'Post':g.week}</td><td class="num">${fmtDate(g.date)}</td><td>${site}</td>
+      <td class="opp-cell">${g.opp_rank?`<span class="rk">#${g.opp_rank}</span>`:''}<b>${esc(g.opp)}</b>${tag}</td>
+      <td>${res}</td><td class="r num">${g.completed?`${g.pf}–${g.pa}`:''}</td>
+      <td class="r num">${us.yards??''}${us.yards!=null?` / ${th.yards}`:''}</td>
+      <td class="r num">${us.to!=null?`${us.to} / ${th.to}`:''}</td>
+      <td class="r num ${g.off_epa>0?'pos':g.off_epa<0?'neg':''}">${g.off_epa!=null?f2(g.off_epa):''}</td>
+      <td class="r num ${g.def_epa<0?'pos':g.def_epa>0?'neg':''}">${g.def_epa!=null?f2(g.def_epa):''}</td></tr>`;}).join('');
+  document.getElementById('log').innerHTML=`<thead><tr><th>Wk</th><th>Date</th><th>Site</th><th>Opponent</th><th>Result</th><th class="r">Score</th><th class="r">Yds (us/opp)</th><th class="r">TO (us/opp)</th><th class="r">Off EPA</th><th class="r">Def EPA</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+function renderLeaders(S){
+  const L=S.leaders, nm=p=>`${p.jersey?`<span class="jersey">#${esc(p.jersey)}</span>`:''}${esc(p.name)}`;
+  const tbl=(title,head,rows)=>`<section class="panel"><h2>${title}</h2><div class="tbl-wrap"><table><thead><tr>${head.map((h,i)=>`<th class="${i?'r':''}">${h}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td>No data</td></tr>'}</tbody></table></div></section>`;
+  const r=(cells)=>`<tr>${cells.map((c,i)=>`<td class="${i?'r num':'name'}">${c}</td>`).join('')}</tr>`;
+  document.getElementById('leaders').innerHTML=
+    tbl('Passing',['Player','C/Att','Yds','TD','INT'],L.passing.map(p=>r([nm(p),`${p.cmp}/${p.att}`,p.passingYards,p.passingTouchdowns,p.interceptions])).join(''))+
+    tbl('Rushing',['Player','Att','Yds','Avg','TD'],L.rushing.map(p=>r([nm(p),p.rushingAttempts,p.rushingYards,p.rushingAttempts?(p.rushingYards/p.rushingAttempts).toFixed(1):'–',p.rushingTouchdowns])).join(''))+
+    tbl('Receiving',['Player','Rec','Yds','TD'],L.receiving.map(p=>r([nm(p),p.receptions,p.receivingYards,p.receivingTouchdowns])).join(''))+
+    tbl('Defense',['Player','Tkl','TFL','Sck','INT'],L.defense.map(p=>r([nm(p),p.totalTackles,p.tacklesForLoss,p.sacks,p.ints])).join(''));
+}
+
+function renderTrend(){
+  const ss=seasons; const get=(s,f)=>f(D.seasons[s]);
+  const rows=[
+    ['Record',s=>`${s.summary.w}–${s.summary.l}`],
+    ...(M.independent?[]:[['Conference',s=>`${s.summary.cw}–${s.summary.cl}`]]),
+    ['Points / game',s=>f1(s.summary.ppg)],
+    ['Allowed / game',s=>f1(s.summary.opp_ppg)],
+    ['Turnover margin',s=>sgn(s.summary.to_margin)],
+    ['Off EPA / play (rank)',s=>s.efficiency?`${f2(s.efficiency.epa)} (${s.efficiency.epa_rk})`:'–'],
+    ['Def EPA / play (rank)',s=>s.efficiency?`${f2(s.efficiency.d_epa)} (${s.efficiency.d_epa_rk})`:'–'],
+    ['Net EPA rank',s=>s.efficiency?`${ord(s.efficiency.net_rk)} of ${s.efficiency.n_fbs}`:'–'],
+    ['Top passer',s=>s.leaders.passing[0]?`${esc(s.leaders.passing[0].name)} · ${s.leaders.passing[0].passingYards} yds`:'–'],
+  ];
+  document.getElementById('trend').innerHTML=`<thead><tr><th></th>${ss.map(s=>`<th class="r">${s}${D.seasons[s].games.some(g=>!g.completed)?' (to date)':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,f])=>`<tr><td>${l}</td>${ss.map(s=>`<td class="r num">${get(s,f)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+}
+
+function render(){
+  const S=D.seasons[cur];
+  renderTabs(); renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderLog(S); renderLeaders(S);
+}
+renderTrend(); render();
+document.getElementById('gen').textContent = 'Data refreshed ' + new Date(D.generated).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) + ' · Weekly auto-refresh on Sunday mornings.';
+</script>
+
+

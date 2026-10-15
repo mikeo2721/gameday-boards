@@ -1,0 +1,315 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0}</style></head><body>
+<title>Buckeyes Gameday Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: scoreboard header -> season tabs -> KPI strip -> efficiency + chart -> game log -> leaders -> 3-year trend */
+:root{
+  --bg:#f6f3f0; --surface:#ffffff; --ink:#1f1a17; --muted:#6e645c; --line:#e3dcd5;
+  --orange:#bf5700; --on-accent:#ffffff; --win:#1f7a4d; --win-soft:#dcefe4; --loss:#b3261e; --loss-soft:#f6dcda;
+  --bar-neutral:#cfc5bc;
+  --display:"Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#161311; --surface:#211c19; --ink:#f1ebe6; --muted:#a89c92; --line:#3a322c;
+  --orange:#f07a2a; --on-accent:#ffffff; --win:#5cc28c; --win-soft:#17321f; --loss:#f07b72; --loss-soft:#3a1a18;
+  --bar-neutral:#544a42; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161311; --surface:#211c19; --ink:#f1ebe6; --muted:#a89c92; --line:#3a322c;
+  --orange:#f07a2a; --on-accent:#ffffff; --win:#5cc28c; --win-soft:#17321f; --loss:#f07b72; --loss-soft:#3a1a18;
+  --bar-neutral:#544a42; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 48px;display:flex;flex-direction:column;gap:22px}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;letter-spacing:.01em}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* header */
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid var(--orange);padding-bottom:16px}
+.brand h1{font-size:clamp(34px,6vw,52px);line-height:1;text-transform:uppercase}
+.brand h1 span{color:var(--name, var(--orange))}
+.brand .sub{color:var(--muted);margin-top:6px}
+.next{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 16px;min-width:0;max-width:100%}
+.next .opp{font-family:var(--display);font-size:24px;font-weight:600}
+.next .meta{color:var(--muted);font-size:13px}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font:600 15px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:var(--on-accent)}
+.tabs button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.kpi{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.kpi .v{font-family:var(--display);font-size:34px;font-weight:700;line-height:1.05}
+.kpi .s{font-size:13px;color:var(--muted)}
+
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:22px}
+@media (max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.panel h2{font-size:22px;text-transform:uppercase}
+.panel .note{font-size:12.5px;color:var(--muted)}
+
+/* efficiency ranks */
+.eff{display:flex;flex-direction:column;gap:12px}
+.eff-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline}
+.eff-row .lbl{font-weight:600;font-size:14px}
+.eff-row .val{font-family:var(--display);font-size:20px;font-weight:600}
+.eff-row .track{grid-column:1/-1;height:8px;background:var(--line);border-radius:4px;position:relative;overflow:hidden}
+.eff-row .fill{position:absolute;inset:0 auto 0 0;border-radius:4px}
+.eff-row .rk{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+.tier-good{background:var(--win)} .tier-mid{background:var(--bar-neutral)} .tier-bad{background:var(--loss)}
+
+/* chart */
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:12px var(--body)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
+
+/* game log */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font:600 12px var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.r,th.r{text-align:right}
+tr.upcoming td{color:var(--muted)}
+.pill{display:inline-block;font:700 13px var(--display);letter-spacing:.05em;padding:2px 8px;border-radius:3px;min-width:26px;text-align:center}
+.pill.W{background:var(--win-soft);color:var(--win)} .pill.L{background:var(--loss-soft);color:var(--loss)} .pill.U{background:var(--line);color:var(--muted)}
+.opp-cell b{font-weight:600}
+.rk{color:var(--muted);font-size:12px;margin-right:3px}
+.tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-left:6px}
+.pos{color:var(--win)} .neg{color:var(--loss)}
+
+/* leaders */
+.leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+@media (max-width:760px){.leaders{grid-template-columns:minmax(0,1fr)}}
+.leaders .panel table td,.leaders .panel table th{padding:7px 6px}
+.leaders td.name{white-space:normal}
+.jersey{color:var(--muted);font-size:12px;margin-right:4px}
+
+footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:520px){.kpi .v{font-size:28px}.wrap{padding-inline:16px}}
+
+
+:root{--bg:#f3f4f6;--surface:#ffffff;--ink:#14181f;--muted:#5d6470;--line:#dde0e5;
+  --orange:#bb0000;--on-accent:#ffffff;--bar-neutral:#c5cad2;--name:#bb0000}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111418;--surface:#1a1e24;--ink:#eceef1;--muted:#9aa1ac;--line:#2c323a;
+  --orange:#ff5c5c;--on-accent:#0f141b;--bar-neutral:#4a515c;--name:#ff5c5c}}
+:root[data-theme="dark"]{--bg:#111418;--surface:#1a1e24;--ink:#eceef1;--muted:#9aa1ac;--line:#2c323a;
+  --orange:#ff5c5c;--on-accent:#0f141b;--bar-neutral:#4a515c;--name:#ff5c5c}
+header.top{border-bottom-color:#666666}
+
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="eyebrow" id="hdr-eyebrow">College football</div>
+      <h1 id="hdr-name"></h1>
+      <div class="sub" id="hdr-sub"></div>
+    </div>
+    <div class="next" id="next"></div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="Season"></nav>
+
+  <section class="kpis" id="kpis" aria-label="Season summary"></section>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2>Efficiency vs. FBS</h2>
+      <div class="eff" id="eff"></div>
+      <div class="note" id="eff-note"></div>
+    </section>
+    <section class="panel chart">
+      <h2>Game by game</h2>
+      <div class="legend"><span><i style="background:var(--win)"></i>Win margin</span><span><i style="background:var(--loss)"></i>Loss margin</span><span><i style="background:var(--orange);height:3px;vertical-align:3px"></i>Offense EPA/play</span><span><i style="background:var(--muted);height:3px;vertical-align:3px"></i>Defense EPA/play allowed</span></div>
+      <div id="chart"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>Schedule &amp; results</h2>
+    <div class="tbl-wrap"><table id="log"></table></div>
+  </section>
+
+  <section class="leaders" id="leaders"></section>
+
+  <section class="panel">
+    <h2>Three-season trend</h2>
+    <div class="tbl-wrap"><table id="trend"></table></div>
+  </section>
+
+  <footer>
+    <div id="gen"></div>
+    <div>Source: ESPN data via the SportsDataverse (sportsdataverse-py) data releases. EPA = expected points added per scrimmage play; success rate uses the standard down-and-distance definition. Efficiency ranks cover FBS teams with 100+ plays. Early-season ranks swing a lot on small samples.</div>
+  </footer>
+</div>
+
+<script id="data" type="application/json">{"team_id":194,"meta":{"school":"Ohio State","mascot":"Buckeyes","conf":"Big Ten","independent":false,"color":"ba0c2f","alt_color":"a8adb4"},"generated":"2026-10-14T23:56+00:00","seasons":{"2024":{"summary":{"season":2024,"team":"Ohio State","games":16,"w":14,"l":2,"cw":7,"cl":2,"ppg":35.6875,"opp_ppg":12.875,"ypg":429.375,"opp_ypg":255.25,"to_margin":4.0,"third_pct":0.43548387096774194},"efficiency":{"team_id":194,"plays":857,"epa":0.18385090950176625,"sr":0.4912485414235706,"xr":0.08051341890315053,"epa_pass":0.344804507006751,"epa_rush":0.029879317368002242,"d_epa":-0.11100512014730686,"d_sr":0.38908659549228947,"d_xr":0.060498220640569395,"d_epa_pass":-0.14473899392500622,"d_epa_rush":-0.051406933474216134,"epa_rk":9,"sr_rk":13,"d_epa_rk":9,"d_sr_rk":10,"net_epa":0.2948560296490731,"net_rk":3,"n_fbs":134},"games":[{"game_id":401628455,"week":1,"season_type":"regular","date":"2024-08-31T19:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Akron","opp_abbr":"AKR","opp_rank":null,"rank":2,"pf":52,"pa":6,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":177.0,"pass":130.0,"rush":47.0,"to":3.0,"third":[4,16],"pen":"5-35","top":"34:03"},"us":{"yards":404.0,"pass":234.0,"rush":170.0,"to":0.0,"third":[9,14],"pen":"7-45","top":"25:57"}},"off_epa":0.2453288327133845,"def_epa":-0.40137975059804465,"off_sr":0.5079365079365079,"def_sr":0.38095238095238093},{"game_id":401628468,"week":2,"season_type":"regular","date":"2024-09-07T23:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Western Michigan","opp_abbr":"WMU","opp_rank":null,"rank":2,"pf":56,"pa":0,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":99.0,"pass":71.0,"rush":28.0,"to":0.0,"third":[3,15],"pen":"1-2","top":"25:24"},"us":{"yards":683.0,"pass":410.0,"rush":273.0,"to":0.0,"third":[3,10],"pen":"6-58","top":"34:36"}},"off_epa":0.4565322583829853,"def_epa":-0.2821626927082737,"off_sr":0.6056338028169014,"def_sr":0.25},{"game_id":401628492,"week":4,"season_type":"regular","date":"2024-09-21T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Marshall","opp_abbr":"MRSH","opp_rank":null,"rank":3,"pf":49,"pa":14,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":264.0,"pass":139.0,"rush":125.0,"to":0.0,"third":[7,17],"pen":"8-52","top":"36:15"},"us":{"yards":569.0,"pass":289.0,"rush":280.0,"to":1.0,"third":[4,8],"pen":"5-54","top":"23:45"}},"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401628498,"week":5,"season_type":"regular","date":"2024-09-28T23:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Michigan State","opp_abbr":"MSU","opp_rank":null,"rank":3,"pf":38,"pa":7,"result":"W","bowl":null,"venue":"Spartan Stadium","box":{"us":{"yards":483.0,"pass":298.0,"rush":185.0,"to":1.0,"third":[8,17],"pen":"4-40","top":"35:43"},"them":{"yards":246.0,"pass":199.0,"rush":47.0,"to":3.0,"third":[2,9],"pen":"2-19","top":"24:17"}},"off_epa":0.21987338162757256,"def_epa":-0.34674368302027386,"off_sr":0.43243243243243246,"def_sr":0.3333333333333333},{"game_id":401628504,"week":6,"season_type":"regular","date":"2024-10-05T19:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Iowa","opp_abbr":"IOWA","opp_rank":null,"rank":3,"pf":35,"pa":7,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":226.0,"pass":110.0,"rush":116.0,"to":3.0,"third":[5,12],"pen":"1-5","top":"25:14"},"us":{"yards":412.0,"pass":209.0,"rush":203.0,"to":2.0,"third":[7,11],"pen":"1-10","top":"34:46"}},"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401628515,"week":7,"season_type":"regular","date":"2024-10-12T23:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Oregon","opp_abbr":"ORE","opp_rank":3,"rank":2,"pf":31,"pa":32,"result":"L","bowl":null,"venue":"Autzen Stadium","box":{"us":{"yards":467.0,"pass":326.0,"rush":141.0,"to":2.0,"third":[4,12],"pen":"8-70","top":"33:04"},"them":{"yards":496.0,"pass":341.0,"rush":155.0,"to":0.0,"third":[6,14],"pen":"3-25","top":"26:56"}},"off_epa":0.27455897851666405,"def_epa":0.3184076414909214,"off_sr":0.5223880597014925,"def_sr":0.515625},{"game_id":401628530,"week":9,"season_type":"regular","date":"2024-10-26T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Nebraska","opp_abbr":"NEB","opp_rank":null,"rank":4,"pf":21,"pa":17,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":273.0,"pass":152.0,"rush":121.0,"to":1.0,"third":[5,16],"pen":"7-62","top":"35:07"},"us":{"yards":285.0,"pass":221.0,"rush":64.0,"to":1.0,"third":[1,10],"pen":"3-36","top":"24:53"}},"off_epa":-0.10275781831958077,"def_epa":-0.10023786288041335,"off_sr":0.5227272727272727,"def_sr":0.35384615384615387},{"game_id":401628539,"week":10,"season_type":"regular","date":"2024-11-02T16:00:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Penn State","opp_abbr":"PSU","opp_rank":3,"rank":4,"pf":20,"pa":13,"result":"W","bowl":null,"venue":"Beaver Stadium","box":{"us":{"yards":358.0,"pass":182.0,"rush":176.0,"to":2.0,"third":[6,13],"pen":"2-15","top":"31:29"},"them":{"yards":270.0,"pass":150.0,"rush":120.0,"to":1.0,"third":[3,11],"pen":"5-45","top":"28:31"}},"off_epa":0.004206092126907841,"def_epa":-0.11552703774200296,"off_sr":0.45161290322580644,"def_sr":0.37735849056603776},{"game_id":401628545,"week":11,"season_type":"regular","date":"2024-11-09T17:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Purdue","opp_abbr":"PUR","opp_rank":null,"rank":2,"pf":45,"pa":0,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":206.0,"pass":108.0,"rush":98.0,"to":2.0,"third":[2,12],"pen":"0-0","top":"29:11"},"us":{"yards":433.0,"pass":260.0,"rush":173.0,"to":0.0,"third":[5,12],"pen":"3-44","top":"30:49"}},"off_epa":0.2504617842760953,"def_epa":-0.3210165790681328,"off_sr":0.5757575757575758,"def_sr":0.39285714285714285},{"game_id":401628550,"week":12,"season_type":"regular","date":"2024-11-16T17:00:00.000Z","completed":true,"home":false,"neutral":true,"conf":true,"opp":"Northwestern","opp_abbr":"NU","opp_rank":null,"rank":2,"pf":31,"pa":7,"result":"W","bowl":null,"venue":"Wrigley Field","box":{"us":{"yards":420.0,"pass":247.0,"rush":173.0,"to":0.0,"third":[4,10],"pen":"3-32","top":"28:00"},"them":{"yards":259.0,"pass":201.0,"rush":58.0,"to":1.0,"third":[6,16],"pen":"2-10","top":"32:00"}},"off_epa":0.1763546205403512,"def_epa":-0.1314808804828387,"off_sr":0.47368421052631576,"def_sr":0.3384615384615385},{"game_id":401628555,"week":13,"season_type":"regular","date":"2024-11-23T17:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Indiana","opp_abbr":"IU","opp_rank":5,"rank":2,"pf":38,"pa":15,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":153.0,"pass":68.0,"rush":85.0,"to":1.0,"third":[6,14],"pen":"3-15","top":"30:40"},"us":{"yards":316.0,"pass":201.0,"rush":115.0,"to":1.0,"third":[4,11],"pen":"8-58","top":"29:20"}},"off_epa":0.1331705163825642,"def_epa":-0.15204907028839507,"off_sr":0.4909090909090909,"def_sr":0.4482758620689655},{"game_id":401628566,"week":14,"season_type":"regular","date":"2024-11-30T17:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Michigan","opp_abbr":"MICH","opp_rank":null,"rank":2,"pf":10,"pa":13,"result":"L","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":234.0,"pass":62.0,"rush":172.0,"to":2.0,"third":[7,14],"pen":"4-50","top":"33:35"},"us":{"yards":252.0,"pass":175.0,"rush":77.0,"to":2.0,"third":[6,16],"pen":"2-19","top":"26:25"}},"off_epa":-0.19534670296361892,"def_epa":-0.24483101599310575,"off_sr":0.3389830508474576,"def_sr":0.3508771929824561},{"game_id":401677177,"week":1,"season_type":"postseason","date":"2024-12-22T01:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Tennessee","opp_abbr":"TENN","opp_rank":9,"rank":8,"pf":42,"pa":17,"result":"W","bowl":"College Football Playoff First Round Presented by Allstate","venue":"Ohio Stadium","box":{"them":{"yards":256.0,"pass":104.0,"rush":152.0,"to":0.0,"third":[6,16],"pen":"6-50","top":"27:10"},"us":{"yards":473.0,"pass":317.0,"rush":156.0,"to":1.0,"third":[4,9],"pen":"3-25","top":"32:50"}},"off_epa":0.24240424972958863,"def_epa":-0.03065315932035446,"off_sr":0.546875,"def_sr":0.42857142857142855},{"game_id":401677183,"week":1,"season_type":"postseason","date":"2025-01-01T22:00:00.000Z","completed":true,"home":false,"neutral":true,"conf":false,"opp":"Oregon","opp_abbr":"ORE","opp_rank":1,"rank":8,"pf":41,"pa":21,"result":"W","bowl":"Rose Bowl","venue":"Rose Bowl","box":{"us":{"yards":500.0,"pass":319.0,"rush":181.0,"to":0.0,"third":[4,11],"pen":"2-14","top":"29:05"},"them":{"yards":276.0,"pass":299.0,"rush":-23.0,"to":0.0,"third":[8,19],"pen":"3-13","top":"30:55"}},"off_epa":0.20653733558822096,"def_epa":0.0664386188345296,"off_sr":0.40350877192982454,"def_sr":0.35714285714285715},{"game_id":401677191,"week":1,"season_type":"postseason","date":"2025-01-11T00:30:00.000Z","completed":true,"home":false,"neutral":true,"conf":false,"opp":"Texas","opp_abbr":"TEX","opp_rank":5,"rank":8,"pf":28,"pa":14,"result":"W","bowl":"Cotton Bowl","venue":"AT&T Stadium","box":{"us":{"yards":370.0,"pass":289.0,"rush":81.0,"to":1.0,"third":[3,10],"pen":"9-75","top":"31:38"},"them":{"yards":341.0,"pass":283.0,"rush":58.0,"to":2.0,"third":[5,15],"pen":"5-54","top":"28:22"}},"off_epa":0.16001860411571606,"def_epa":-0.18859119077815728,"off_sr":0.5,"def_sr":0.4264705882352941},{"game_id":401677192,"week":1,"season_type":"postseason","date":"2025-01-21T00:30:00.000Z","completed":true,"home":false,"neutral":true,"conf":false,"opp":"Notre Dame","opp_abbr":"ND","opp_rank":7,"rank":8,"pf":34,"pa":23,"result":"W","bowl":"College Football Playoff National Championship Presented by AT&T","venue":"Mercedes-Benz Stadium","box":{"us":{"yards":445.0,"pass":231.0,"rush":214.0,"to":1.0,"third":[9,12],"pen":"6-58","top":"32:25"},"them":{"yards":308.0,"pass":255.0,"rush":53.0,"to":0.0,"third":[5,12],"pen":"3-30","top":"27:35"}},"off_epa":0.33316211498552756,"def_epa":0.2374834056044447,"off_sr":0.4838709677419355,"def_sr":0.4482758620689655}],"leaders":{"passing":[{"id":4429955,"name":"Will Howard","jersey":"18","gp":16,"cmp":309,"att":423,"passingYards":4010.0,"passingTouchdowns":35.0,"interceptions":10.0},{"id":4695709,"name":"Devin Brown","jersey":"33","gp":6,"cmp":11,"att":20,"passingYards":114.0,"passingTouchdowns":1.0,"interceptions":0},{"id":5079712,"name":"Julian Sayin","jersey":"10","gp":4,"cmp":5,"att":12,"passingYards":84.0,"passingTouchdowns":1.0,"interceptions":0}],"rushing":[{"id":4685702,"name":"Quinshon Judkins","jersey":"1","gp":16,"rushingAttempts":194.0,"rushingYards":1060.0,"rushingTouchdowns":14.0},{"id":4432710,"name":"TreVeyon Henderson","jersey":"32","gp":16,"rushingAttempts":144.0,"rushingYards":1016.0,"rushingTouchdowns":10.0},{"id":4429955,"name":"Will Howard","jersey":"18","gp":16,"rushingAttempts":105.0,"rushingYards":226.0,"rushingTouchdowns":7.0},{"id":5110454,"name":"James Peoples","jersey":"20","gp":8,"rushingAttempts":49.0,"rushingYards":197.0,"rushingTouchdowns":2.0},{"id":5126515,"name":"Sam Dixon","jersey":"24","gp":3,"rushingAttempts":7.0,"rushingYards":53.0,"rushingTouchdowns":0}],"receiving":[{"id":5079720,"name":"Jeremiah Smith","jersey":"4","gp":16,"receptions":76.0,"receivingYards":1315.0,"receivingTouchdowns":15.0},{"id":4567750,"name":"Emeka Egbuka","jersey":"2","gp":16,"receptions":81.0,"receivingYards":1011.0,"receivingTouchdowns":10.0},{"id":4871023,"name":"Carnell Tate","jersey":"17","gp":15,"receptions":52.0,"receivingYards":733.0,"receivingTouchdowns":4.0},{"id":4432710,"name":"TreVeyon Henderson","jersey":"32","gp":12,"receptions":27.0,"receivingYards":284.0,"receivingTouchdowns":1.0},{"id":4429115,"name":"Gee Scott Jr.","jersey":"88","gp":13,"receptions":27.0,"receivingYards":253.0,"receivingTouchdowns":2.0}],"defense":[{"id":4429071,"name":"Cody Simon","jersey":"0","gp":15,"totalTackles":112.0,"sacks":7.0,"tacklesForLoss":12.5,"passesDefended":7.0,"ints":0},{"id":5081807,"name":"Sonny Styles","jersey":"6","gp":16,"totalTackles":100.0,"sacks":6.0,"tacklesForLoss":11.0,"passesDefended":5.0,"ints":0},{"id":4870706,"name":"Caleb Downs","jersey":"2","gp":16,"totalTackles":81.0,"sacks":0.5,"tacklesForLoss":7.5,"passesDefended":6.0,"ints":2.0},{"id":4429110,"name":"Lathan Ransom","jersey":"8","gp":15,"totalTackles":75.0,"sacks":1.0,"tacklesForLoss":8.5,"passesDefended":2.0,"ints":1.0},{"id":4566154,"name":"Jaylahn Tuimoloau","jersey":"44","gp":15,"totalTackles":61.0,"sacks":12.5,"tacklesForLoss":21.5,"passesDefended":3.0,"ints":0},{"id":4431590,"name":"Jack Sawyer","jersey":"33","gp":16,"totalTackles":59.0,"sacks":9.0,"tacklesForLoss":9.0,"passesDefended":6.0,"ints":1.0}]}},"2025":{"summary":{"season":2025,"team":"Ohio State","games":14,"w":12,"l":2,"cw":9,"cl":0,"ppg":33.42857142857143,"opp_ppg":9.285714285714286,"ypg":422.57142857142856,"opp_ypg":219.07142857142858,"to_margin":4.0,"third_pct":0.5328947368421053},"efficiency":{"team_id":194,"plays":865,"epa":0.22522139015225318,"sr":0.5433526011560693,"xr":0.07398843930635839,"epa_pass":0.39087606448653744,"epa_rush":0.0666876181083567,"d_epa":-0.14996459752713379,"d_sr":0.37763157894736843,"d_xr":0.046052631578947366,"d_epa_pass":-0.15085907766525758,"d_epa_rush":-0.13419423597709587,"epa_rk":9,"sr_rk":1,"d_epa_rk":5,"d_sr_rk":9,"net_epa":0.37518598767938693,"net_rk":1,"n_fbs":136},"games":[{"game_id":401752677,"week":1,"season_type":"regular","date":"2025-08-30T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Texas","opp_abbr":"TEX","opp_rank":1,"rank":3,"pf":14,"pa":7,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":336.0,"pass":170.0,"rush":166.0,"to":1.0,"third":[5,14],"pen":"6-50","top":"27:55"},"us":{"yards":203.0,"pass":126.0,"rush":77.0,"to":0.0,"third":[3,12],"pen":"2-15","top":"32:05"}},"off_epa":-0.14987493191774076,"def_epa":-0.19790332312836792,"off_sr":0.36538461538461536,"def_sr":0.3939393939393939},{"game_id":401752815,"week":2,"season_type":"regular","date":"2025-09-06T19:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Grambling","opp_abbr":"GRAM","opp_rank":null,"rank":1,"pf":70,"pa":0,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":166.0,"pass":72.0,"rush":94.0,"to":3.0,"third":[3,14],"pen":"6-40","top":"29:05"},"us":{"yards":651.0,"pass":377.0,"rush":274.0,"to":1.0,"third":[5,7],"pen":"3-15","top":"30:55"}},"off_epa":0.5557911900373605,"def_epa":-0.3423848025224827,"off_sr":0.7230769230769231,"def_sr":0.37037037037037035},{"game_id":401752827,"week":3,"season_type":"regular","date":"2025-09-13T23:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Ohio","opp_abbr":"OHIO","opp_rank":null,"rank":1,"pf":37,"pa":9,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":181.0,"pass":113.0,"rush":68.0,"to":1.0,"third":[3,15],"pen":"3-25","top":"27:17"},"us":{"yards":572.0,"pass":347.0,"rush":225.0,"to":2.0,"third":[5,9],"pen":"6-50","top":"32:43"}},"off_epa":0.23887652647299845,"def_epa":-0.2701498112744755,"off_sr":0.6065573770491803,"def_sr":0.2777777777777778},{"game_id":401752852,"week":5,"season_type":"regular","date":"2025-09-27T19:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Washington","opp_abbr":"WASH","opp_rank":null,"rank":1,"pf":24,"pa":6,"result":"W","bowl":null,"venue":"Husky Stadium","box":{"us":{"yards":357.0,"pass":208.0,"rush":149.0,"to":1.0,"third":[6,10],"pen":"5-60","top":"31:55"},"them":{"yards":234.0,"pass":173.0,"rush":61.0,"to":0.0,"third":[1,11],"pen":"6-49","top":"28:05"}},"off_epa":0.2071339527114493,"def_epa":-0.08277080895809028,"off_sr":0.5573770491803278,"def_sr":0.46153846153846156},{"game_id":401752859,"week":6,"season_type":"regular","date":"2025-10-04T23:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Minnesota","opp_abbr":"MINN","opp_rank":null,"rank":1,"pf":42,"pa":3,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":162.0,"pass":94.0,"rush":68.0,"to":0.0,"third":[1,11],"pen":"2-15","top":"28:08"},"us":{"yards":474.0,"pass":341.0,"rush":133.0,"to":0.0,"third":[7,10],"pen":"4-35","top":"31:52"}},"off_epa":0.5663434830578891,"def_epa":-0.2612187170982361,"off_sr":0.6181818181818182,"def_sr":0.34},{"game_id":401752865,"week":7,"season_type":"regular","date":"2025-10-11T16:00:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Illinois","opp_abbr":"ILL","opp_rank":17,"rank":1,"pf":34,"pa":16,"result":"W","bowl":null,"venue":"Memorial Stadium (Champaign, IL)","box":{"us":{"yards":272.0,"pass":166.0,"rush":106.0,"to":0.0,"third":[8,15],"pen":"7-59","top":"33:11"},"them":{"yards":295.0,"pass":248.0,"rush":47.0,"to":3.0,"third":[4,14],"pen":"4-19","top":"26:49"}},"off_epa":0.18002460993105365,"def_epa":-0.059920576256765445,"off_sr":0.43548387096774194,"def_sr":0.5211267605633803},{"game_id":401752877,"week":8,"season_type":"regular","date":"2025-10-18T19:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Wisconsin","opp_abbr":"WIS","opp_rank":null,"rank":1,"pf":34,"pa":0,"result":"W","bowl":null,"venue":"Camp Randall Stadium","box":{"us":{"yards":491.0,"pass":393.0,"rush":98.0,"to":0.0,"third":[5,11],"pen":"5-30","top":"33:57"},"them":{"yards":144.0,"pass":49.0,"rush":95.0,"to":1.0,"third":[2,11],"pen":"2-10","top":"26:03"}},"off_epa":0.3473496579412204,"def_epa":-0.29476636372830556,"off_sr":0.6716417910447762,"def_sr":0.2391304347826087},{"game_id":401752889,"week":10,"season_type":"regular","date":"2025-11-01T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Penn State","opp_abbr":"PSU","opp_rank":null,"rank":1,"pf":38,"pa":14,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":200.0,"pass":145.0,"rush":55.0,"to":1.0,"third":[8,15],"pen":"2-30","top":"29:53"},"us":{"yards":480.0,"pass":316.0,"rush":164.0,"to":1.0,"third":[6,9],"pen":"2-30","top":"30:07"}},"off_epa":0.40270751602244825,"def_epa":-0.09704463680585225,"off_sr":0.5660377358490566,"def_sr":0.36666666666666664},{"game_id":401752897,"week":11,"season_type":"regular","date":"2025-11-08T18:00:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Purdue","opp_abbr":"PUR","opp_rank":null,"rank":1,"pf":34,"pa":10,"result":"W","bowl":null,"venue":"Ross-Ade Stadium","box":{"us":{"yards":473.0,"pass":303.0,"rush":170.0,"to":1.0,"third":[9,13],"pen":"6-63","top":"40:53"},"them":{"yards":186.0,"pass":94.0,"rush":92.0,"to":1.0,"third":[3,9],"pen":"2-13","top":"19:07"}},"off_epa":0.22539678706150307,"def_epa":-0.20209543034434319,"off_sr":0.5657894736842105,"def_sr":0.36363636363636365},{"game_id":401752900,"week":12,"season_type":"regular","date":"2025-11-16T00:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"UCLA","opp_abbr":"UCLA","opp_rank":null,"rank":1,"pf":48,"pa":10,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":222.0,"pass":154.0,"rush":68.0,"to":0.0,"third":[5,13],"pen":"7-55","top":"25:14"},"us":{"yards":440.0,"pass":218.0,"rush":222.0,"to":0.0,"third":[6,11],"pen":"3-20","top":"34:46"}},"off_epa":0.2576863267528477,"def_epa":0.015751684084534645,"off_sr":0.5373134328358209,"def_sr":0.4375},{"game_id":401752912,"week":13,"season_type":"regular","date":"2025-11-22T17:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Rutgers","opp_abbr":"RUTG","opp_rank":null,"rank":1,"pf":42,"pa":9,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":147.0,"pass":81.0,"rush":66.0,"to":1.0,"third":[5,14],"pen":"4-37","top":"27:11"},"us":{"yards":430.0,"pass":176.0,"rush":254.0,"to":1.0,"third":[3,6],"pen":"5-60","top":"32:49"}},"off_epa":0.24848959826189895,"def_epa":-0.33989955484867096,"off_sr":0.5,"def_sr":0.375},{"game_id":401752921,"week":14,"season_type":"regular","date":"2025-11-29T17:00:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Michigan","opp_abbr":"MICH","opp_rank":15,"rank":1,"pf":27,"pa":9,"result":"W","bowl":null,"venue":"Michigan Stadium","box":{"us":{"yards":419.0,"pass":233.0,"rush":186.0,"to":1.0,"third":[11,17],"pen":"6-72","top":"40:01"},"them":{"yards":163.0,"pass":63.0,"rush":100.0,"to":1.0,"third":[1,9],"pen":"1-3","top":"19:59"}},"off_epa":0.19709712430222392,"def_epa":-0.316694735390384,"off_sr":0.4931506849315068,"def_sr":0.24390243902439024},{"game_id":401777353,"week":15,"season_type":"regular","date":"2025-12-07T01:00:00.000Z","completed":true,"home":true,"neutral":true,"conf":false,"opp":"Indiana","opp_abbr":"IU","opp_rank":2,"rank":1,"pf":10,"pa":13,"result":"L","bowl":null,"venue":"Lucas Oil Stadium","box":{"them":{"yards":340.0,"pass":222.0,"rush":118.0,"to":1.0,"third":[6,13],"pen":"5-49","top":"29:47"},"us":{"yards":322.0,"pass":264.0,"rush":58.0,"to":1.0,"third":[4,12],"pen":"2-20","top":"30:13"}},"off_epa":-0.18742546093251025,"def_epa":0.13373645996315436,"off_sr":0.4107142857142857,"def_sr":0.3684210526315789},{"game_id":401769070,"week":1,"season_type":"postseason","date":"2026-01-01T00:30:00.000Z","completed":true,"home":true,"neutral":true,"conf":false,"opp":"Miami","opp_abbr":"MIA","opp_rank":10,"rank":2,"pf":14,"pa":24,"result":"L","bowl":"Cotton Bowl","venue":"AT&T Stadium","box":{"them":{"yards":291.0,"pass":138.0,"rush":153.0,"to":1.0,"third":[7,14],"pen":"0-0","top":"33:20"},"us":{"yards":332.0,"pass":287.0,"rush":45.0,"to":2.0,"third":[3,10],"pen":"2-15","top":"26:40"}},"off_epa":-0.0059188326536598855,"def_epa":0.0934213644168416,"off_sr":0.5084745762711864,"def_sr":0.4262295081967213}],"leaders":{"passing":[{"id":5079712,"name":"Julian Sayin","jersey":"10","gp":14,"cmp":301,"att":391,"passingYards":3610.0,"passingTouchdowns":32.0,"interceptions":8.0},{"id":5078278,"name":"Lincoln Kienholz","jersey":"3","gp":4,"cmp":11,"att":14,"passingYards":139.0,"passingTouchdowns":1.0,"interceptions":0},{"id":4870835,"name":"Brandon Inniss","jersey":"1","gp":1,"cmp":1,"att":1,"passingYards":6.0,"passingTouchdowns":0,"interceptions":0}],"rushing":[{"id":5141517,"name":"Bo Jackson","jersey":"25","gp":13,"rushingAttempts":179.0,"rushingYards":1090.0,"rushingTouchdowns":6.0},{"id":5081999,"name":"CJ Donaldson","jersey":"12","gp":12,"rushingAttempts":96.0,"rushingYards":361.0,"rushingTouchdowns":10.0},{"id":5110454,"name":"James Peoples","jersey":"20","gp":10,"rushingAttempts":61.0,"rushingYards":344.0,"rushingTouchdowns":3.0},{"id":5141701,"name":"Isaiah West","jersey":"32","gp":10,"rushingAttempts":59.0,"rushingYards":310.0,"rushingTouchdowns":2.0},{"id":5078278,"name":"Lincoln Kienholz","jersey":"3","gp":6,"rushingAttempts":11.0,"rushingYards":66.0,"rushingTouchdowns":2.0}],"receiving":[{"id":5079720,"name":"Jeremiah Smith","jersey":"4","gp":13,"receptions":87.0,"receivingYards":1243.0,"receivingTouchdowns":12.0},{"id":4871023,"name":"Carnell Tate","jersey":"17","gp":11,"receptions":51.0,"receivingYards":875.0,"receivingTouchdowns":9.0},{"id":4833029,"name":"Max Klare","jersey":"86","gp":13,"receptions":43.0,"receivingYards":448.0,"receivingTouchdowns":2.0},{"id":4870835,"name":"Brandon Inniss","jersey":"1","gp":13,"receptions":36.0,"receivingYards":271.0,"receivingTouchdowns":3.0},{"id":5141517,"name":"Bo Jackson","jersey":"25","gp":9,"receptions":19.0,"receivingYards":200.0,"receivingTouchdowns":1.0}],"defense":[{"id":5081807,"name":"Sonny Styles","jersey":"6","gp":14,"totalTackles":83.0,"sacks":1.0,"tacklesForLoss":6.5,"passesDefended":3.0,"ints":1.0},{"id":4950400,"name":"Arvell Reese","jersey":"8","gp":14,"totalTackles":69.0,"sacks":6.5,"tacklesForLoss":10.0,"passesDefended":2.0,"ints":0},{"id":4870706,"name":"Caleb Downs","jersey":"2","gp":14,"totalTackles":68.0,"sacks":1.0,"tacklesForLoss":5.0,"passesDefended":1.0,"ints":2.0},{"id":4685324,"name":"Caden Curry","jersey":"92","gp":14,"totalTackles":66.0,"sacks":11.0,"tacklesForLoss":16.5,"passesDefended":2.0,"ints":0},{"id":4870893,"name":"Kayden McDonald","jersey":"98","gp":14,"totalTackles":65.0,"sacks":3.0,"tacklesForLoss":9.0,"passesDefended":1.0,"ints":0},{"id":5079518,"name":"Jaylen McClain","jersey":"18","gp":14,"totalTackles":53.0,"sacks":0,"tacklesForLoss":0,"passesDefended":3.0,"ints":0}]}},"2026":{"summary":{"season":2026,"team":"Ohio State","games":6,"w":5,"l":1,"cw":3,"cl":0,"ppg":42.666666666666664,"opp_ppg":13.166666666666666,"ypg":503.5,"opp_ypg":246.83333333333334,"to_margin":2.0,"third_pct":0.4520547945205479},"efficiency":{"team_id":194,"plays":410,"epa":0.23363028706573857,"sr":0.5073170731707317,"xr":0.0975609756097561,"epa_pass":0.4220855834428221,"epa_rush":0.06765131044005035,"d_epa":-0.16076140997313854,"d_sr":0.36141304347826086,"d_xr":0.04891304347826087,"d_epa_pass":-0.19222463053375033,"d_epa_rush":-0.12371300233076134,"epa_rk":17,"sr_rk":17,"d_epa_rk":9,"d_sr_rk":10,"net_epa":0.3943916970388771,"net_rk":3,"n_fbs":138},"games":[{"game_id":401858432,"week":1,"season_type":"regular","date":"2026-09-05T16:30:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Ball State","opp_abbr":"BALL","opp_rank":null,"rank":1,"pf":56,"pa":3,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":165.0,"pass":120.0,"rush":45.0,"to":1.0,"third":[3,14],"pen":"3-15","top":"28:22"},"us":{"yards":671.0,"pass":434.0,"rush":237.0,"to":1.0,"third":[5,11],"pen":"9-81","top":"31:38"}},"off_epa":0.4247499129010571,"def_epa":-0.41050939059863656,"off_sr":0.5694444444444444,"def_sr":0.2033898305084746},{"game_id":401856682,"week":2,"season_type":"regular","date":"2026-09-12T23:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":false,"opp":"Texas","opp_abbr":"TEX","opp_rank":4,"rank":1,"pf":23,"pa":24,"result":"L","bowl":null,"venue":"DKR-Texas Memorial Stadium","box":{"us":{"yards":372.0,"pass":278.0,"rush":94.0,"to":1.0,"third":[6,14],"pen":"4-35","top":"28:32"},"them":{"yards":336.0,"pass":195.0,"rush":141.0,"to":2.0,"third":[9,16],"pen":"2-12","top":"31:28"}},"off_epa":0.02296019783095708,"def_epa":0.021591965641294206,"off_sr":0.38095238095238093,"def_sr":0.4935064935064935},{"game_id":401858454,"week":3,"season_type":"regular","date":"2026-09-19T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":false,"opp":"Kent State","opp_abbr":"KENT","opp_rank":null,"rank":6,"pf":59,"pa":3,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":134.0,"pass":63.0,"rush":71.0,"to":3.0,"third":[4,16],"pen":"13-100","top":"29:39"},"us":{"yards":527.0,"pass":382.0,"rush":145.0,"to":2.0,"third":[1,8],"pen":"3-19","top":"30:21"}},"off_epa":0.17629330989086267,"def_epa":-0.4912641251629049,"off_sr":0.5303030303030303,"def_sr":0.2727272727272727},{"game_id":401858465,"week":4,"season_type":"regular","date":"2026-09-26T16:00:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Illinois","opp_abbr":"ILL","opp_rank":null,"rank":7,"pf":42,"pa":19,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":462.0,"pass":263.0,"rush":199.0,"to":0.0,"third":[6,14],"pen":"6-52","top":"30:38"},"us":{"yards":518.0,"pass":367.0,"rush":151.0,"to":0.0,"third":[8,12],"pen":"7-59","top":"29:22"}},"off_epa":0.47735810731396533,"def_epa":0.10435130310730195,"off_sr":0.5909090909090909,"def_sr":0.43661971830985913},{"game_id":401858473,"week":5,"season_type":"regular","date":"2026-10-03T19:30:00.000Z","completed":true,"home":false,"neutral":false,"conf":true,"opp":"Iowa","opp_abbr":"IOWA","opp_rank":14,"rank":5,"pf":31,"pa":14,"result":"W","bowl":null,"venue":"Kinnick Stadium","box":{"us":{"yards":484.0,"pass":324.0,"rush":160.0,"to":0.0,"third":[8,15],"pen":"9-49","top":"38:02"},"them":{"yards":238.0,"pass":199.0,"rush":39.0,"to":2.0,"third":[5,11],"pen":"6-45","top":"21:58"}},"off_epa":0.18062358768018957,"def_epa":-0.031921257387917,"off_sr":0.5205479452054794,"def_sr":0.4339622641509434},{"game_id":401858483,"week":6,"season_type":"regular","date":"2026-10-10T20:15:00.000Z","completed":true,"home":true,"neutral":false,"conf":true,"opp":"Maryland","opp_abbr":"MD","opp_rank":null,"rank":5,"pf":45,"pa":16,"result":"W","bowl":null,"venue":"Ohio Stadium","box":{"them":{"yards":146.0,"pass":64.0,"rush":82.0,"to":0.0,"third":[3,12],"pen":"7-60","top":"25:21"},"us":{"yards":449.0,"pass":242.0,"rush":207.0,"to":2.0,"third":[5,13],"pen":"8-65","top":"34:39"}},"off_epa":0.10619165812219893,"def_epa":-0.28868519196743675,"off_sr":0.44285714285714284,"def_sr":0.2641509433962264},{"game_id":401858488,"week":7,"season_type":"regular","date":"2026-10-17T16:00:00.000Z","completed":false,"home":false,"neutral":false,"conf":true,"opp":"Indiana","opp_abbr":null,"opp_rank":5,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Memorial Stadium (Bloomington, IN)","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401858509,"week":9,"season_type":"regular","date":"2026-10-31T04:00:00.000Z","completed":false,"home":false,"neutral":false,"conf":true,"opp":"USC","opp_abbr":null,"opp_rank":19,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Los Angeles Memorial Coliseum","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401858514,"week":10,"season_type":"regular","date":"2026-11-07T05:00:00.000Z","completed":false,"home":true,"neutral":false,"conf":true,"opp":"Oregon","opp_abbr":null,"opp_rank":null,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Ohio Stadium","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401858522,"week":11,"season_type":"regular","date":"2026-11-14T05:00:00.000Z","completed":false,"home":true,"neutral":false,"conf":true,"opp":"Northwestern","opp_abbr":null,"opp_rank":25,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Ohio Stadium","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401858531,"week":12,"season_type":"regular","date":"2026-11-21T05:00:00.000Z","completed":false,"home":false,"neutral":false,"conf":true,"opp":"Nebraska","opp_abbr":null,"opp_rank":null,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Memorial Stadium (Lincoln, NE)","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null},{"game_id":401858540,"week":13,"season_type":"regular","date":"2026-11-28T17:00:00.000Z","completed":false,"home":true,"neutral":false,"conf":true,"opp":"Michigan","opp_abbr":null,"opp_rank":null,"rank":4,"pf":null,"pa":null,"result":null,"bowl":null,"venue":"Ohio Stadium","box":null,"off_epa":null,"def_epa":null,"off_sr":null,"def_sr":null}],"leaders":{"passing":[{"id":5079712,"name":"Julian Sayin","jersey":"10","gp":6,"cmp":77,"att":116,"passingYards":1211.0,"passingTouchdowns":12.0,"interceptions":2.0},{"id":5214646,"name":"Luke Fahey","jersey":"13","gp":2,"cmp":0,"att":0,"passingYards":0,"passingTouchdowns":0,"interceptions":0},{"id":5146824,"name":"Tavien St. Clair","jersey":"9","gp":2,"cmp":0,"att":0,"passingYards":0,"passingTouchdowns":0,"interceptions":0}],"rushing":[{"id":5141517,"name":"Bo Jackson","jersey":"25","gp":6,"rushingAttempts":89.0,"rushingYards":460.0,"rushingTouchdowns":4.0},{"id":5151892,"name":"Ja'Kobi Jackson","jersey":"24","gp":6,"rushingAttempts":59.0,"rushingYards":354.0,"rushingTouchdowns":6.0},{"id":5141701,"name":"Isaiah West","jersey":"32","gp":5,"rushingAttempts":22.0,"rushingYards":80.0,"rushingTouchdowns":1.0},{"id":5182122,"name":"Legend Bey","jersey":"2","gp":4,"rushingAttempts":12.0,"rushingYards":50.0,"rushingTouchdowns":0},{"id":5079712,"name":"Julian Sayin","jersey":"10","gp":6,"rushingAttempts":32.0,"rushingYards":17.0,"rushingTouchdowns":2.0}],"receiving":[{"id":5079720,"name":"Jeremiah Smith","jersey":"4","gp":6,"receptions":48.0,"receivingYards":916.0,"receivingTouchdowns":11.0},{"id":5076952,"name":"Devin McCuin","jersey":"3","gp":5,"receptions":17.0,"receivingYards":245.0,"receivingTouchdowns":2.0},{"id":5141656,"name":"Nate Roberts","jersey":"83","gp":6,"receptions":10.0,"receivingYards":160.0,"receivingTouchdowns":2.0},{"id":5159009,"name":"Chris Henry Jr.","jersey":"15","gp":4,"receptions":4.0,"receivingYards":151.0,"receivingTouchdowns":2.0},{"id":4870835,"name":"Brandon Inniss","jersey":"0","gp":4,"receptions":10.0,"receivingYards":147.0,"receivingTouchdowns":1.0}],"defense":[{"id":4685437,"name":"Earl Little Jr.","jersey":"1","gp":6,"totalTackles":30.0,"sacks":0,"tacklesForLoss":0,"passesDefended":3.0,"ints":0},{"id":5079667,"name":"Payton Pierce","jersey":"26","gp":6,"totalTackles":30.0,"sacks":0.5,"tacklesForLoss":0.5,"passesDefended":1.0,"ints":0},{"id":5079518,"name":"Jaylen McClain","jersey":"8","gp":6,"totalTackles":28.0,"sacks":0,"tacklesForLoss":0,"passesDefended":4.0,"ints":2.0},{"id":5141635,"name":"Devin Sanchez","jersey":"6","gp":5,"totalTackles":22.0,"sacks":0,"tacklesForLoss":1.0,"passesDefended":5.0,"ints":0},{"id":5150710,"name":"Jermaine Mathews Jr.","jersey":"7","gp":6,"totalTackles":21.0,"sacks":0,"tacklesForLoss":1.5,"passesDefended":5.0,"ints":0},{"id":5141630,"name":"Riley Pettijohn","jersey":"5","gp":6,"totalTackles":20.0,"sacks":2.0,"tacklesForLoss":4.0,"passesDefended":0,"ints":1.0}]}}}}</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const M = D.meta || {school:'Texas',mascot:'Longhorns',conf:'SEC',independent:false};
+document.getElementById('hdr-name').innerHTML = `<span>${M.school}</span> ${M.mascot}`;
+document.getElementById('hdr-eyebrow').textContent = 'College football · ' + (M.independent ? 'FBS Independent' : M.conf);
+const seasons = Object.keys(D.seasons).sort();
+let cur = seasons[seasons.length-1];
+try{ const s = localStorage.getItem('season'); if(s && D.seasons[s]) cur = s; }catch(e){}
+
+const isPost = g => g.season_type===3 || g.season_type==='postseason';
+const f1 = x => x==null ? '–' : x.toFixed(1);
+const f2 = x => x==null ? '–' : (x>=0?'+':'') + x.toFixed(2);
+const pct = x => x==null ? '–' : Math.round(x*100)+'%';
+const sgn = x => x==null ? '–' : (x>0?'+':'')+x;
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtDate = iso => { const d=new Date(iso); return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}); };
+const ord = n => { const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); };
+
+function renderTabs(){
+  const el=document.getElementById('tabs');
+  el.innerHTML = seasons.slice().reverse().map(s=>`<button type="button" id="tab-${s}" aria-pressed="${s===cur}" data-s="${s}">${s}</button>`).join('');
+  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.s; try{localStorage.setItem('season',cur)}catch(e){} render();});
+}
+
+function renderHeader(S){
+  const sm=S.summary, done=S.games.filter(g=>g.completed);
+  const lastRank = done.length ? done[done.length-1].rank : null;
+  const nextG = S.games.find(g=>!g.completed);
+  const rankTxt = nextG && nextG.rank ? `AP No. ${nextG.rank}` : (lastRank? `AP No. ${lastRank} (last game)`:'Unranked');
+  document.getElementById('hdr-sub').innerHTML = `<span class="num">${sm.season}: ${sm.w}–${sm.l}${M.independent?'':`, ${sm.cw}–${sm.cl} ${M.conf}`}</span> · ${rankTxt}`;
+  const n=document.getElementById('next');
+  if(nextG){
+    const site = nextG.neutral ? 'vs.' : (nextG.home ? 'vs.' : 'at');
+    n.innerHTML = `<div class="eyebrow">Next game · Week ${nextG.week}</div>
+      <div class="opp">${site} ${nextG.opp_rank?`<span class="rk">#${nextG.opp_rank}</span>`:''}${esc(nextG.opp)}</div>
+      <div class="meta">${new Date(nextG.date).toLocaleString(undefined,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})} · ${esc(nextG.venue)}</div>`;
+  } else {
+    const last=done[done.length-1];
+    n.innerHTML = `<div class="eyebrow">Season complete</div><div class="opp">${sm.w}–${sm.l}</div><div class="meta">Final: ${last?`${last.result} ${last.pf}–${last.pa} vs. ${esc(last.opp)}`:''}</div>`;
+  }
+}
+
+function renderKpis(S){
+  const s=S.summary;
+  const items=[
+    ['Record', `${s.w}–${s.l}`, M.independent ? 'Independent schedule' : `${s.cw}–${s.cl} in conference`],
+    ['Points / game', f1(s.ppg), `Allowed ${f1(s.opp_ppg)}`],
+    ['Point margin', s.ppg==null?'–':(s.ppg-s.opp_ppg>0?'+':'')+f1(s.ppg-s.opp_ppg), 'Per game'],
+    ['Yards / game', s.ypg==null?'–':Math.round(s.ypg), `Allowed ${s.opp_ypg==null?'–':Math.round(s.opp_ypg)}`],
+    ['Turnover margin', sgn(s.to_margin), 'Takeaways minus giveaways'],
+    ['3rd-down conv.', pct(s.third_pct), 'Offense'],
+  ];
+  document.getElementById('kpis').innerHTML = items.map(([l,v,sub])=>`<div class="kpi"><div class="eyebrow">${l}</div><div class="v num">${v}</div><div class="s">${sub}</div></div>`).join('');
+}
+
+function renderEff(S){
+  const e=S.efficiency, el=document.getElementById('eff');
+  if(!e){ el.innerHTML='<div class="note">No play-by-play data yet for this season.</div>'; return; }
+  const N=e.n_fbs;
+  const rows=[
+    ['Offense EPA / play', f2(e.epa), e.epa_rk],
+    ['Offense success rate', pct(e.sr), e.sr_rk],
+    ['Defense EPA / play allowed', f2(e.d_epa), e.d_epa_rk],
+    ['Defense success rate allowed', pct(e.d_sr), e.d_sr_rk],
+    ['Net EPA / play', f2(e.net_epa), e.net_rk],
+  ];
+  el.innerHTML = rows.map(([l,v,rk])=>{
+    const p = 1-(rk-1)/(N-1); const tier = rk<=Math.round(N*0.25)?'good':(rk>Math.round(N*0.6)?'bad':'mid');
+    return `<div class="eff-row"><div class="lbl">${l}</div><div class="val num">${v}</div>
+      <div class="track"><div class="fill tier-${tier}" style="width:${Math.max(3,p*100).toFixed(1)}%"></div></div>
+      <div class="rk num">${ord(rk)} of ${N} FBS</div></div>`;}).join('');
+  document.getElementById('eff-note').innerHTML = `Passing EPA/play ${f2(e.epa_pass)} · rushing ${f2(e.epa_rush)} on offense. Allowed ${f2(e.d_epa_pass)} passing, ${f2(e.d_epa_rush)} rushing. Based on ${e.plays} offensive plays.`;
+}
+
+function renderChart(S){
+  const G=S.games.filter(g=>g.completed && g.pf!=null);
+  const el=document.getElementById('chart');
+  if(!G.length){el.innerHTML='<div class="note">No games played yet.</div>';return;}
+  const W=640,H=300,ml=40,mr=44,mt=14,mb=46, iw=W-ml-mr, ih=H-mt-mb;
+  const margins=G.map(g=>g.pf-g.pa);
+  const mMax=Math.max(10,Math.ceil(Math.max(...margins.map(Math.abs))/10)*10);
+  const y=v=>mt+ih/2 - (v/mMax)*(ih/2);
+  const eMax=0.6, ye=v=>mt+ih/2-(Math.max(-eMax,Math.min(eMax,v))/eMax)*(ih/2);
+  const bw=iw/G.length, x=i=>ml+bw*i+bw/2;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Scoring margin and EPA per game">`;
+  [-mMax,-mMax/2,0,mMax/2,mMax].forEach(t=>{s+=`<line x1="${ml}" x2="${W-mr}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" stroke-width="${t===0?1.5:1}"/><text x="${ml-6}" y="${y(t)+4}" text-anchor="end">${t>0?'+':''}${t}</text>`;});
+  [-0.6,-0.3,0.3,0.6].forEach(t=>{s+=`<text x="${W-mr+6}" y="${ye(t)+4}">${t>0?'+':''}${t.toFixed(1)}</text>`;});
+  s+=`<text x="${ml-6}" y="${H-6}" text-anchor="end" style="font-size:11px">pts</text><text x="${W-mr+6}" y="${H-6}" style="font-size:11px">EPA</text>`;
+  G.forEach((g,i)=>{const m=g.pf-g.pa, bwid=Math.min(34,bw*0.55);
+    s+=`<rect x="${x(i)-bwid/2}" y="${Math.min(y(0),y(m))}" width="${bwid}" height="${Math.max(1,Math.abs(y(m)-y(0)))}" fill="${m>=0?'var(--win)':'var(--loss)'}" opacity=".8" rx="2"><title>${esc(g.opp)}: ${g.pf}–${g.pa}</title></rect>`;
+    s+=`<text x="${x(i)}" y="${H-mb+18}" text-anchor="middle" style="font-size:11.5px;fill:var(--ink)">${esc(g.opp_abbr||g.opp.slice(0,4))}</text><text x="${x(i)}" y="${H-mb+32}" text-anchor="middle" style="font-size:11px">${g.pf}–${g.pa}</text>`;});
+  const line=(key,col)=>{const pts=G.map((g,i)=>g[key]==null?null:[x(i),ye(g[key])]).filter(Boolean); if(pts.length<1)return '';
+    return `<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>`+pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${col}"/>`).join('');};
+  s+=line('def_epa','var(--muted)')+line('off_epa','var(--orange)');
+  s+='</svg>';
+  el.innerHTML=s;
+}
+
+function renderLog(S){
+  const rows=S.games.map(g=>{
+    const site=g.neutral?'N':(g.home?'H':'A');
+    const tag = isPost(g) ? `<span class="tag">${esc((g.bowl||'Postseason').replace(/\s+presented by.*$/i,'').replace(/^College Football Playoff/,'CFP'))}</span>` : ((g.conf||M.independent)?'':'<span class="tag" style="color:var(--muted)">Non-conf</span>');
+    const b=g.box||{}, us=b.us||{}, th=b.them||{};
+    const res = g.completed ? `<span class="pill ${g.result}">${g.result}</span>` : '<span class="pill U">–</span>';
+    return `<tr class="${g.completed?'':'upcoming'}">
+      <td class="num">${isPost(g)?'Post':g.week}</td><td class="num">${fmtDate(g.date)}</td><td>${site}</td>
+      <td class="opp-cell">${g.opp_rank?`<span class="rk">#${g.opp_rank}</span>`:''}<b>${esc(g.opp)}</b>${tag}</td>
+      <td>${res}</td><td class="r num">${g.completed?`${g.pf}–${g.pa}`:''}</td>
+      <td class="r num">${us.yards??''}${us.yards!=null?` / ${th.yards}`:''}</td>
+      <td class="r num">${us.to!=null?`${us.to} / ${th.to}`:''}</td>
+      <td class="r num ${g.off_epa>0?'pos':g.off_epa<0?'neg':''}">${g.off_epa!=null?f2(g.off_epa):''}</td>
+      <td class="r num ${g.def_epa<0?'pos':g.def_epa>0?'neg':''}">${g.def_epa!=null?f2(g.def_epa):''}</td></tr>`;}).join('');
+  document.getElementById('log').innerHTML=`<thead><tr><th>Wk</th><th>Date</th><th>Site</th><th>Opponent</th><th>Result</th><th class="r">Score</th><th class="r">Yds (us/opp)</th><th class="r">TO (us/opp)</th><th class="r">Off EPA</th><th class="r">Def EPA</th></tr></thead><tbody>${rows}</tbody>`;
+}
+
+function renderLeaders(S){
+  const L=S.leaders, nm=p=>`${p.jersey?`<span class="jersey">#${esc(p.jersey)}</span>`:''}${esc(p.name)}`;
+  const tbl=(title,head,rows)=>`<section class="panel"><h2>${title}</h2><div class="tbl-wrap"><table><thead><tr>${head.map((h,i)=>`<th class="${i?'r':''}">${h}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td>No data</td></tr>'}</tbody></table></div></section>`;
+  const r=(cells)=>`<tr>${cells.map((c,i)=>`<td class="${i?'r num':'name'}">${c}</td>`).join('')}</tr>`;
+  document.getElementById('leaders').innerHTML=
+    tbl('Passing',['Player','C/Att','Yds','TD','INT'],L.passing.map(p=>r([nm(p),`${p.cmp}/${p.att}`,p.passingYards,p.passingTouchdowns,p.interceptions])).join(''))+
+    tbl('Rushing',['Player','Att','Yds','Avg','TD'],L.rushing.map(p=>r([nm(p),p.rushingAttempts,p.rushingYards,p.rushingAttempts?(p.rushingYards/p.rushingAttempts).toFixed(1):'–',p.rushingTouchdowns])).join(''))+
+    tbl('Receiving',['Player','Rec','Yds','TD'],L.receiving.map(p=>r([nm(p),p.receptions,p.receivingYards,p.receivingTouchdowns])).join(''))+
+    tbl('Defense',['Player','Tkl','TFL','Sck','INT'],L.defense.map(p=>r([nm(p),p.totalTackles,p.tacklesForLoss,p.sacks,p.ints])).join(''));
+}
+
+function renderTrend(){
+  const ss=seasons; const get=(s,f)=>f(D.seasons[s]);
+  const rows=[
+    ['Record',s=>`${s.summary.w}–${s.summary.l}`],
+    ...(M.independent?[]:[['Conference',s=>`${s.summary.cw}–${s.summary.cl}`]]),
+    ['Points / game',s=>f1(s.summary.ppg)],
+    ['Allowed / game',s=>f1(s.summary.opp_ppg)],
+    ['Turnover margin',s=>sgn(s.summary.to_margin)],
+    ['Off EPA / play (rank)',s=>s.efficiency?`${f2(s.efficiency.epa)} (${s.efficiency.epa_rk})`:'–'],
+    ['Def EPA / play (rank)',s=>s.efficiency?`${f2(s.efficiency.d_epa)} (${s.efficiency.d_epa_rk})`:'–'],
+    ['Net EPA rank',s=>s.efficiency?`${ord(s.efficiency.net_rk)} of ${s.efficiency.n_fbs}`:'–'],
+    ['Top passer',s=>s.leaders.passing[0]?`${esc(s.leaders.passing[0].name)} · ${s.leaders.passing[0].passingYards} yds`:'–'],
+  ];
+  document.getElementById('trend').innerHTML=`<thead><tr><th></th>${ss.map(s=>`<th class="r">${s}${D.seasons[s].games.some(g=>!g.completed)?' (to date)':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,f])=>`<tr><td>${l}</td>${ss.map(s=>`<td class="r num">${get(s,f)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+}
+
+function render(){
+  const S=D.seasons[cur];
+  renderTabs(); renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderLog(S); renderLeaders(S);
+}
+renderTrend(); render();
+document.getElementById('gen').textContent = 'Data refreshed ' + new Date(D.generated).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) + ' · Weekly auto-refresh on Sunday mornings.';
+</script>
+
+
+<script>
+(function(){
+  var last=0;
+  function post(){var h=document.documentElement.scrollHeight;
+    if(h!==last){last=h;try{parent.postMessage({gameday:location.pathname,height:h},'*')}catch(e){}}}
+  window.addEventListener('load',post);
+  if(window.ResizeObserver)new ResizeObserver(post).observe(document.body);
+  setInterval(post,1000);
+})();
+</script>
+</body></html>
