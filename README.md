@@ -1,6 +1,6 @@
 # Gameday Boards
 
-College football dashboards, one page per team, refreshed weekly (Sunday mornings, Central).
+College football dashboards, one page per team, refreshed weekly (Monday mornings, Central).
 Embedded on https://oneilltexas.com/sports/sports-stats/ (one WordPress page per team, slug = team slug).
 
 The team set is in `pipeline/teams.json` (currently the AP Top 10, week 7, Oct 12, 2026).
