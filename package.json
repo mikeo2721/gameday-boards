@@ -1,0 +1,11 @@
+{
+  "name": "gameday-boards",
+  "version": "1.0.0",
+  "description": "Football analysis board for Alice's Restaurant",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
