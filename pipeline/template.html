@@ -312,12 +312,15 @@ function renderUnits(S){
     if(r.fmt==='ypr') return [f1(r.value),'per ret'];
     if(r.fmt==='ypp') return [f1(r.value),'yds'];
     if(r.fmt==='band') return [pct(r.value),''];
+    if(r.fmt==='pen') return [f1(r.value),'per g'];
     if(r.fmt==='dist') return [r.key==='fg_long'?String(Math.round(r.value)):f1(r.value),'yds'];
     return [String(r.total),''];
   };
   const detTxt=r=>{
     if(r.value==null) return r.fmt==='dist' ? 'No field goals made yet' : 'No attempts yet';
     if(r.fmt==='band') return `${r.made} of ${r.att}`;
+    if(r.fmt==='pen') return r.key==='pen_tot' ? `${r.total} accepted (official), incl. special teams` : `${r.total} accepted`;
+    if(r.key==='pen_yds') return `${r.total} yards (official)`;
     if(r.fmt==='dist') return r.key==='fg_avg' ? `on ${r.att} makes` : '';
     if(r.fmt==='ypr') return `${r.att} returns`;
     if(r.fmt==='ypp') return `${r.att} punts`;
@@ -336,7 +339,7 @@ function renderUnits(S){
     }
     return `<div class="urow"><div><div class="lbl">${r.label}</div><div class="det">${detTxt(r)}</div></div>
       <div class="val num">${v}${unit?`<small>${unit}</small>`:''}</div><div class="rkcell">${rk}${bar}</div></div>`;}).join('')}</div>`).join('');
-  note.textContent=`Ranked among FBS teams over ${U.gp} games. Yardage is per game; returns and punting are per attempt; field goal counts are ranked per game (attempts: most first; misses: fewest first); distances and make % by range come from play-by-play (make % ties broken by number of makes; teams with no attempts in a range are unranked). Small samples swing early in the season.`
+  note.textContent=`Ranked among FBS teams over ${U.gp} games. Yardage is per game; returns and punting are per attempt; field goal counts are ranked per game (attempts: most first; misses: fewest first); distances and make % by range come from play-by-play (make % ties broken by number of makes; teams with no attempts in a range are unranked). Offensive/defensive penalties are accepted flags attributed from play-by-play (kicking plays excluded); totals and penalty yards are official box-score figures; fewer is better. Small samples swing early in the season.`
     + (U.fg_no_dist ? ` ESPN play-by-play has no distance for ${U.fg_no_dist} field goal attempt${U.fg_no_dist>1?'s':''} this season, so the distance rows cover the rest.` : '');
 }
 
@@ -428,13 +431,13 @@ function renderYoY(){
   add('Rushing EPA / play',null,'epa',true,0.03,E('epa_rush'));
   add('Passing EPA allowed',null,'epa',false,0.03,E('d_epa_pass'));
   add('Rushing EPA allowed',null,'epa',false,0.03,E('d_epa_rush'));
-  const unitFmt={ypg:['ypg',10],ypr:['ypg',1.5],ypp:['ypg',1],fg:['pg',0.2],dist:['dist',1.5],band:['pct',0.05]};
+  const unitFmt={pen:['ypg',0.5],ypg:['ypg',10],ypr:['ypg',1.5],ypp:['ypg',1],fg:['pg',0.2],dist:['dist',1.5],band:['pct',0.05]};
   const U=(S,k)=>{const r=S.units&&S.units.rows.find(x=>x.key===k); return r&&r.value!=null?{v:r.value,rank:r.rank,n:r.n,tied:r.tied}:{v:null};};
   let lastGroup=null;
   (C.units||P.units||{rows:[]}).rows.forEach(r=>{
     if(r.group!==lastGroup){grp(r.group==='Offense & defense'?'Yardage (per game)':r.group); lastGroup=r.group;}
-    const [fmt,tol]=unitFmt[r.fmt];
-    const det={ypr:'yards per return',ypp:'gross yards per punt',fg:'per game',dist:'yards',band:'make %'}[r.fmt]||null;
+    const [fmt,tol]=r.key==='pen_yds'?['ypg',5]:unitFmt[r.fmt];
+    const det=r.key==='pen_yds'?'yards per game':{pen:'per game',ypr:'yards per return',ypp:'gross yards per punt',fg:'per game',dist:'yards',band:'make %'}[r.fmt]||null;
     add(r.label,det,fmt,r.better,tol,S=>U(S,r.key));
   });
   // status: rank movement when both seasons are ranked (5+ places), otherwise value change beyond tolerance

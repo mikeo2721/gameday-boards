@@ -48,11 +48,20 @@ def _pbp_views(s):
         pl.col("game_id"), pl.col("fg_team").cast(pl.Int64).alias("team_id"),
         pl.col("yds_fg").cast(pl.Float64, strict=False).alias("dist"),
         (pl.col("type.text") == "Field Goal Good").alias("made"))
-    return scrim, fga
+    # accepted penalties, attributed to the side that committed them (kicking plays excluded)
+    kick = (pl.col("text").str.to_lowercase().str.contains("kickoff|punt|field goal|kick attempt|extra point|two-point|onside")
+            | (pl.col("penalty_assessed_on_kickoff") == True))
+    pens = p.filter((pl.col("penalty_flag") == True) & (pl.col("penalty_declined") != True)
+                    & (pl.col("penalty_offset") != True) & pl.col("penalty_team_id").is_not_null() & ~kick).select(
+        pl.col("game_id"), pl.col("penalty_team_id").cast(pl.Int64).alias("team_id"),
+        (pl.col("penalty_team_id") == pl.col("pos_team_id")).alias("on_off"),
+        (pl.col("penalty_team_id") == pl.col("def_pos_team_id")).alias("on_def"))
+    return scrim, fga, pens
 
 
 _pbp = lambda s: _pbp_views(s)[0]
-_fg_att = lambda s: _pbp_views(s)[1]   # every field goal attempt (made, missed, blocked) with distance
+_fg_att = lambda s: _pbp_views(s)[1]
+_pens = lambda s: _pbp_views(s)[2]     # accepted offensive/defensive penalties by team   # every field goal attempt (made, missed, blocked) with distance
 _tbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_team_box([s]))
 _pbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_player_box([s]))
 
@@ -73,6 +82,7 @@ P_ = functools.lru_cache(None)(lambda s, w: _cut(_pbp(s), s, w))
 F_ = functools.lru_cache(None)(lambda s, w: _cut(_fg_att(s), s, w))
 T_ = functools.lru_cache(None)(lambda s, w: _cut(_tbox(s), s, w))
 B_ = functools.lru_cache(None)(lambda s, w: _cut(_pbox(s), s, w))
+N_ = functools.lru_cache(None)(lambda s, w: _cut(_pens(s), s, w))
 
 
 def completed_week(season):
@@ -110,6 +120,10 @@ UNIT_STATS = [
     ("fg_u40", "Make % inside 40", "Kicking", True, "band"),
     ("fg_40s", "Make % 40–49 yds", "Kicking", True, "band"),
     ("fg_50p", "Make % 50+ yds", "Kicking", True, "band"),
+    ("pen_off", "Offensive penalties", "Penalties", False, "pen"),
+    ("pen_def", "Defensive penalties", "Penalties", False, "pen"),
+    ("pen_tot", "Total penalties", "Penalties", False, "pen"),
+    ("pen_yds", "Penalty yards", "Penalties", False, "ypg"),
 ]
 FG_BANDS = {"fg_u40": (0, 39), "fg_40s": (40, 49), "fg_50p": (50, 99)}
 
@@ -126,7 +140,9 @@ def _unit_table(season, max_week=None):
               + sched.filter(pl.col("away_division") == "fbs")["away_id"].to_list())
     tb = T_(season, max_week).select(
         pl.col("game_id"), pl.col("team_id").cast(pl.Int64),
-        _f("totalYards").alias("yds"), _f("netPassingYards").alias("pass"), _f("rushingYards").alias("rush"))
+        _f("totalYards").alias("yds"), _f("netPassingYards").alias("pass"), _f("rushingYards").alias("rush"),
+        pl.col("totalPenaltiesYards").str.split("-").list.get(0, null_on_oob=True).cast(pl.Float64, strict=False).fill_null(0).alias("pen_n"),
+        pl.col("totalPenaltiesYards").str.split("-").list.get(1, null_on_oob=True).cast(pl.Float64, strict=False).fill_null(0).alias("pen_y"))
     pb = B_(season, max_week).with_columns(pl.col("team_id").cast(pl.Int64))
     fg = pb.filter(pl.col("category") == "kicking").with_columns(
         pl.col("fieldGoalsMade/fieldGoalAttempts").str.split("/").alias("_fg"))
@@ -140,6 +156,8 @@ def _unit_table(season, max_week=None):
         pb.filter(pl.col("category") == "punting").group_by("game_id", "team_id").agg(
             _f("punts").sum().alias("punts"), _f("puntYards").sum().alias("punt_yds")),
         fg.group_by("game_id", "team_id").agg(pl.col("fgm").sum(), pl.col("fga").sum()),
+        N_(season, max_week).group_by("game_id", "team_id").agg(
+            pl.col("on_off").sum().cast(pl.Float64).alias("pen_o"), pl.col("on_def").sum().cast(pl.Float64).alias("pen_d")),
     ]
     g = tb
     for d in per:
@@ -179,6 +197,8 @@ def unit_ranks(team_id, season, max_week=None):
         div("punt_yds", "punts").alias("punt_avg"), div("pr_yds", "pr").alias("pr_avg"), div("kr_yds", "kr").alias("kr_avg"),
         (pl.col("fga") / pl.col("gp")).alias("fga_pg"), (pl.col("fgm") / pl.col("gp")).alias("fgm_pg"),
         ((pl.col("fga") - pl.col("fgm")) / pl.col("gp")).alias("fgx_pg"),
+        (pl.col("pen_o") / pl.col("gp")).alias("pen_off"), (pl.col("pen_d") / pl.col("gp")).alias("pen_def"),
+        (pl.col("pen_n") / pl.col("gp")).alias("pen_tot"), (pl.col("pen_y") / pl.col("gp")).alias("pen_yds"),
         *[div(f"{k}_m", f"{k}_a").alias(k) for k in FG_BANDS],
     ).with_columns(div("_ret_yds", "_ret").alias("st_ret"), div("_cov_yds", "_cov").alias("st_cov"))
     me = t.filter(pl.col("team_id") == team_id)
@@ -213,6 +233,10 @@ def unit_ranks(team_id, season, max_week=None):
             row["att"] = int({"st_ret": me["_ret"], "st_cov": me["_cov"], "pr_avg": me["pr"], "kr_avg": me["kr"]}[key])
         if fmt == "ypp":
             row["att"] = int(me["punts"])
+        if fmt == "pen":
+            row["total"] = int({"pen_off": me["pen_o"], "pen_def": me["pen_d"], "pen_tot": me["pen_n"]}[key])
+        if key == "pen_yds":
+            row["total"] = int(me["pen_y"])
         if fmt == "band":
             row.update({"made": int(me[f"{key}_m"]), "att": int(me[f"{key}_a"])})
         if fmt == "dist":

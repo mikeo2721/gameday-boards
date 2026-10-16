@@ -26,6 +26,7 @@ Header helmets live in `assets/helmets/<slug>.png` (transparent, 220px tall, fac
 - Return game, return coverage (kick + punt combined), punt returns, kickoff returns: yards per return. Punting: gross average per punt.
 - Field goals attempted/made/missed: totals shown, ranked per game. Attempts rank most-first and are colored neutral; misses rank fewest-first.
 Longest and average made field-goal distance come from play-by-play (`yds_fg` on 'Field Goal Good' plays), ranked longest-first. Make % by range (inside 40, 40–49, 50+) uses every attempt with a distance (made, missed, blocked); ties break on number of makes, and a team with no attempts in a range is unranked there. When ESPN play-by-play lacks some kicks (summary-only games), the board says how many attempts have no distance.
+Penalties: offensive and defensive penalties per game are accepted flags from play-by-play attributed by `penalty_team_id` vs. possession (kicking plays excluded; counts match the official totals for ~98% of flags). Total penalties and penalty yards per game are official box-score figures. Off/def penalty yards are not shown: play-by-play captures only ~86% of penalty yardage. Fewer is better for all four.
 Ties show as T-. Rate stats need at least one attempt, so N can differ by row.
 
 ## Y/Y Scorecard tab
