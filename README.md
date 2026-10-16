@@ -28,3 +28,7 @@ Header helmets live in `assets/helmets/<slug>.png` (transparent, 220px tall, fac
 Longest and average made field-goal distance come from play-by-play (`yds_fg` on 'Field Goal Good' plays), ranked longest-first. Make % by range (inside 40, 40–49, 50+) uses every attempt with a distance (made, missed, blocked); ties break on number of makes, and a team with no attempts in a range is unranked there. When ESPN play-by-play lacks some kicks (summary-only games), the board says how many attempts have no distance.
 Ties show as T-. Rate stats need at least one attempt, so N can differ by row.
 
+## Y/Y Scorecard tab
+A "Y/Y Scorecard" tab after the season tabs compares the latest season with the one before, built in the page from data already in each board (no pipeline step). It covers 33 metrics: results (win %, scoring, turnover margin per game, 3rd down), EPA efficiency and every unit ranking. All are rate stats, so a partial season compares with a full one.
+Trend rule: Better/Worse needs a value change beyond a per-metric noise threshold and, where both seasons are ranked, an FBS rank that did not move 5+ places the other way; anything mixed is Steady. Field goals attempted is shown but not scored. On phones the rank column is hidden and trends show as arrows.
+

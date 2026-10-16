@@ -87,6 +87,22 @@ header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items
 .urow .fill{position:absolute;inset:0 auto 0 0;border-radius:3px}
 @media (max-width:420px){.urow{grid-template-columns:minmax(0,1fr) auto 88px}}
 
+/* year-over-year scorecard */
+.view{display:flex;flex-direction:column;gap:22px}
+.view[hidden]{display:none}
+.yoy-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.yoy-sum .kpi .v.up{color:var(--win)} .yoy-sum .kpi .v.down{color:var(--loss)}
+table.yoy td.metric{white-space:normal;font-weight:600;min-width:150px}
+table.yoy td.metric .det{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+table.yoy tr.grp td{font:600 12px var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:18px;background:transparent}
+table.yoy td.chg.good{color:var(--win)} table.yoy td.chg.bad{color:var(--loss)}
+.st{display:inline-block;font:700 12px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.st .short{display:none;font:700 11px var(--body)}
+@media (max-width:560px){table.yoy th:nth-child(5),table.yoy td:nth-child(5){display:none}
+  table.yoy td.metric{min-width:0}table.yoy td,table.yoy th{padding-inline:5px}
+  table.yoy{font-size:13px}table.yoy th{letter-spacing:.03em}.st .full,table.yoy .rk{display:none}.st .short{display:inline}.st{padding:2px 6px}}
+.st.up{background:var(--win-soft);color:var(--win)} .st.down{background:var(--loss-soft);color:var(--loss)} .st.flat{background:var(--line);color:var(--muted)}
+
 /* game log */
 .tbl-wrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px}
@@ -129,6 +145,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
 
   <nav class="tabs" id="tabs" aria-label="Season"></nav>
 
+  <div class="view" id="season-view">
   <section class="kpis" id="kpis" aria-label="Season summary"></section>
 
   <div class="grid2">
@@ -156,6 +173,17 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
   </section>
 
   <section class="leaders" id="leaders"></section>
+  </div>
+
+  <div class="view" id="yoy-view" hidden>
+    <section class="yoy-sum" id="yoy-sum" aria-label="Year-over-year summary"></section>
+    <section class="panel">
+      <h2 id="yoy-title">Year-over-year scorecard</h2>
+      <div class="note" id="yoy-sub"></div>
+      <div class="tbl-wrap"><table class="yoy" id="yoy"></table></div>
+      <div class="note" id="yoy-note"></div>
+    </section>
+  </div>
 
   <section class="panel">
     <h2>Three-season trend</h2>
@@ -176,7 +204,7 @@ document.getElementById('hdr-name').innerHTML = `<span>${M.school}</span> ${M.ma
 document.getElementById('hdr-eyebrow').textContent = 'College football · ' + (M.independent ? 'FBS Independent' : M.conf);
 const seasons = Object.keys(D.seasons).sort();
 let cur = seasons[seasons.length-1];
-try{ const s = localStorage.getItem('season'); if(s && D.seasons[s]) cur = s; }catch(e){}
+try{ const s = localStorage.getItem('season'); if(s && (D.seasons[s] || (s==='yoy' && seasons.length>1))) cur = s; }catch(e){}
 
 const isPost = g => g.season_type===3 || g.season_type==='postseason';
 const f1 = x => x==null ? '–' : x.toFixed(1);
@@ -189,7 +217,8 @@ const ord = n => { const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10
 
 function renderTabs(){
   const el=document.getElementById('tabs');
-  el.innerHTML = seasons.slice().reverse().map(s=>`<button type="button" id="tab-${s}" aria-pressed="${s===cur}" data-s="${s}">${s}</button>`).join('');
+  el.innerHTML = seasons.slice().reverse().map(s=>`<button type="button" id="tab-${s}" aria-pressed="${s===cur}" data-s="${s}">${s}</button>`).join('')
+    + (seasons.length>1 ? `<button type="button" id="tab-yoy" aria-pressed="${cur==='yoy'}" data-s="yoy">Y/Y Scorecard</button>` : '');
   el.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.s; try{localStorage.setItem('season',cur)}catch(e){} render();});
 }
 
@@ -350,9 +379,95 @@ function renderTrend(){
   document.getElementById('trend').innerHTML=`<thead><tr><th></th>${ss.map(s=>`<th class="r">${s}${D.seasons[s].games.some(g=>!g.completed)?' (to date)':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,f])=>`<tr><td>${l}</td>${ss.map(s=>`<td class="r num">${get(s,f)}</td>`).join('')}</tr>`).join('')}</tbody>`;
 }
 
+function renderYoY(){
+  const cy=seasons[seasons.length-1], py=seasons[seasons.length-2], C=D.seasons[cy], P=D.seasons[py];
+  const pg=(S,v)=>S.summary.games? v/S.summary.games : null;
+  const wp=S=>S.summary.games? S.summary.w/S.summary.games : null;
+  // fmt: how to print a value and its change. better: true=higher is better, false=lower, null=neutral.
+  const F={
+    wp:[v=>pct(v), d=>(d>0?'+':'')+Math.round(d*100)+' pts'],
+    ypg:[v=>f1(v), d=>(d>0?'+':'')+d.toFixed(1)],
+    pg2:[v=>v==null?'–':(v>0?'+':'')+v.toFixed(2), d=>(d>0?'+':'')+d.toFixed(2)],
+    pg:[v=>v==null?'–':v.toFixed(2), d=>(d>0?'+':'')+d.toFixed(2)],
+    pct:[v=>pct(v), d=>(d>0?'+':'')+Math.round(d*100)+' pts'],
+    epa:[v=>f2(v), d=>(d>0?'+':'')+d.toFixed(2)],
+    dist:[v=>f1(v), d=>(d>0?'+':'')+d.toFixed(1)],
+  };
+  const rows=[], grp=n=>rows.push({grp:n});
+  const add=(label,det,fmt,better,tol,get)=>rows.push({label,det,fmt,better,tol,c:get(C),p:get(P)});
+  grp('Results');
+  add('Win percentage',null,'wp',true,0.05,S=>({v:wp(S),txt:`${S.summary.w}–${S.summary.l}`}));
+  add('Points per game',null,'ypg',true,2,S=>({v:S.summary.ppg}));
+  add('Points allowed per game',null,'ypg',false,2,S=>({v:S.summary.opp_ppg}));
+  add('Point margin per game',null,'ypg',true,2,S=>({v:S.summary.ppg==null?null:S.summary.ppg-S.summary.opp_ppg}));
+  add('Turnover margin per game',null,'pg2',true,0.25,S=>({v:pg(S,S.summary.to_margin)}));
+  add('3rd-down conversion',null,'pct',true,0.02,S=>({v:S.summary.third_pct}));
+  grp('Efficiency (EPA per play)');
+  const E=(k,rk)=>S=>S.efficiency?{v:S.efficiency[k],rank:rk?S.efficiency[rk]:null,n:S.efficiency.n_fbs}:{v:null};
+  add('Offense EPA / play',null,'epa',true,0.03,E('epa','epa_rk'));
+  add('Offense success rate',null,'pct',true,0.015,E('sr','sr_rk'));
+  add('Defense EPA / play allowed',null,'epa',false,0.03,E('d_epa','d_epa_rk'));
+  add('Defense success rate allowed',null,'pct',false,0.015,E('d_sr','d_sr_rk'));
+  add('Net EPA / play',null,'epa',true,0.03,E('net_epa','net_rk'));
+  add('Passing EPA / play',null,'epa',true,0.03,E('epa_pass'));
+  add('Rushing EPA / play',null,'epa',true,0.03,E('epa_rush'));
+  add('Passing EPA allowed',null,'epa',false,0.03,E('d_epa_pass'));
+  add('Rushing EPA allowed',null,'epa',false,0.03,E('d_epa_rush'));
+  const unitFmt={ypg:['ypg',10],ypr:['ypg',1.5],ypp:['ypg',1],fg:['pg',0.2],dist:['dist',1.5],band:['pct',0.05]};
+  const U=(S,k)=>{const r=S.units&&S.units.rows.find(x=>x.key===k); return r&&r.value!=null?{v:r.value,rank:r.rank,n:r.n,tied:r.tied}:{v:null};};
+  let lastGroup=null;
+  (C.units||P.units||{rows:[]}).rows.forEach(r=>{
+    if(r.group!==lastGroup){grp(r.group==='Offense & defense'?'Yardage (per game)':r.group); lastGroup=r.group;}
+    const [fmt,tol]=unitFmt[r.fmt];
+    const det={ypr:'yards per return',ypp:'gross yards per punt',fg:'per game',dist:'yards',band:'make %'}[r.fmt]||null;
+    add(r.label,det,fmt,r.better,tol,S=>U(S,r.key));
+  });
+  // status: rank movement when both seasons are ranked (5+ places), otherwise value change beyond tolerance
+  let up=0,down=0,flat=0;
+  rows.forEach(r=>{
+    if(r.grp) return;
+    if(r.c.v==null||r.p.v==null||r.better===null){r.st=null;return;}
+    const d=r.c.v-r.p.v; r.d=d;
+    // value must move beyond noise; if both seasons are ranked, the rank must not move 5+ places the other way
+    let s=Math.abs(d)<r.tol?0:((d>0)===r.better?1:-1);
+    if(s!==0&&r.c.rank!=null&&r.p.rank!=null){const m=r.p.rank-r.c.rank; if((s>0&&m<=-5)||(s<0&&m>=5)) s=0;}
+    r.st=s; if(s>0)up++; else if(s<0)down++; else flat++;
+  });
+  const total=up+down+flat;
+  document.getElementById('yoy-sum').innerHTML=[
+    ['Improved',up,'up',`of ${total} metrics`],['Steady',flat,'',`within normal noise`],['Declined',down,'down',`of ${total} metrics`]]
+    .map(([l,v,c,sub])=>`<div class="kpi"><div class="eyebrow">${l}</div><div class="v num ${c}">${v}</div><div class="s">${sub}</div></div>`).join('');
+  const inProg=C.games.some(g=>!g.completed);
+  document.getElementById('yoy-title').textContent=`${cy} vs. ${py} scorecard`;
+  document.getElementById('yoy-sub').textContent=`${cy}${inProg?' to date':''}: ${C.summary.games} games · ${py}: ${P.summary.games} games. All metrics are per game, per play or per attempt so partial and full seasons compare.`;
+  const rk=x=>x.rank==null?'':`${x.tied?'T-':''}${ord(x.rank)}`;
+  document.getElementById('yoy').innerHTML=`<thead><tr><th>Metric</th><th class="r">${py}</th><th class="r">${cy}</th><th class="r">Change</th><th class="r">FBS rank</th><th>Trend</th></tr></thead><tbody>`+
+    rows.map(r=>{
+      if(r.grp) return `<tr class="grp"><td colspan="6">${r.grp}</td></tr>`;
+      const [fv,fd]=F[r.fmt];
+      const val=x=>x.v==null?'–':(x.txt?`${x.txt} <span class="rk">${fv(x.v)}</span>`:fv(x.v));
+      const chg=r.d==null?(r.c.v!=null&&r.p.v!=null?fd(r.c.v-r.p.v):'–'):fd(r.d);
+      const cls=r.st==null||r.d==null||Math.abs(r.d)<1e-9?'':(((r.d>0)===r.better)?'good':'bad');
+      let rank='';
+      if(r.c.rank!=null||r.p.rank!=null){
+        const m=(r.p.rank!=null&&r.c.rank!=null)?r.p.rank-r.c.rank:null;
+        rank=`${rk(r.p)||'–'} → ${rk(r.c)||'–'}${m?` <span class="${r.better===null?'':(m>0?'pos':'neg')}">(${m>0?'▲':'▼'}${Math.abs(m)})</span>`:''}`;
+      }
+      const st=r.st==null?(r.better===null&&r.c.v!=null&&r.p.v!=null?'<span class="st flat"><span class="full">Neutral</span><span class="short">·</span></span>':''):
+        `<span class="st ${r.st>0?'up':r.st<0?'down':'flat'}" title="${r.st>0?'Better':r.st<0?'Worse':'Steady'}"><span class="full">${r.st>0?'Better':r.st<0?'Worse':'Steady'}</span><span class="short">${r.st>0?'▲':r.st<0?'▼':'–'}</span></span>`;
+      return `<tr><td class="metric">${r.label}${r.det?`<span class="det">${r.det}</span>`:''}</td><td class="r num">${val(r.p)}</td><td class="r num">${val(r.c)}</td><td class="r num chg ${cls}">${chg}</td><td class="r num">${rank}</td><td>${st}</td></tr>`;
+    }).join('')+'</tbody>';
+  document.getElementById('yoy-note').textContent=`"Better" / "Worse" needs a change larger than normal week-to-week noise, and where both seasons are ranked, an FBS rank that didn't move 5+ places the other way; mixed signals show as Steady. Ranks compare a team with all FBS teams at the same point, which partly offsets schedule differences, but ${inProg?`early-season ${cy} numbers lean on non-conference opponents and will move as conference play fills in.`:'opponent strength still differs year to year.'} Field goals attempted is shown but not scored.`;
+}
+
 function render(){
+  const yoy = cur==='yoy';
+  document.getElementById('season-view').hidden = yoy;
+  document.getElementById('yoy-view').hidden = !yoy;
+  renderTabs();
+  if(yoy){ renderHeader(D.seasons[seasons[seasons.length-1]]); renderYoY(); return; }
   const S=D.seasons[cur];
-  renderTabs(); renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderUnits(S); renderLog(S); renderLeaders(S);
+  renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderUnits(S); renderLog(S); renderLeaders(S);
 }
 renderTrend(); render();
 document.getElementById('gen').textContent = 'Data refreshed ' + new Date(D.generated).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) + ' · Weekly auto-refresh on Monday mornings.';
