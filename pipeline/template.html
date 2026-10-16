@@ -71,6 +71,21 @@ header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:5px}
 
+/* unit rankings */
+.units-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:4px 28px}
+.ugroup h3{font-size:15px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-family:var(--body);font-weight:600;padding:6px 0;border-bottom:1px solid var(--line)}
+.urow{display:grid;grid-template-columns:minmax(0,1fr) auto 112px;gap:2px 12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.urow .lbl{font-weight:600;font-size:14px}
+.urow .det{font-size:12px;color:var(--muted)}
+.urow .val{font-family:var(--display);font-size:19px;font-weight:600;text-align:right;white-space:nowrap}
+.urow .val small{font:12px var(--body);color:var(--muted);margin-left:3px}
+.urow .rkcell{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.urow .rktxt{font-size:12.5px;text-align:right;white-space:nowrap}
+.urow .rktxt b{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink)}
+.urow .track{height:6px;background:var(--line);border-radius:3px;position:relative;overflow:hidden}
+.urow .fill{position:absolute;inset:0 auto 0 0;border-radius:3px}
+@media (max-width:420px){.urow{grid-template-columns:minmax(0,1fr) auto 88px}}
+
 /* game log */
 .tbl-wrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px}
@@ -127,6 +142,12 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
       <div id="chart"></div>
     </section>
   </div>
+
+  <section class="panel">
+    <h2>Unit rankings vs. FBS</h2>
+    <div class="units-wrap" id="units"></div>
+    <div class="note" id="units-note"></div>
+  </section>
 
   <section class="panel">
     <h2>Schedule &amp; results</h2>
@@ -245,6 +266,40 @@ function renderChart(S){
   el.innerHTML=s;
 }
 
+function renderUnits(S){
+  const U=S.units, el=document.getElementById('units'), note=document.getElementById('units-note');
+  if(!U){ el.innerHTML='<div class="note">No box-score data yet for this season.</div>'; note.textContent=''; return; }
+  const groups=[];
+  U.rows.forEach(r=>{let g=groups.find(x=>x.name===r.group); if(!g){g={name:r.group,rows:[]};groups.push(g);} g.rows.push(r);});
+  const valTxt=r=>{
+    if(r.value==null) return ['–',''];
+    if(r.fmt==='ypg') return [f1(r.value),'yds/g'];
+    if(r.fmt==='ypr') return [f1(r.value),'per ret'];
+    if(r.fmt==='ypp') return [f1(r.value),'yds'];
+    return [String(r.total),''];
+  };
+  const detTxt=r=>{
+    if(r.value==null) return 'No attempts yet';
+    if(r.fmt==='ypr') return `${r.att} returns`;
+    if(r.fmt==='ypp') return `${r.att} punts`;
+    if(r.fmt==='fg'){ const pg=r.value.toFixed(2)+' per game';
+      return r.key==='fgm' && r.pct!=null ? `${pg} · ${Math.round(r.pct*100)}% made` : pg; }
+    return '';
+  };
+  el.innerHTML=groups.map(g=>`<div class="ugroup"><h3>${g.name}</h3>${g.rows.map(r=>{
+    const [v,unit]=valTxt(r), N=r.n;
+    let rk='', bar='';
+    if(r.value!=null){
+      const p=N>1?1-(r.rank-1)/(N-1):1;
+      const tier = r.better===null ? 'mid' : (r.rank<=Math.round(N*0.25)?'good':(r.rank>Math.round(N*0.6)?'bad':'mid'));
+      rk=`<span class="rktxt num"><b>${r.tied?'T-':''}${ord(r.rank)}</b> <span class="det">of ${N}</span></span>`;
+      bar=`<div class="track"><div class="fill tier-${tier}" style="width:${Math.max(3,p*100).toFixed(1)}%"></div></div>`;
+    }
+    return `<div class="urow"><div><div class="lbl">${r.label}</div><div class="det">${detTxt(r)}</div></div>
+      <div class="val num">${v}${unit?`<small>${unit}</small>`:''}</div><div class="rkcell">${rk}${bar}</div></div>`;}).join('')}</div>`).join('');
+  note.textContent=`Ranked among FBS teams over ${U.gp} games. Yardage is per game; returns and punting are per attempt; field goals are ranked per game (attempts: most first; misses: fewest first). Small samples swing early in the season.`;
+}
+
 function renderLog(S){
   const rows=S.games.map(g=>{
     const site=g.neutral?'N':(g.home?'H':'A');
@@ -291,7 +346,7 @@ function renderTrend(){
 
 function render(){
   const S=D.seasons[cur];
-  renderTabs(); renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderLog(S); renderLeaders(S);
+  renderTabs(); renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderUnits(S); renderLog(S); renderLeaders(S);
 }
 renderTrend(); render();
 document.getElementById('gen').textContent = 'Data refreshed ' + new Date(D.generated).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) + ' · Weekly auto-refresh on Monday mornings.';

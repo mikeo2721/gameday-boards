@@ -42,6 +42,110 @@ _tbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_team_box([s]))
 _pbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_player_box([s]))
 
 
+# --- unit rankings: traditional per-game / per-attempt stats ranked among FBS teams ---
+# (key, label, group, higher_is_better or None for neutral counts, format)
+UNIT_STATS = [
+    ("off_ypg", "Total offense", "Offense & defense", True, "ypg"),
+    ("def_ypg", "Total defense", "Offense & defense", False, "ypg"),
+    ("off_pass", "Passing offense", "Offense & defense", True, "ypg"),
+    ("def_pass", "Passing defense", "Offense & defense", False, "ypg"),
+    ("off_rush", "Rushing offense", "Offense & defense", True, "ypg"),
+    ("def_rush", "Rushing defense", "Offense & defense", False, "ypg"),
+    ("st_ret", "Return game (kick + punt)", "Special teams", True, "ypr"),
+    ("st_cov", "Return coverage (kick + punt)", "Special teams", False, "ypr"),
+    ("punt_avg", "Punting (gross avg)", "Special teams", True, "ypp"),
+    ("pr_avg", "Punt returns", "Special teams", True, "ypr"),
+    ("kr_avg", "Kickoff returns", "Special teams", True, "ypr"),
+    ("fga", "Field goals attempted", "Kicking", None, "fg"),
+    ("fgm", "Field goals made", "Kicking", True, "fg"),
+    ("fgx", "Field goals missed", "Kicking", False, "fg"),
+]
+
+
+def _f(col):
+    return pl.col(col).cast(pl.Float64, strict=False).fill_null(0)
+
+
+@functools.lru_cache(None)
+def _unit_table(season):
+    """One row per FBS team with the raw totals behind UNIT_STATS (both sides of every game)."""
+    sched = _sched(season)
+    fbs = set(sched.filter(pl.col("home_division") == "fbs")["home_id"].to_list()
+              + sched.filter(pl.col("away_division") == "fbs")["away_id"].to_list())
+    tb = _tbox(season).select(
+        pl.col("game_id"), pl.col("team_id").cast(pl.Int64),
+        _f("totalYards").alias("yds"), _f("netPassingYards").alias("pass"), _f("rushingYards").alias("rush"))
+    pb = _pbox(season).with_columns(pl.col("team_id").cast(pl.Int64))
+    fg = pb.filter(pl.col("category") == "kicking").with_columns(
+        pl.col("fieldGoalsMade/fieldGoalAttempts").str.split("/").alias("_fg"))
+    fg = fg.with_columns(pl.col("_fg").list.get(0, null_on_oob=True).cast(pl.Float64, strict=False).fill_null(0).alias("fgm"),
+                         pl.col("_fg").list.get(1, null_on_oob=True).cast(pl.Float64, strict=False).fill_null(0).alias("fga"))
+    per = [
+        pb.filter(pl.col("category") == "kickReturns").group_by("game_id", "team_id").agg(
+            _f("kickReturns").sum().alias("kr"), _f("kickReturnYards").sum().alias("kr_yds")),
+        pb.filter(pl.col("category") == "puntReturns").group_by("game_id", "team_id").agg(
+            _f("puntReturns").sum().alias("pr"), _f("puntReturnYards").sum().alias("pr_yds")),
+        pb.filter(pl.col("category") == "punting").group_by("game_id", "team_id").agg(
+            _f("punts").sum().alias("punts"), _f("puntYards").sum().alias("punt_yds")),
+        fg.group_by("game_id", "team_id").agg(pl.col("fgm").sum(), pl.col("fga").sum()),
+    ]
+    g = tb
+    for d in per:
+        g = g.join(d, on=["game_id", "team_id"], how="left")
+    g = g.fill_null(0)
+    # opponent side of the same game, for defense and return coverage
+    opp = g.select(pl.col("game_id"), pl.col("team_id").alias("opp_id"), pl.col("yds").alias("o_yds"),
+                   pl.col("pass").alias("o_pass"), pl.col("rush").alias("o_rush"),
+                   pl.col("kr").alias("o_kr"), pl.col("kr_yds").alias("o_kr_yds"),
+                   pl.col("pr").alias("o_pr"), pl.col("pr_yds").alias("o_pr_yds"))
+    g = g.join(opp, on="game_id").filter(pl.col("team_id") != pl.col("opp_id"))
+    sums = [c for c in g.columns if c not in ("game_id", "team_id", "opp_id")]
+    t = g.group_by("team_id").agg(pl.len().alias("gp"), *[pl.col(c).sum() for c in sums])
+    return t.filter(pl.col("team_id").is_in(list(fbs)) & (pl.col("gp") > 0))
+
+
+def unit_ranks(team_id, season):
+    t = _unit_table(season)
+    div = lambda a, b: pl.when(pl.col(b) > 0).then(pl.col(a) / pl.col(b)).otherwise(None)
+    t = t.with_columns(
+        (pl.col("yds") / pl.col("gp")).alias("off_ypg"), (pl.col("o_yds") / pl.col("gp")).alias("def_ypg"),
+        (pl.col("pass") / pl.col("gp")).alias("off_pass"), (pl.col("o_pass") / pl.col("gp")).alias("def_pass"),
+        (pl.col("rush") / pl.col("gp")).alias("off_rush"), (pl.col("o_rush") / pl.col("gp")).alias("def_rush"),
+        (pl.col("kr_yds") + pl.col("pr_yds")).alias("_ret_yds"), (pl.col("kr") + pl.col("pr")).alias("_ret"),
+        (pl.col("o_kr_yds") + pl.col("o_pr_yds")).alias("_cov_yds"), (pl.col("o_kr") + pl.col("o_pr")).alias("_cov"),
+        div("punt_yds", "punts").alias("punt_avg"), div("pr_yds", "pr").alias("pr_avg"), div("kr_yds", "kr").alias("kr_avg"),
+        (pl.col("fga") / pl.col("gp")).alias("fga_pg"), (pl.col("fgm") / pl.col("gp")).alias("fgm_pg"),
+        ((pl.col("fga") - pl.col("fgm")) / pl.col("gp")).alias("fgx_pg"),
+    ).with_columns(div("_ret_yds", "_ret").alias("st_ret"), div("_cov_yds", "_cov").alias("st_cov"))
+    me = t.filter(pl.col("team_id") == team_id)
+    if not me.height:
+        return None
+    me = me.to_dicts()[0]
+    rows = []
+    for key, label, group, better, fmt in UNIT_STATS:
+        rank_col = {"fga": "fga_pg", "fgm": "fgm_pg", "fgx": "fgx_pg"}.get(key, key)
+        v = me[rank_col]
+        col = t.filter(pl.col(rank_col).is_not_null())[rank_col]
+        if v is None or not col.len():
+            rows.append({"key": key, "label": label, "group": group, "better": better, "fmt": fmt, "value": None})
+            continue
+        desc = better is not False   # neutral counts rank most-first
+        ahead = int((col > v).sum()) if desc else int((col < v).sum())
+        rank = ahead + 1
+        tied = int((col == v).sum()) > 1
+        row = {"key": key, "label": label, "group": group, "better": better, "fmt": fmt,
+               "value": v, "rank": rank, "tied": tied, "n": col.len()}
+        if fmt == "fg":
+            row.update({"total": int(me["fga"] if key == "fga" else me["fgm"] if key == "fgm" else me["fga"] - me["fgm"]),
+                        "pct": me["fgm"] / me["fga"] if me["fga"] else None})
+        if fmt == "ypr":
+            row["att"] = int({"st_ret": me["_ret"], "st_cov": me["_cov"], "pr_avg": me["pr"], "kr_avg": me["kr"]}[key])
+        if fmt == "ypp":
+            row["att"] = int(me["punts"])
+        rows.append(row)
+    return {"gp": me["gp"], "rows": rows}
+
+
 def season_block(team_id, season):
     sched = _sched(season)
     fbs_ids = set(
@@ -181,7 +285,7 @@ def season_block(team_id, season):
     for d in defense:
         d["ints"] = imap.get(d["id"], 0)
 
-    return {"summary": summary, "efficiency": efficiency, "games": games,
+    return {"summary": summary, "efficiency": efficiency, "units": unit_ranks(team_id, season), "games": games,
             "leaders": {"passing": passing, "rushing": rushing, "receiving": receiving, "defense": defense}}
 
 
