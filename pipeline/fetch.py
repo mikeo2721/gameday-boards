@@ -36,8 +36,20 @@ def split_pair(s):  # "26/34" or "11-15"
 
 # Season-wide loaders are cached so several teams in one run share one download.
 _sched = functools.lru_cache(None)(lambda s: cfb.load_cfb_schedule([s]))
-_pbp = functools.lru_cache(None)(lambda s: cfb.load_cfb_pbp([s]).filter(pl.col("scrimmage_play") == True).select(
-    ["game_id", "pos_team_id", "def_pos_team_id", "EPA", "EPA_success", "EPA_explosive", "pass", "rush"]))
+@functools.lru_cache(None)
+def _pbp_views(s):
+    """One play-by-play download per season, kept as two slim views: scrimmage plays and made field goals."""
+    p = cfb.load_cfb_pbp([s])
+    scrim = p.filter(pl.col("scrimmage_play") == True).select(
+        ["game_id", "pos_team_id", "def_pos_team_id", "EPA", "EPA_success", "EPA_explosive", "pass", "rush"])
+    fgm = p.filter(pl.col("type.text") == "Field Goal Good").select(
+        pl.col("game_id"), pl.col("fg_team").cast(pl.Int64).alias("team_id"),
+        pl.col("yds_fg").cast(pl.Float64, strict=False).alias("dist"))
+    return scrim, fgm
+
+
+_pbp = lambda s: _pbp_views(s)[0]
+_fg_made = lambda s: _pbp_views(s)[1]
 _tbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_team_box([s]))
 _pbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_player_box([s]))
 
@@ -59,6 +71,8 @@ UNIT_STATS = [
     ("fga", "Field goals attempted", "Kicking", None, "fg"),
     ("fgm", "Field goals made", "Kicking", True, "fg"),
     ("fgx", "Field goals missed", "Kicking", False, "fg"),
+    ("fg_long", "Longest field goal made", "Kicking", True, "dist"),
+    ("fg_avg", "Average made distance", "Kicking", True, "dist"),
 ]
 
 
@@ -101,6 +115,11 @@ def _unit_table(season):
     g = g.join(opp, on="game_id").filter(pl.col("team_id") != pl.col("opp_id"))
     sums = [c for c in g.columns if c not in ("game_id", "team_id", "opp_id")]
     t = g.group_by("team_id").agg(pl.len().alias("gp"), *[pl.col(c).sum() for c in sums])
+    # made-field-goal distances come from play-by-play (box scores carry only the longest)
+    played = g.select("game_id", "team_id").unique()
+    fgd = _fg_made(season).join(played, on=["game_id", "team_id"]).group_by("team_id").agg(
+        pl.col("dist").max().alias("fg_long"), pl.col("dist").mean().alias("fg_avg"), pl.len().alias("fg_pbp_n"))
+    t = t.join(fgd, on="team_id", how="left")
     return t.filter(pl.col("team_id").is_in(list(fbs)) & (pl.col("gp") > 0))
 
 
@@ -142,6 +161,8 @@ def unit_ranks(team_id, season):
             row["att"] = int({"st_ret": me["_ret"], "st_cov": me["_cov"], "pr_avg": me["pr"], "kr_avg": me["kr"]}[key])
         if fmt == "ypp":
             row["att"] = int(me["punts"])
+        if fmt == "dist":
+            row["att"] = int(me["fg_pbp_n"] or 0)
         rows.append(row)
     return {"gp": me["gp"], "rows": rows}
 

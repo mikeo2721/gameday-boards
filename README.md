@@ -25,5 +25,6 @@ Header helmets live in `assets/helmets/<slug>.png` (transparent, 220px tall, fac
 - Offense/defense (total, passing, rushing): yards per game.
 - Return game, return coverage (kick + punt combined), punt returns, kickoff returns: yards per return. Punting: gross average per punt.
 - Field goals attempted/made/missed: totals shown, ranked per game. Attempts rank most-first and are colored neutral; misses rank fewest-first.
+Longest and average made field-goal distance come from play-by-play (`yds_fg` on 'Field Goal Good' plays), ranked longest-first.
 Ties show as T-. Rate stats need at least one attempt, so N can differ by row.
 
