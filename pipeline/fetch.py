@@ -42,14 +42,17 @@ def _pbp_views(s):
     p = cfb.load_cfb_pbp([s])
     scrim = p.filter(pl.col("scrimmage_play") == True).select(
         ["game_id", "pos_team_id", "def_pos_team_id", "EPA", "EPA_success", "EPA_explosive", "pass", "rush"])
-    fgm = p.filter(pl.col("type.text") == "Field Goal Good").select(
+    fga = p.filter(pl.col("type.text").is_in(
+        ["Field Goal Good", "Field Goal Missed", "Missed Field Goal Return",
+         "Blocked Field Goal", "Blocked Field Goal Touchdown"])).select(
         pl.col("game_id"), pl.col("fg_team").cast(pl.Int64).alias("team_id"),
-        pl.col("yds_fg").cast(pl.Float64, strict=False).alias("dist"))
-    return scrim, fgm
+        pl.col("yds_fg").cast(pl.Float64, strict=False).alias("dist"),
+        (pl.col("type.text") == "Field Goal Good").alias("made"))
+    return scrim, fga
 
 
 _pbp = lambda s: _pbp_views(s)[0]
-_fg_made = lambda s: _pbp_views(s)[1]
+_fg_att = lambda s: _pbp_views(s)[1]   # every field goal attempt (made, missed, blocked) with distance
 _tbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_team_box([s]))
 _pbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_player_box([s]))
 
@@ -73,7 +76,11 @@ UNIT_STATS = [
     ("fgx", "Field goals missed", "Kicking", False, "fg"),
     ("fg_long", "Longest field goal made", "Kicking", True, "dist"),
     ("fg_avg", "Average made distance", "Kicking", True, "dist"),
+    ("fg_u40", "Make % inside 40", "Kicking", True, "band"),
+    ("fg_40s", "Make % 40–49 yds", "Kicking", True, "band"),
+    ("fg_50p", "Make % 50+ yds", "Kicking", True, "band"),
 ]
+FG_BANDS = {"fg_u40": (0, 39), "fg_40s": (40, 49), "fg_50p": (50, 99)}
 
 
 def _f(col):
@@ -117,8 +124,14 @@ def _unit_table(season):
     t = g.group_by("team_id").agg(pl.len().alias("gp"), *[pl.col(c).sum() for c in sums])
     # made-field-goal distances come from play-by-play (box scores carry only the longest)
     played = g.select("game_id", "team_id").unique()
-    fgd = _fg_made(season).join(played, on=["game_id", "team_id"]).group_by("team_id").agg(
-        pl.col("dist").max().alias("fg_long"), pl.col("dist").mean().alias("fg_avg"), pl.len().alias("fg_pbp_n"))
+    att = _fg_att(season).join(played, on=["game_id", "team_id"])
+    made = pl.col("made")
+    band = lambda lo, hi: (pl.col("dist") >= lo) & (pl.col("dist") <= hi)
+    fgd = att.group_by("team_id").agg(
+        pl.col("dist").filter(made).max().alias("fg_long"), pl.col("dist").filter(made).mean().alias("fg_avg"),
+        made.sum().alias("fg_pbp_n"),
+        *[e for k, (lo, hi) in FG_BANDS.items() for e in (
+            band(lo, hi).sum().alias(f"{k}_a"), (band(lo, hi) & made).sum().alias(f"{k}_m"))])
     t = t.join(fgd, on="team_id", how="left")
     return t.filter(pl.col("team_id").is_in(list(fbs)) & (pl.col("gp") > 0))
 
@@ -135,6 +148,7 @@ def unit_ranks(team_id, season):
         div("punt_yds", "punts").alias("punt_avg"), div("pr_yds", "pr").alias("pr_avg"), div("kr_yds", "kr").alias("kr_avg"),
         (pl.col("fga") / pl.col("gp")).alias("fga_pg"), (pl.col("fgm") / pl.col("gp")).alias("fgm_pg"),
         ((pl.col("fga") - pl.col("fgm")) / pl.col("gp")).alias("fgx_pg"),
+        *[div(f"{k}_m", f"{k}_a").alias(k) for k in FG_BANDS],
     ).with_columns(div("_ret_yds", "_ret").alias("st_ret"), div("_cov_yds", "_cov").alias("st_cov"))
     me = t.filter(pl.col("team_id") == team_id)
     if not me.height:
@@ -149,9 +163,16 @@ def unit_ranks(team_id, season):
             rows.append({"key": key, "label": label, "group": group, "better": better, "fmt": fmt, "value": None})
             continue
         desc = better is not False   # neutral counts rank most-first
-        ahead = int((col > v).sum()) if desc else int((col < v).sum())
+        if fmt == "band":   # make %, ties broken by makes (5 of 5 ahead of 1 of 1)
+            ranked = t.filter(pl.col(rank_col).is_not_null())
+            mm = me[f"{key}_m"]
+            better_mask = (ranked[rank_col] > v) | ((ranked[rank_col] == v) & (ranked[f"{key}_m"] > mm))
+            ahead = int(better_mask.sum())
+            tied = int(((ranked[rank_col] == v) & (ranked[f"{key}_m"] == mm)).sum()) > 1
+        else:
+            ahead = int((col > v).sum()) if desc else int((col < v).sum())
+            tied = int((col == v).sum()) > 1
         rank = ahead + 1
-        tied = int((col == v).sum()) > 1
         row = {"key": key, "label": label, "group": group, "better": better, "fmt": fmt,
                "value": v, "rank": rank, "tied": tied, "n": col.len()}
         if fmt == "fg":
@@ -161,10 +182,13 @@ def unit_ranks(team_id, season):
             row["att"] = int({"st_ret": me["_ret"], "st_cov": me["_cov"], "pr_avg": me["pr"], "kr_avg": me["kr"]}[key])
         if fmt == "ypp":
             row["att"] = int(me["punts"])
+        if fmt == "band":
+            row.update({"made": int(me[f"{key}_m"]), "att": int(me[f"{key}_a"])})
         if fmt == "dist":
             row["att"] = int(me["fg_pbp_n"] or 0)
         rows.append(row)
-    return {"gp": me["gp"], "rows": rows}
+    band_att = sum(int(me[f"{k}_a"] or 0) for k in FG_BANDS)
+    return {"gp": me["gp"], "rows": rows, "fg_no_dist": max(0, int(me["fga"]) - band_att)}
 
 
 def season_block(team_id, season):

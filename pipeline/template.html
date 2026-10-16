@@ -276,11 +276,13 @@ function renderUnits(S){
     if(r.fmt==='ypg') return [f1(r.value),'yds/g'];
     if(r.fmt==='ypr') return [f1(r.value),'per ret'];
     if(r.fmt==='ypp') return [f1(r.value),'yds'];
+    if(r.fmt==='band') return [pct(r.value),''];
     if(r.fmt==='dist') return [r.key==='fg_long'?String(Math.round(r.value)):f1(r.value),'yds'];
     return [String(r.total),''];
   };
   const detTxt=r=>{
     if(r.value==null) return r.fmt==='dist' ? 'No field goals made yet' : 'No attempts yet';
+    if(r.fmt==='band') return `${r.made} of ${r.att}`;
     if(r.fmt==='dist') return r.key==='fg_avg' ? `on ${r.att} makes` : '';
     if(r.fmt==='ypr') return `${r.att} returns`;
     if(r.fmt==='ypp') return `${r.att} punts`;
@@ -299,7 +301,8 @@ function renderUnits(S){
     }
     return `<div class="urow"><div><div class="lbl">${r.label}</div><div class="det">${detTxt(r)}</div></div>
       <div class="val num">${v}${unit?`<small>${unit}</small>`:''}</div><div class="rkcell">${rk}${bar}</div></div>`;}).join('')}</div>`).join('');
-  note.textContent=`Ranked among FBS teams over ${U.gp} games. Yardage is per game; returns and punting are per attempt; field goal counts are ranked per game (attempts: most first; misses: fewest first); distances come from play-by-play, longest first. Small samples swing early in the season.`;
+  note.textContent=`Ranked among FBS teams over ${U.gp} games. Yardage is per game; returns and punting are per attempt; field goal counts are ranked per game (attempts: most first; misses: fewest first); distances and make % by range come from play-by-play (make % ties broken by number of makes; teams with no attempts in a range are unranked). Small samples swing early in the season.`
+    + (U.fg_no_dist ? ` ESPN play-by-play has no distance for ${U.fg_no_dist} field goal attempt${U.fg_no_dist>1?'s':''} this season, so the distance rows cover the rest.` : '');
 }
 
 function renderLog(S){
