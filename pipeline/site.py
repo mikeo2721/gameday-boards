@@ -3,6 +3,7 @@
 Usage (from pipeline/): python site.py [outdir]   default outdir is the repo root (..)
 Reads the team list from teams.json and data_<id>.json files written by fetch.py.
 Removes team pages for teams no longer in teams.json.
+Adds the team's helmet to the header when assets/helmets/<slug>.png exists in outdir.
 Each page posts its height to the parent window so the WordPress embed can size itself.
 """
 import json, os, subprocess, sys, html
@@ -33,7 +34,13 @@ os.makedirs(OUT, exist_ok=True)
 keep = {"index.html"}
 for tid, slug, _ in TEAMS:
     tmp = os.path.join(HERE, f".{slug}.body.html")
-    subprocess.run([sys.executable, "build.py", f"data_{tid}.json", tmp], check=True, cwd=HERE)
+    helmet = f"assets/helmets/{slug}.png"
+    args = [sys.executable, "build.py", f"data_{tid}.json", tmp]
+    if os.path.exists(os.path.join(OUT, helmet)):
+        args.append(helmet)
+    else:
+        print("no helmet for", slug)
+    subprocess.run(args, check=True, cwd=HERE)
     body = open(tmp).read()
     os.remove(tmp)
     with open(os.path.join(OUT, f"{slug}.html"), "w") as f:

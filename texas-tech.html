@@ -29,6 +29,9 @@ h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;l
 
 /* header */
 header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid var(--orange);padding-bottom:16px}
+.brand-row{display:flex;align-items:flex-end;gap:14px;min-width:0}
+.helmet{height:clamp(60px,11vw,100px);width:auto;flex:none;display:block;margin-bottom:-4px}
+.brand{min-width:0}
 .brand h1{font-size:clamp(34px,6vw,52px);line-height:1;text-transform:uppercase}
 .brand h1 span{color:var(--name, var(--orange))}
 .brand .sub{color:var(--muted);margin-top:6px}
@@ -107,10 +110,13 @@ header.top{border-bottom-color:#000000}
 
 <div class="wrap">
   <header class="top">
+    <div class="brand-row">
+    <img class="helmet" src="assets/helmets/texas-tech.png" alt="" width="290" height="220">
     <div class="brand">
       <div class="eyebrow" id="hdr-eyebrow">College football</div>
       <h1 id="hdr-name"></h1>
       <div class="sub" id="hdr-sub"></div>
+    </div>
     </div>
     <div class="next" id="next"></div>
   </header>

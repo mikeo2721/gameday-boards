@@ -1,12 +1,15 @@
 """Inject a data JSON into template.html.
 
-Usage: python build.py [data.json] [dashboard.html]
+Usage: python build.py [data.json] [dashboard.html] [helmet.png]
 Picks the page title and color theme from the team id in the data file.
+The optional third argument is the helmet image URL (relative to the page); without it
+the header is text-only.
 """
 import json, sys
 
 data_path = sys.argv[1] if len(sys.argv) > 1 else "data.json"
 out_path = sys.argv[2] if len(sys.argv) > 2 else "dashboard.html"
+helmet = sys.argv[3] if len(sys.argv) > 3 else ""
 
 # Per-team page names and color themes. Unlisted teams get the Texas palette and a mascot title.
 THEMES = {
@@ -58,6 +61,7 @@ th = THEMES.get(data.get("team_id"))
 if th is None:  # unlisted team: Texas palette, title from the mascot
     th = {"title": f"{(data.get('meta') or {}).get('mascot') or 'Team'} Gameday Board", "css": ""}
 blob = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
-html = tpl.replace("__TITLE__", th["title"]).replace("/*THEME*/", th["css"]).replace("__DATA__", blob)
+helmet_tag = (f'<img class="helmet" src="{helmet}" alt="" width="290" height="220">' if helmet else "")
+html = tpl.replace("<!--HELMET-->", helmet_tag).replace("__TITLE__", th["title"]).replace("/*THEME*/", th["css"]).replace("__DATA__", blob)
 open(out_path, "w").write(html)
 print("wrote", out_path, len(blob), "bytes of data")
