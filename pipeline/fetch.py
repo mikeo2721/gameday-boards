@@ -57,6 +57,37 @@ _tbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_team_box([s]))
 _pbox = functools.lru_cache(None)(lambda s: cfb.load_cfb_player_box([s]))
 
 
+# "Same point last season": every season-wide table can be cut to regular-season games through a week.
+@functools.lru_cache(None)
+def _gids(season, max_week):
+    sc = _sched(season)
+    return set(sc.filter((pl.col("season_type") == "regular") & (pl.col("week") <= max_week))["game_id"].to_list())
+
+
+def _cut(df, season, max_week):
+    return df if max_week is None else df.filter(pl.col("game_id").is_in(list(_gids(season, max_week))))
+
+
+S_ = functools.lru_cache(None)(lambda s, w: _cut(_sched(s), s, w))
+P_ = functools.lru_cache(None)(lambda s, w: _cut(_pbp(s), s, w))
+F_ = functools.lru_cache(None)(lambda s, w: _cut(_fg_att(s), s, w))
+T_ = functools.lru_cache(None)(lambda s, w: _cut(_tbox(s), s, w))
+B_ = functools.lru_cache(None)(lambda s, w: _cut(_pbox(s), s, w))
+
+
+def completed_week(season):
+    """Last regular-season week that is essentially final (90%+ of games done; canceled games never finish)."""
+    sc = _sched(season).filter(pl.col("season_type") == "regular")
+    wk = sc.group_by("week").agg(pl.len().alias("n"), (pl.col("completed") == True).sum().alias("done")).sort("week")
+    last = None
+    for r in wk.iter_rows(named=True):
+        if r["done"] >= 0.9 * r["n"]:
+            last = int(r["week"])
+        else:
+            break
+    return last
+
+
 # --- unit rankings: traditional per-game / per-attempt stats ranked among FBS teams ---
 # (key, label, group, higher_is_better or None for neutral counts, format)
 UNIT_STATS = [
@@ -88,15 +119,15 @@ def _f(col):
 
 
 @functools.lru_cache(None)
-def _unit_table(season):
+def _unit_table(season, max_week=None):
     """One row per FBS team with the raw totals behind UNIT_STATS (both sides of every game)."""
-    sched = _sched(season)
+    sched = S_(season, max_week)
     fbs = set(sched.filter(pl.col("home_division") == "fbs")["home_id"].to_list()
               + sched.filter(pl.col("away_division") == "fbs")["away_id"].to_list())
-    tb = _tbox(season).select(
+    tb = T_(season, max_week).select(
         pl.col("game_id"), pl.col("team_id").cast(pl.Int64),
         _f("totalYards").alias("yds"), _f("netPassingYards").alias("pass"), _f("rushingYards").alias("rush"))
-    pb = _pbox(season).with_columns(pl.col("team_id").cast(pl.Int64))
+    pb = B_(season, max_week).with_columns(pl.col("team_id").cast(pl.Int64))
     fg = pb.filter(pl.col("category") == "kicking").with_columns(
         pl.col("fieldGoalsMade/fieldGoalAttempts").str.split("/").alias("_fg"))
     fg = fg.with_columns(pl.col("_fg").list.get(0, null_on_oob=True).cast(pl.Float64, strict=False).fill_null(0).alias("fgm"),
@@ -124,7 +155,7 @@ def _unit_table(season):
     t = g.group_by("team_id").agg(pl.len().alias("gp"), *[pl.col(c).sum() for c in sums])
     # made-field-goal distances come from play-by-play (box scores carry only the longest)
     played = g.select("game_id", "team_id").unique()
-    att = _fg_att(season).join(played, on=["game_id", "team_id"])
+    att = F_(season, max_week).join(played, on=["game_id", "team_id"])
     made = pl.col("made")
     band = lambda lo, hi: (pl.col("dist") >= lo) & (pl.col("dist") <= hi)
     fgd = att.group_by("team_id").agg(
@@ -136,8 +167,8 @@ def _unit_table(season):
     return t.filter(pl.col("team_id").is_in(list(fbs)) & (pl.col("gp") > 0))
 
 
-def unit_ranks(team_id, season):
-    t = _unit_table(season)
+def unit_ranks(team_id, season, max_week=None):
+    t = _unit_table(season, max_week)
     div = lambda a, b: pl.when(pl.col(b) > 0).then(pl.col(a) / pl.col(b)).otherwise(None)
     t = t.with_columns(
         (pl.col("yds") / pl.col("gp")).alias("off_ypg"), (pl.col("o_yds") / pl.col("gp")).alias("def_ypg"),
@@ -191,8 +222,8 @@ def unit_ranks(team_id, season):
     return {"gp": me["gp"], "rows": rows, "fg_no_dist": max(0, int(me["fga"]) - band_att)}
 
 
-def season_block(team_id, season):
-    sched = _sched(season)
+def season_block(team_id, season, max_week=None):
+    sched = S_(season, max_week)
     fbs_ids = set(
         sched.filter(pl.col("home_division") == "fbs")["home_id"].to_list()
         + sched.filter(pl.col("away_division") == "fbs")["away_id"].to_list()
@@ -222,7 +253,7 @@ def season_block(team_id, season):
         team_name = r0["home_team"] if r0["home_id"] == team_id else r0["away_team"]
 
     # --- play-by-play efficiency (EPA) for every FBS team, to rank our team ---
-    pbp = _pbp(season)
+    pbp = P_(season, max_week)
     off = pbp.group_by("pos_team_id").agg(
         pl.len().alias("plays"), pl.col("EPA").mean().alias("epa"),
         pl.col("EPA_success").mean().alias("sr"), pl.col("EPA_explosive").mean().alias("xr"),
@@ -258,7 +289,7 @@ def season_block(team_id, season):
     pg = {r["game_id"]: r for r in pg_off.join(pg_def, on="game_id", how="full", coalesce=True).to_dicts()}
 
     # --- team box per game ---
-    tb = _tbox(season)
+    tb = T_(season, max_week)
     game_ids = [g["game_id"] for g in games]
     tbx = tb.filter(pl.col("game_id").is_in(game_ids))
     box = {}
@@ -296,7 +327,7 @@ def season_block(team_id, season):
     }
 
     # --- player leaders (season totals from player box) ---
-    pb = _pbox(season).filter(
+    pb = B_(season, max_week).filter(
         (pl.col("team_id") == team_id) & pl.col("game_id").is_in(game_ids))
 
     def agg(cat, cols):
@@ -330,7 +361,7 @@ def season_block(team_id, season):
     for d in defense:
         d["ints"] = imap.get(d["id"], 0)
 
-    return {"summary": summary, "efficiency": efficiency, "units": unit_ranks(team_id, season), "games": games,
+    return {"summary": summary, "efficiency": efficiency, "units": unit_ranks(team_id, season, max_week), "games": games,
             "leaders": {"passing": passing, "rushing": rushing, "receiving": receiving, "defense": defense}}
 
 
@@ -357,6 +388,12 @@ def main():
         for s in seasons:
             print(team_id, "season", s)
             data["seasons"][str(s)] = season_block(team_id, s)
+        # prior season cut to the same week as the current one, for the Y/Y scorecard's like-for-like view
+        wk = completed_week(seasons[-1])
+        if wk and len(seasons) > 1:
+            prev = season_block(team_id, seasons[-2], max_week=wk)
+            data["seasons"][str(seasons[-2])]["to_date"] = {
+                "week": wk, "summary": prev["summary"], "efficiency": prev["efficiency"], "units": prev["units"]}
         path = out.format(id=team_id)
         with open(path, "w") as f:
             json.dump(data, f, default=str)

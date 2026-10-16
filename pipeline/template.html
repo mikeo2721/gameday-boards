@@ -96,6 +96,11 @@ table.yoy td.metric .det{display:block;font-weight:400;font-size:12px;color:var(
 table.yoy tr.grp td{font:600 12px var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:18px;background:transparent}
 table.yoy td.chg.good{color:var(--win)} table.yoy td.chg.bad{color:var(--loss)}
 .st{display:inline-block;font:700 12px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;align-self:flex-start;max-width:100%}
+.seg button{font:600 13px var(--body);padding:6px 12px;border:0;background:var(--surface);color:var(--ink);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--orange);color:var(--on-accent)}
+.seg button:focus-visible{outline:2px solid var(--orange);outline-offset:-2px}
 .st .short{display:none;font:700 11px var(--body)}
 @media (max-width:560px){table.yoy th:nth-child(5),table.yoy td:nth-child(5){display:none}
   table.yoy td.metric{min-width:0}table.yoy td,table.yoy th{padding-inline:5px}
@@ -178,6 +183,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
     <section class="yoy-sum" id="yoy-sum" aria-label="Year-over-year summary"></section>
     <section class="panel">
       <h2 id="yoy-title">Year-over-year scorecard</h2>
+      <div class="seg" id="yoy-mode" role="group" aria-label="Compare against"></div>
       <div class="note" id="yoy-sub"></div>
       <div class="tbl-wrap"><table class="yoy" id="yoy"></table></div>
       <div class="note" id="yoy-note"></div>
@@ -378,8 +384,18 @@ function renderTrend(){
   document.getElementById('trend').innerHTML=`<thead><tr><th></th>${ss.map(s=>`<th class="r">${s}${D.seasons[s].games.some(g=>!g.completed)?' (to date)':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,f])=>`<tr><td>${l}</td>${ss.map(s=>`<td class="r num">${get(s,f)}</td>`).join('')}</tr>`).join('')}</tbody>`;
 }
 
+let yoyMode='same';
+try{ const m=localStorage.getItem('yoyMode'); if(m==='full'||m==='same') yoyMode=m; }catch(e){}
 function renderYoY(){
-  const cy=seasons[seasons.length-1], py=seasons[seasons.length-2], C=D.seasons[cy], P=D.seasons[py];
+  const cy=seasons[seasons.length-1], py=seasons[seasons.length-2], C=D.seasons[cy], PF=D.seasons[py];
+  const TD=PF.to_date, same=yoyMode==='same' && !!TD;
+  const P = same ? TD : PF;
+  const seg=document.getElementById('yoy-mode');
+  seg.hidden=!TD;
+  if(TD){
+    seg.innerHTML=`<button type="button" data-m="same" aria-pressed="${same}">${py} through week ${TD.week}</button><button type="button" data-m="full" aria-pressed="${!same}">Full ${py} season</button>`;
+    seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{yoyMode=b.dataset.m; try{localStorage.setItem('yoyMode',yoyMode)}catch(e){} renderYoY();});
+  }
   const pg=(S,v)=>S.summary.games? v/S.summary.games : null;
   const wp=S=>S.summary.games? S.summary.w/S.summary.games : null;
   // fmt: how to print a value and its change. better: true=higher is better, false=lower, null=neutral.
@@ -438,9 +454,11 @@ function renderYoY(){
     .map(([l,v,c,sub])=>`<div class="kpi"><div class="eyebrow">${l}</div><div class="v num ${c}">${v}</div><div class="s">${sub}</div></div>`).join('');
   const inProg=C.games.some(g=>!g.completed);
   document.getElementById('yoy-title').textContent=`${cy} vs. ${py} scorecard`;
-  document.getElementById('yoy-sub').textContent=`${cy}${inProg?' to date':''}: ${C.summary.games} games · ${py}: ${P.summary.games} games. All metrics are per game, per play or per attempt so partial and full seasons compare.`;
+  document.getElementById('yoy-sub').textContent = same
+    ? `Like-for-like: ${cy} to date (${C.summary.games} games) vs. ${py} through the same week (${P.summary.games} games). ${py} ranks are re-computed among all FBS teams as of week ${TD.week} that year.`
+    : `${cy}${inProg?' to date':''}: ${C.summary.games} games · ${py} full season: ${P.summary.games} games. All metrics are per game, per play or per attempt so partial and full seasons compare.`;
   const rk=x=>x.rank==null?'':`${x.tied?'T-':''}${ord(x.rank)}`;
-  document.getElementById('yoy').innerHTML=`<thead><tr><th>Metric</th><th class="r">${py}</th><th class="r">${cy}</th><th class="r">Change</th><th class="r">FBS rank</th><th>Trend</th></tr></thead><tbody>`+
+  document.getElementById('yoy').innerHTML=`<thead><tr><th>Metric</th><th class="r">${py}${same?` <span class="rk">wk ${TD.week}</span>`:''}</th><th class="r">${cy}</th><th class="r">Change</th><th class="r">FBS rank</th><th>Trend</th></tr></thead><tbody>`+
     rows.map(r=>{
       if(r.grp) return `<tr class="grp"><td colspan="6">${r.grp}</td></tr>`;
       const [fv,fd]=F[r.fmt];
@@ -456,7 +474,7 @@ function renderYoY(){
         `<span class="st ${r.st>0?'up':r.st<0?'down':'flat'}" title="${r.st>0?'Better':r.st<0?'Worse':'Steady'}"><span class="full">${r.st>0?'Better':r.st<0?'Worse':'Steady'}</span><span class="short">${r.st>0?'▲':r.st<0?'▼':'–'}</span></span>`;
       return `<tr><td class="metric">${r.label}${r.det?`<span class="det">${r.det}</span>`:''}</td><td class="r num">${val(r.p)}</td><td class="r num">${val(r.c)}</td><td class="r num chg ${cls}">${chg}</td><td class="r num">${rank}</td><td>${st}</td></tr>`;
     }).join('')+'</tbody>';
-  document.getElementById('yoy-note').textContent=`"Better" / "Worse" needs a change larger than normal week-to-week noise, and where both seasons are ranked, an FBS rank that didn't move 5+ places the other way; mixed signals show as Steady. Ranks compare a team with all FBS teams at the same point, which partly offsets schedule differences, but ${inProg?`early-season ${cy} numbers lean on non-conference opponents and will move as conference play fills in.`:'opponent strength still differs year to year.'} Field goals attempted is shown but not scored.`;
+  document.getElementById('yoy-note').textContent=`"Better" / "Worse" needs a change larger than normal week-to-week noise, and where both seasons are ranked, an FBS rank that didn't move 5+ places the other way; mixed signals show as Steady. Ranks compare a team with all FBS teams at the same point, which partly offsets schedule differences, but ${same?'opponents still differ year to year.':(inProg?`early-season ${cy} numbers lean on non-conference opponents and will move as conference play fills in; the "through week" view avoids that.`:'opponent strength still differs year to year.')} Field goals attempted is shown but not scored.`;
 }
 
 function render(){

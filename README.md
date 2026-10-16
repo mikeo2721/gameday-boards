@@ -30,5 +30,6 @@ Ties show as T-. Rate stats need at least one attempt, so N can differ by row.
 
 ## Y/Y Scorecard tab
 A "Y/Y Scorecard" tab after the season tabs compares the latest season with the one before, built in the page from data already in each board (no pipeline step). It covers 33 metrics: results (win %, scoring, turnover margin per game, 3rd down), EPA efficiency and every unit ranking. All are rate stats, so a partial season compares with a full one.
+Toggle: "<last year> through week N" (default) vs. "Full <last year> season". The like-for-like view uses `seasons[<prior>].to_date`, written by `fetch.py`: the prior season cut to regular-season games through the current season's last completed week (`completed_week()`: last week with 90%+ of games final, since canceled games never finish), with EPA and unit ranks recomputed among all FBS teams as of that week.
 Trend rule: Better/Worse needs a value change beyond a per-metric noise threshold and, where both seasons are ranked, an FBS rank that did not move 5+ places the other way; anything mixed is Steady. Field goals attempted is shown but not scored. On phones the rank column is hidden and trends show as arrows.
 
