@@ -88,6 +88,20 @@ header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items
 
 /* year-over-year scorecard */
 .view{display:flex;flex-direction:column;gap:22px}
+/* injuries tab */
+.panel[hidden]{display:none}
+.inj-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.inj-sum .kpi .v small{font-size:18px;color:var(--muted);font-weight:600}
+.meter{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--loss)}
+.stat{display:inline-block;font:700 12px var(--display);letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.stat.out{background:var(--loss-soft);color:var(--loss)} .stat.doubt{background:var(--loss-soft);color:var(--ink)}
+.stat.q{background:var(--line);color:var(--ink)} .stat.prob,.stat.ex{background:transparent;color:var(--muted);border:1px solid var(--line)}
+table.inj td.name{white-space:normal;min-width:120px}
+@media (max-width:560px){table.inj td,table.inj th{padding-inline:5px}table.inj td.name{min-width:0}}
+table.inj td.unk{color:var(--muted);font-size:12.5px;white-space:normal}
+.man{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-left:6px}
+@media (max-width:560px){table.inj th.hide-sm,table.inj td.hide-sm{display:none}}
 .view[hidden]{display:none}
 .yoy-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .yoy-sum .kpi .v.up{color:var(--win)} .yoy-sum .kpi .v.down{color:var(--loss)}
@@ -190,6 +204,20 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
     </section>
   </div>
 
+  <div class="view" id="inj-view" hidden>
+    <section class="inj-sum" id="inj-sum" aria-label="Starters out"></section>
+    <section class="panel">
+      <h2>Starters on the availability report</h2>
+      <div class="note" id="inj-sub"></div>
+      <div class="tbl-wrap"><table class="inj" id="inj-starters"></table></div>
+    </section>
+    <section class="panel">
+      <h2>Other players on the report</h2>
+      <div class="tbl-wrap"><table class="inj" id="inj-other"></table></div>
+    </section>
+    <div class="note" id="inj-note"></div>
+  </div>
+
   <section class="panel">
     <h2>Three-season trend</h2>
     <div class="tbl-wrap"><table id="trend"></table></div>
@@ -209,7 +237,7 @@ document.getElementById('hdr-name').innerHTML = `<span>${M.school}</span> ${M.ma
 document.getElementById('hdr-eyebrow').textContent = 'College football · ' + (M.independent ? 'FBS Independent' : M.conf);
 const seasons = Object.keys(D.seasons).sort();
 let cur = seasons[seasons.length-1];
-try{ const s = localStorage.getItem('season'); if(s && (D.seasons[s] || (s==='yoy' && seasons.length>1))) cur = s; }catch(e){}
+try{ const s = localStorage.getItem('season'); if(s && (D.seasons[s] || (s==='yoy' && seasons.length>1) || s==='inj')) cur = s; }catch(e){}
 
 const isPost = g => g.season_type===3 || g.season_type==='postseason';
 const f1 = x => x==null ? '–' : x.toFixed(1);
@@ -223,7 +251,8 @@ const ord = n => { const s=['th','st','nd','rd'], v=n%100; return n+(s[(v-20)%10
 function renderTabs(){
   const el=document.getElementById('tabs');
   el.innerHTML = seasons.slice().reverse().map(s=>`<button type="button" id="tab-${s}" aria-pressed="${s===cur}" data-s="${s}">${s}</button>`).join('')
-    + (seasons.length>1 ? `<button type="button" id="tab-yoy" aria-pressed="${cur==='yoy'}" data-s="yoy">Y/Y Scorecard</button>` : '');
+    + (seasons.length>1 ? `<button type="button" id="tab-yoy" aria-pressed="${cur==='yoy'}" data-s="yoy">Y/Y Scorecard</button>` : '')
+    + `<button type="button" id="tab-inj" aria-pressed="${cur==='inj'}" data-s="inj">Injuries</button>`;
   el.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.s; try{localStorage.setItem('season',cur)}catch(e){} render();});
 }
 
@@ -480,11 +509,94 @@ function renderYoY(){
   document.getElementById('yoy-note').textContent=`"Better" / "Worse" needs a change larger than normal week-to-week noise, and where both seasons are ranked, an FBS rank that didn't move 5+ places the other way; mixed signals show as Steady. Ranks compare a team with all FBS teams at the same point, which partly offsets schedule differences, but ${same?'opponents still differ year to year.':(inProg?`early-season ${cy} numbers lean on non-conference opponents and will move as conference play fills in; the "through week" view avoids that.`:'opponent strength still differs year to year.')} Field goals attempted is shown but not scored.`;
 }
 
+
+/* ---------- Injuries tab: availability report (injuries.json, refreshed Wed-Sat) x box-score starters ---------- */
+let INJ = undefined;  // undefined = not loaded yet, null = failed
+function loadInjuries(){
+  fetch('injuries.json?t='+Math.floor(Date.now()/300000), {cache:'no-store'})
+    .then(r=>r.ok?r.json():Promise.reject(r.status)).then(j=>{INJ=j;}).catch(()=>{INJ=null;})
+    .finally(()=>{ if(cur==='inj') renderInjuries(); });
+}
+const nm = s => String(s||'').toLowerCase().replace(/[\u2018\u2019']/g,'').replace(/\b(jr|sr|ii|iii|iv|v)\b\.?/g,'').replace(/[^a-z]/g,'');
+const lastNm = s => nm(String(s||'').replace(/\b(jr|sr|ii|iii|iv|v)\b\.?/gi,'').trim().split(/\s+/).pop());
+const OL_POS = new Set(['OL','OT','OG','C','G','T','IOL','OC']);
+const ST_POS = new Set(['K','P','PK','P/K','K/P','LS','DS','SN']);
+const DEF_POS = new Set(['DL','DE','DT','NT','EDG','EDGE','LB','ILB','OLB','MLB','JCK','JACK','STAR','N/S','DB','CB','S','SAF','FS','SS','NB','NICKEL','BUCK','SPUR','WOLF']);
+const unitOf = p => { const u=String(p||'').toUpperCase(); return OL_POS.has(u)?'ol':ST_POS.has(u)?'st':DEF_POS.has(u)?'def':'off'; };
+const STAT = {'Out':['out','Out'],'Out (season)':['out','Out (season)'],'Out - (1st Half)':['doubt','Out 1st half'],'Doubtful':['doubt','Doubtful'],
+  'Questionable':['q','Questionable'],'Probable':['prob','Probable'],'Exempt':['ex','Exempt'],'Available':['prob','Available']};
+const statPill = s => { const [c,l]=STAT[s]||['q',s]; return `<span class="stat ${c}">${esc(l)}</span>`; };
+const isOut = s => s==='Out' || s==='Out (season)';
+const ORDER = ['Out (season)','Out','Out - (1st Half)','Doubtful','Questionable','Probable','Exempt','Available'];
+const ROLE_LBL = {QB:'QB1',RB:'RB1',Receiver:'Top-4 receiver',Defense:'Top-11 defender',K:'Kicker',P:'Punter',KR:'Kick returner',PR:'Punt returner',LS:'Long snapper'};
+
+function renderInjuries(){
+  const sum=document.getElementById('inj-sum'), sub=document.getElementById('inj-sub'),
+        tS=document.getElementById('inj-starters'), tO=document.getElementById('inj-other');
+  const note=document.getElementById('inj-note');
+  note.textContent = 'Starters are inferred from this season\'s box scores (ESPN has no college depth charts): the most-used QB, RB, four receivers, 11 defenders by tackles per game, and the kicker, punter and returners, among players in at least 35% of games. Offensive linemen never appear in box scores, so they are not counted; any OL on the report is listed with starter status unknown. The long snapper comes from the report roster when exactly one is listed. Percentages count Out only (including season-ending). Reports come from the conference availability reports (SEC, Big Ten, ACC, Big 12), which cover conference games only and list a reason only as a status; entries marked Manual were added by hand.';
+  if(INJ===undefined){ sum.innerHTML=''; sub.textContent='Loading the latest availability report…'; tS.innerHTML=''; tO.innerHTML=''; loadInjuries(); return; }
+  if(INJ===null){ sum.innerHTML=''; sub.textContent='The availability report could not be loaded. It is served next to this page as injuries.json.'; tS.innerHTML=''; tO.innerHTML=''; return; }
+  const R = (INJ.teams||{})[String(D.team_id)];
+  const ST = (D.starters||[]).map(s=>({...s}));
+  if(!R){
+    sum.innerHTML=''; tS.innerHTML=''; tO.innerHTML='';
+    tO.closest('section').hidden = true;
+    sub.innerHTML = M.independent
+      ? `No official availability report. ${esc(M.school)} is independent, and conference reports cover conference games only.`
+      : `No availability report yet for ${esc(M.school)}'s next game. Conference reports cover conference games only and are posted Wednesday or Thursday before a Saturday game.`;
+    return;
+  }
+  const rp = (R.players||[]).map(p=>({...p, n:nm(p.name), l:lastNm(p.name), u:unitOf(p.pos)}));
+  // long snapper from the roster when exactly one is listed
+  const ls = rp.filter(p=>['LS','DS','SN'].includes(String(p.pos||'').toUpperCase()));
+  if(ls.length===1) ST.push({name:ls[0].name, jersey:ls[0].jersey, unit:'st', role:'LS', gp:null, per_game:null, stat:''});
+  const find = s => rp.find(p=>p.n===nm(s.name)) || rp.find(p=>p.l===lastNm(s.name) && s.jersey!=null && String(p.jersey)===String(s.jersey));
+  const listed = rp.filter(p=>p.status!=='Available');
+  const used = new Set();
+  const rows = [];  // starter rows on the report
+  ST.forEach(s=>{ const p=find(s); if(p && p.status!=='Available'){ used.add(p); rows.push({s,p}); } });
+  // group by player (a starter can hold two roles, e.g. WR + PR)
+  const byP = new Map(); rows.forEach(({s,p})=>{ const k=p.n; if(!byP.has(k)) byP.set(k,{p,roles:[]}); byP.get(k).roles.push(s); });
+  const units = [['off','Offense','skill starters'],['def','Defense','starters'],['st','Special teams','specialists']];
+  sum.innerHTML = units.map(([u,label,what])=>{
+    const tot = ST.filter(s=>s.unit===u).length;
+    const out = ST.filter(s=>s.unit===u && (()=>{const p=find(s); return p && isOut(p.status);})()).length;
+    const pctv = tot? out/tot : 0;
+    return `<div class="kpi"><div class="eyebrow">${label} starters out</div><div class="v num">${tot?Math.round(pctv*100)+'%':'–'}</div>
+      <div class="s">${out} of ${tot} ${what}${u==='off'?' (OL not tracked)':''}</div><div class="meter"><i style="width:${(pctv*100).toFixed(0)}%"></i></div></div>`;
+  }).join('') + (()=>{ const uniq=[...new Map(ST.map(s=>[nm(s.name),s])).values()];
+    const out=uniq.filter(s=>{const p=find(s); return p && isOut(p.status);}).length, nl=listed.filter(p=>p.status!=='Exempt').length;
+    return `<div class="kpi"><div class="eyebrow">Tracked starters out</div><div class="v num">${out}<small> / ${uniq.length}</small></div><div class="s">${nl} player${nl===1?'':'s'} on the report${R.roster_size?` (roster of ${R.roster_size})`:''}</div></div>`; })();
+  const gd = R.game_date ? new Date(R.game_date+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}) : '';
+  const pub = R.published ? R.published.replace(/:00$/,'').replace(/(\d{4}-\d\d-\d\d) (\d\d:\d\d)/,(m,d,t)=>new Date(d+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})+' '+t) : '';
+  const past = R.game_date && R.game_date < new Date().toISOString().slice(0,10);
+  sub.innerHTML = `${esc(R.source)}${R.report_type?` · ${esc(R.report_type)} report`:''}${pub?` published ${esc(pub)} ${esc(R.tz||'')}`:''} · ${R.opponent?`vs. ${esc(R.opponent)}`:'next game'}${gd?`, ${gd}`:''}${past?' <b>(game already played; next report due midweek)</b>':''}${R.manual_note?` · Note: ${esc(R.manual_note)}`:''}`;
+  const sortP = (a,b)=>ORDER.indexOf(a.status)-ORDER.indexOf(b.status);
+  const sr = [...byP.values()].sort((a,b)=>sortP(a.p,b.p));
+  const olRows = listed.filter(p=>p.u==='ol' && !used.has(p) && p.status!=='Exempt').sort(sortP);
+  tS.innerHTML = (sr.length||olRows.length) ? `<thead><tr><th>Player</th><th>Status</th><th>Pos</th><th>Starter role</th><th class="r hide-sm">Season use</th></tr></thead><tbody>`
+    + sr.map(({p,roles})=>`<tr><td class="name">${p.jersey!=null?`<span class="jersey">#${esc(p.jersey)}</span>`:''}${esc(p.name)}${p.manual?'<span class="man">Manual</span>':''}</td><td>${statPill(p.status)}</td><td>${esc(p.pos||'')}</td>
+       <td class="name">${roles.map(r=>ROLE_LBL[r.role]||r.role).join(', ')}</td><td class="r num hide-sm">${roles.filter(r=>r.per_game!=null).map(r=>`${r.per_game} ${esc(r.stat)} · ${r.gp} g`).join('<br>')}</td></tr>`).join('')
+    + olRows.map(p=>`<tr><td class="name">${p.jersey!=null?`<span class="jersey">#${esc(p.jersey)}</span>`:''}${esc(p.name)}${p.manual?'<span class="man">Manual</span>':''}</td><td>${statPill(p.status)}</td><td>${esc(p.pos||'')}</td><td class="unk" colspan="2">OL: starter status unknown</td></tr>`).join('')
+    + '</tbody>' : `<tbody><tr><td>No tracked starters are on this report.</td></tr></tbody>`;
+  const other = listed.filter(p=>!used.has(p) && p.u!=='ol' && p.status!=='Exempt').sort(sortP);
+  tO.closest('section').hidden = false;
+  const ex = listed.filter(p=>!used.has(p) && p.status==='Exempt').length;
+  const ul = {off:'Offense',def:'Defense',st:'Special teams'};
+  tO.innerHTML = other.length ? `<thead><tr><th>Player</th><th>Status</th><th>Pos</th><th class="hide-sm">Unit</th></tr></thead><tbody>`
+    + other.map(p=>`<tr><td class="name">${p.jersey!=null?`<span class="jersey">#${esc(p.jersey)}</span>`:''}${esc(p.name)}${p.manual?'<span class="man">Manual</span>':''}</td><td>${statPill(p.status)}</td><td>${esc(p.pos||'')}</td><td class="hide-sm">${ul[p.u]}</td></tr>`).join('')
+    + `</tbody>` + (ex?`<caption class="note" style="caption-side:bottom;text-align:left;padding-top:8px">${ex} more listed as Exempt (excused from reporting; no status given), not shown.</caption>`:'')
+    : `<tbody><tr><td>No other players listed${ex?` (${ex} Exempt from reporting)`:''}.</td></tr></tbody>`;
+}
+
 function render(){
-  const yoy = cur==='yoy';
-  document.getElementById('season-view').hidden = yoy;
+  const yoy = cur==='yoy', inj = cur==='inj';
+  document.getElementById('season-view').hidden = yoy || inj;
   document.getElementById('yoy-view').hidden = !yoy;
+  document.getElementById('inj-view').hidden = !inj;
   renderTabs();
+  if(inj){ renderHeader(D.seasons[seasons[seasons.length-1]]); renderInjuries(); return; }
   if(yoy){ renderHeader(D.seasons[seasons[seasons.length-1]]); renderYoY(); return; }
   const S=D.seasons[cur];
   renderHeader(S); renderKpis(S); renderEff(S); renderChart(S); renderUnits(S); renderLog(S); renderLeaders(S);

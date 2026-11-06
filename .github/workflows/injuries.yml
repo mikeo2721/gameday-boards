@@ -1,0 +1,33 @@
+# Availability reports -> injuries.json (read by each board's Injuries tab).
+# Conference reports are posted Wednesday night through ~2 hours before kickoff, for conference games only.
+# Schedule is UTC: every 2 hours Thu-Fri, hourly Sat, and Sun 00-06 UTC (Saturday evening Central).
+name: injuries
+on:
+  schedule:
+    - cron: '23 */2 * * 4,5'
+    - cron: '23 * * * 6'
+    - cron: '23 0-6 * * 0'
+  push:
+    branches: [main]
+    paths: [pipeline/injuries.py, pipeline/injuries_manual.json, pipeline/teams.json, .github/workflows/injuries.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: injuries
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 pipeline/injuries.py injuries.json
+      - name: Commit if changed
+        run: |
+          git config user.name "gameday-bot"
+          git config user.email "gameday-bot@users.noreply.github.com"
+          git add injuries.json
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -m "Availability reports $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 5; done
+          exit 1

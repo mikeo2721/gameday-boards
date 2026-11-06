@@ -1,0 +1,5 @@
+{
+  "_readme": "Manual availability for games without an official conference report (Notre Dame, non-conference games). Keys are ESPN team ids from teams.json. See the docstring in injuries.py for the format. Entries are ignored after their game_date.",
+  "87": {"opponent": "Miami", "game_date": "2026-11-07", "note": null, "replace": false, "players": []},
+  "2390": {"opponent": "Notre Dame", "game_date": "2026-11-07", "note": null, "replace": false, "players": []}
+}

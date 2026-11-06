@@ -389,6 +389,52 @@ def season_block(team_id, season, max_week=None):
             "leaders": {"passing": passing, "rushing": rushing, "receiving": receiving, "defense": defense}}
 
 
+def starters(team_id, season):
+    """Regular starters inferred from the season's player box scores, for the Injuries tab.
+
+    ESPN has no college depth charts, so a "starter" is the most-used player at each spot by
+    per-game volume, among players who appeared in at least max(2, 35% of the team's games):
+      offense (6 skill spots): QB by pass attempts, RB by rush attempts, top 4 receivers by catches;
+      defense (11): top 11 by tackles per game;
+      special teams: K by kick attempts (FG + XP), P by punts, KR and PR by returns.
+    Offensive linemen never appear in box scores, so they are not tracked as starters.
+    Long snappers are added on the page from the availability report roster when a team lists exactly one.
+    """
+    pb = _pbox(season).filter(pl.col("team_id") == team_id)
+    pb = pb.filter(pl.col("athlete_name").is_not_null() & (pl.col("athlete_name").str.to_lowercase() != "team"))
+    if not pb.height:
+        return []
+    n_games = pb["game_id"].n_unique()
+    min_gp = max(2, -(-35 * n_games // 100))
+    gp = {r["athlete_id"]: r["gp"] for r in pb.group_by("athlete_id").agg(pl.col("game_id").n_unique().alias("gp")).iter_rows(named=True)}
+    info = {r["athlete_id"]: (r["athlete_name"], r["jersey"]) for r in pb.iter_rows(named=True)}
+
+    def per_game(cat, value):  # value: row -> number
+        tot = {}
+        for r in pb.filter(pl.col("category") == cat).iter_rows(named=True):
+            tot[r["athlete_id"]] = tot.get(r["athlete_id"], 0) + (value(r) or 0)
+        rows = [(a, v / gp[a], v) for a, v in tot.items() if v > 0 and gp[a] >= min_gp]
+        return sorted(rows, key=lambda x: -x[1])
+
+    out = []
+    def add(unit, role, rows, k, label, exclude=()):
+        for a, pg, tot in [r for r in rows if r[0] not in exclude][:k]:
+            name, jersey = info[a]
+            out.append({"id": a, "name": name, "jersey": jersey, "unit": unit, "role": role,
+                        "gp": gp[a], "per_game": round(pg, 1), "stat": label})
+    qb = per_game("passing", lambda r: split_pair(r["completions/passingAttempts"])[1])
+    add("off", "QB", qb, 1, "pass att/g")
+    add("off", "RB", per_game("rushing", lambda r: num(r["rushingAttempts"])), 1, "rush att/g", exclude={q[0] for q in qb[:1]})
+    add("off", "Receiver", per_game("receiving", lambda r: num(r["receptions"])), 4, "rec/g")
+    add("def", "Defense", per_game("defensive", lambda r: num(r["totalTackles"])), 11, "tkl/g")
+    add("st", "K", per_game("kicking", lambda r: split_pair(r["fieldGoalsMade/fieldGoalAttempts"])[1]
+                             + split_pair(r["extraPointsMade/extraPointAttempts"])[1]), 1, "kicks/g")
+    add("st", "P", per_game("punting", lambda r: num(r["punts"])), 1, "punts/g")
+    add("st", "KR", per_game("kickReturns", lambda r: num(r["kickReturns"])), 1, "KR/g")
+    add("st", "PR", per_game("puntReturns", lambda r: num(r["puntReturns"])), 1, "PR/g")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--team-id", type=int, nargs="+", default=[251])
@@ -418,6 +464,7 @@ def main():
             prev = season_block(team_id, seasons[-2], max_week=wk)
             data["seasons"][str(seasons[-2])]["to_date"] = {
                 "week": wk, "summary": prev["summary"], "efficiency": prev["efficiency"], "units": prev["units"]}
+        data["starters"] = starters(team_id, seasons[-1])
         path = out.format(id=team_id)
         with open(path, "w") as f:
             json.dump(data, f, default=str)
