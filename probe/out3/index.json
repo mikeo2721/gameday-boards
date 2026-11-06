@@ -1,0 +1,36 @@
+{
+ "ArchiveScreen-LP9a_7bu.js": 200,
+ "ArchiveScreen-LP9a_7bu.js_api": [
+  "/api/get-archive",
+  "/api/get-archive-legacy",
+  "/api/get-archive-legacy-public",
+  "/api/get-archive-public"
+ ],
+ "PublishScreen-DVzVlIT2.js": 200,
+ "PublishScreen-DVzVlIT2.js_api": [
+  "/api/get-publish",
+  "/api/get-publish-public"
+ ],
+ "SelectionScreen-DmYzqatw.js": 200,
+ "SelectionScreen-DmYzqatw.js_api": [],
+ "SummaryScreen-Cscbr193.js": 200,
+ "SummaryScreen-Cscbr193.js_api": [
+  "/api/get-players",
+  "/api/get-schedule-to-edit",
+  "/api/get-schedules",
+  "/api/override-player-status",
+  "/api/today-summary",
+  "/api/update-game-time"
+ ],
+ "WindowScreen-5BYnE94n.js": 200,
+ "WindowScreen-5BYnE94n.js_api": [
+  "/api/get-window",
+  "/api/submit-kill-window"
+ ],
+ "index-CKzk7DXJ.js": 200,
+ "index-CKzk7DXJ.js_api": [],
+ "public_load_SEC": 200,
+ "public_load_B10": 200,
+ "public_load_ACC": 200,
+ "public_load_B12": 200
+}

@@ -1,0 +1,14 @@
+import{R as S,u as b,c as j,r as v,j as e,h as w,T as C,d as n,e as I}from"./index-1QwX4QRv.js";const T=()=>{const{scopeChoices:r,applyScope:a,setLoadSelection:p,signOut:c,isMobile:o,hasPermission:d}=b(),{HDI_GREEN:i,FONT:s,BG:x,titleStyle:h,btnStyle:m}=j(),[f,l]=v.useState(!1),g=t=>{p(!1),a(t.scope,t.role)},u={backgroundColor:"var(--color-surface)",border:"1px solid var(--color-divider)",borderRadius:"10px",padding:"20px",display:"flex",flexDirection:"column",alignItems:"center",gap:"10px",textAlign:"center"},y={fontFamily:s,color:i,fontSize:"20px",fontWeight:"700",margin:0};return e.jsxs("div",{style:{display:"flex",flexDirection:"column",gap:"14px",padding:o?"16px":"24px",paddingBottom:o?"70px":"24px",alignItems:"center",fontFamily:s,backgroundColor:x,minHeight:"100vh",width:"100%",boxSizing:"border-box",overflowX:"hidden"},children:[e.jsxs("div",{style:{position:"relative",width:"100%",maxWidth:"1100px",display:"flex",flexDirection:o?"column":"row",alignItems:"center",justifyContent:"center",gap:"12px"},children:[e.jsxs("div",{style:{display:"flex",alignItems:"center",gap:"12px"},children:[e.jsx("img",{src:w,alt:"HDI",style:{height:"48px",objectFit:"contain"}}),e.jsx("h2",{style:{...h,color:i,margin:0},children:"Choose Hub"})]}),e.jsxs("div",{style:{...o?{}:{position:"absolute",right:0,top:"50%",transform:"translateY(-50%)"},display:"flex",alignItems:"center",gap:"10px"},children:[d("Tech_Support_Self_Service","view")&&e.jsx(C,{FONT:s,onClick:()=>l(!0)}),e.jsx("button",{onClick:c,style:{fontFamily:s,padding:"8px 16px",backgroundColor:"transparent",border:`1px solid ${i}`,borderRadius:"5px",color:i,cursor:"pointer",fontWeight:"600",fontSize:"13px",whiteSpace:"nowrap"},children:"Sign out"})]})]}),e.jsx("style",{children:`
+        .hdi-admin-card {
+          box-sizing: border-box;
+          flex: 0 1 calc(50% - 8px);
+          min-width: 0;
+          max-width: calc(50% - 8px);
+        }
+        @media (max-width: 700px) {
+          .hdi-admin-card {
+            flex: 1 1 100%;
+            max-width: 100%;
+          }
+        }
+      `}),e.jsx("div",{style:{display:"flex",flexWrap:"wrap",gap:"16px",justifyContent:"center",width:"100%",maxWidth:"1100px",alignItems:"flex-start"},children:(r||[]).map(t=>e.jsxs("div",{className:"hdi-admin-card",style:u,children:[e.jsx("h3",{style:y,children:n(t.scope)}),e.jsxs("button",{onClick:()=>g(t),style:m,children:["Go to ",n(t.scope)," →"]})]},t.scope))}),f&&e.jsx(I,{onClose:()=>l(!1)})]})},R=S.memo(T);export{R as default};
