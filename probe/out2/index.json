@@ -1,0 +1,26 @@
+{
+ "hdi_sec": {
+  "url": "https://app.hdintelligence.com/?source=SEC&sport=Football&conf=SEC&type=report",
+  "final": "https://app.hdintelligence.com/?source=SEC&sport=Football&conf=SEC&type=report",
+  "status": 200,
+  "bytes": 7629
+ },
+ "hdi_js_0": {
+  "url": "https://app.hdintelligence.com/assets/index-1QwX4QRv.js",
+  "final": "https://app.hdintelligence.com/assets/index-1QwX4QRv.js",
+  "status": 200,
+  "bytes": 1442394
+ },
+ "big12_fb": {
+  "url": "https://big12sports.com/sports/2025/8/14/FBreporting.aspx",
+  "final": "https://big12sports.com/sports/2025/8/14/FBreporting.aspx",
+  "status": 200,
+  "bytes": 385196
+ },
+ "espn_summary_done": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401858282",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401858282",
+  "status": 200,
+  "bytes": 479675
+ }
+}
