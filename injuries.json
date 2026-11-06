@@ -681,8 +681,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-04 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -712,7 +712,7 @@
      "pos": "RB",
      "jersey": "4",
      "name": "LJ Martin",
-     "status": "Doubtful"
+     "status": "Questionable"
     },
     {
      "pos": "LB",
@@ -730,7 +730,7 @@
      "pos": "S",
      "jersey": "37",
      "name": "Joseph Douglas",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "CB",
@@ -772,7 +772,7 @@
      "pos": "DE",
      "jersey": "59",
      "name": "Siosefa Brown",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -797,12 +797,6 @@
      "jersey": "78",
      "name": "Ethan Thomason",
      "status": "Exempt"
-    },
-    {
-     "pos": "K",
-     "jersey": "99",
-     "name": "Brody Laga",
-     "status": "Probable"
     }
    ]
   },
@@ -1043,8 +1037,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-04 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "20:30:00",
@@ -1056,13 +1050,13 @@
      "pos": "S",
      "jersey": "0",
      "name": "Mikal Harrison-Pilot",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
      "jersey": "2",
      "name": "Kenny Johnson",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "S",
@@ -1086,7 +1080,7 @@
      "pos": "WR",
      "jersey": "11",
      "name": "Malcolm Simmons",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "S",
@@ -1110,7 +1104,7 @@
      "pos": "OLB",
      "jersey": "33",
      "name": "Ansel Nedore",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "LB",
@@ -1146,5 +1140,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-06T02:28+00:00"
+ "updated": "2026-11-06T04:27+00:00"
 }
