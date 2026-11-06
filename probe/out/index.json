@@ -1,0 +1,130 @@
+{
+ "espn_site_injuries_87": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/87/injuries",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/87/injuries",
+  "status": 200,
+  "bytes": 2,
+  "links": []
+ },
+ "espn_site_injuries_61": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/injuries",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/injuries",
+  "status": 200,
+  "bytes": 2,
+  "links": []
+ },
+ "espn_core_injuries_61": {
+  "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/teams/61/injuries",
+  "final": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/teams/61/injuries",
+  "status": 200,
+  "bytes": 64,
+  "links": []
+ },
+ "espn_site_depth_61": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/depthcharts",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/depthcharts",
+  "status": 200,
+  "bytes": 457,
+  "links": []
+ },
+ "espn_core_depth_61": {
+  "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/61/depthcharts",
+  "final": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/61/depthcharts",
+  "status": 400,
+  "bytes": 27,
+  "links": []
+ },
+ "espn_core_depth_87": {
+  "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/87/depthcharts",
+  "final": "https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/87/depthcharts",
+  "status": 400,
+  "bytes": 27,
+  "links": []
+ },
+ "espn_roster_61": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/roster",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/61/roster",
+  "status": 200,
+  "bytes": 440400,
+  "links": []
+ },
+ "espn_summary_uga_miss": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856741",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856741",
+  "status": 200,
+  "bytes": 113245,
+  "links": []
+ },
+ "espn_summary_nd_mia": {
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401858291",
+  "final": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401858291",
+  "status": 200,
+  "bytes": 122923,
+  "links": []
+ },
+ "sec_fbreports": {
+  "url": "https://www.secsports.com/fbreports",
+  "final": "https://www.secsports.com/fbreports",
+  "status": 200,
+  "bytes": 127935,
+  "links": []
+ },
+ "bigten_fb": {
+  "url": "https://bigten.org/fb/",
+  "final": "https://bigten.org/fb/",
+  "status": 404,
+  "bytes": 25,
+  "links": []
+ },
+ "bigten_avail": {
+  "url": "https://bigten.org/fb/availability-reports/",
+  "final": "https://bigten.org/sports/2026/9/10/FB_Availability_Reports.aspx",
+  "status": 200,
+  "bytes": 391274,
+  "links": [
+   "https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapp.hdintelligence.com%2F%3Fsource%3DB10%26sport%3DFootball%26conf%3DB10%26type%3Dreport&amp;data=05%7C02%7Cmatthew.vanallen%40sidearmsports.com%7C7e39839c61924058f4d408df12a00c8d%7C9ec27d530bd54273bb29f1a384648c78%7C0%7C0%7C639250150756484045%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=DFtp09r%2FLCToLu2QQCgaDj3olUXTuEQ5wRGIQunuuH4%3D&amp;reserved=0"
+  ]
+ },
+ "acc_short": {
+  "url": "https://theacc.co/fbreporting",
+  "final": "https://theacc.com/sports/2025/8/28/availability-reporting-football.aspx",
+  "status": 200,
+  "bytes": 510440,
+  "links": [
+   "https://app.hdintelligence.com/?source=ACC&sport=Football&conf=ACC&type=report",
+   "https://static.theacc.com/feature-pages/availability-reporting/availability_reporting.css",
+   "https://theacc.com/sports/2025/8/28/availability-reporting-football-archive.aspx",
+   "https://theacc.com/sports/2025/8/28/availability-reporting-football.aspx",
+   "https://theacc.com/sports/2025/8/28/availability-reporting.aspx"
+  ]
+ },
+ "acc_policy": {
+  "url": "https://theacc.com/sports/2025/8/28/availability-reporting.aspx",
+  "final": "https://theacc.com/sports/2025/8/28/availability-reporting.aspx",
+  "status": 200,
+  "bytes": 353644,
+  "links": [
+   "/documents/2026/8/24//ACC_Availability_Reporting_Policy_2026_27.pdf?id=2940",
+   "https://static.theacc.com/feature-pages/availability-reporting/availability_reporting.css",
+   "https://theacc.com/sports/2025/11/14/availability-reporting-wbb.aspx",
+   "https://theacc.com/sports/2025/12/29/availability-reporting-mbb.aspx",
+   "https://theacc.com/sports/2025/8/28/availability-reporting-football.aspx",
+   "https://theacc.com/sports/2025/8/28/availability-reporting.aspx",
+   "https://theacc.com/sports/2026/2/20/availability-reporting-baseball.aspx"
+  ]
+ },
+ "big12_policy": {
+  "url": "https://big12sports.com/sports/2025/8/21/availability-reporting.aspx",
+  "final": "https://big12sports.com/sports/2025/8/21/availability-reporting.aspx",
+  "status": 200,
+  "bytes": 303504,
+  "links": [
+   "https://big12sports.com/documents/2026/9/2//Updated_Player_Availability_Policy_9_2_2026.pdf",
+   "https://big12sports.com/sports/2025/12/17/WBBreporting.aspx",
+   "https://big12sports.com/sports/2025/8/14/FBreporting.aspx",
+   "https://big12sports.com/sports/2025/8/21/availability-reporting.aspx",
+   "https://big12sports.com/sports/2026/1/1/MBBreporting.aspx",
+   "https://static.big12sports.com/feature-pages/availability-reporting/availability_reporting.css"
+  ]
+ }
+}
