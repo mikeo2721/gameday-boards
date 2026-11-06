@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-04 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -22,12 +22,6 @@
      "jersey": "5",
      "name": "Chauncey Bowens",
      "status": "Questionable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "6",
-     "name": "Isiah Canion",
-     "status": "Probable"
     },
     {
      "pos": "TE",
@@ -113,8 +107,8 @@
   "2390": null,
   "194": {
    "source": "Big Ten",
-   "report_type": "Initial",
-   "published": "2026-11-04 19:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -144,6 +138,12 @@
      "pos": "RB",
      "jersey": "24",
      "name": "Ja\u2019Kobi Jackson",
+     "status": "Out"
+    },
+    {
+     "pos": "S",
+     "jersey": "29",
+     "name": "Deshawn Stewart",
      "status": "Out"
     },
     {
@@ -193,8 +193,8 @@
   "84": null,
   "333": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-04 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -242,6 +242,12 @@
      "pos": "QB",
      "jersey": "19",
      "name": "John Cooper",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "21",
+     "name": "Dre Kirkpatrick Jr.",
      "status": "Exempt"
     },
     {
@@ -354,6 +360,12 @@
     },
     {
      "pos": "OL",
+     "jersey": "50",
+     "name": "Casey Poe",
+     "status": "Out"
+    },
+    {
+     "pos": "OL",
      "jersey": "53",
      "name": "Mac Smith",
      "status": "Exempt"
@@ -387,6 +399,12 @@
      "jersey": "62",
      "name": "Davis Peterson",
      "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "66",
+     "name": "Jared Graham",
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -434,8 +452,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-04 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -790,8 +808,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-04 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-05 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -828,12 +846,6 @@
      "jersey": "12",
      "name": "Izaiah Hartrup",
      "status": "Out"
-    },
-    {
-     "pos": "CB",
-     "jersey": "13",
-     "name": "Cedrick Beavers",
-     "status": "Probable"
     },
     {
      "pos": "QB",
@@ -978,12 +990,6 @@
      "jersey": "55",
      "name": "Cam Clark",
      "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "55",
-     "name": "Terez Davis",
-     "status": "Probable"
     },
     {
      "pos": "OL",
@@ -1140,5 +1146,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-06T00:32+00:00"
+ "updated": "2026-11-06T02:28+00:00"
 }
