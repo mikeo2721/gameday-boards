@@ -675,8 +675,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-05 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -1031,8 +1031,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-05 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "20:30:00",
@@ -1040,24 +1040,6 @@
    "opponent": "West Virginia",
    "roster_size": 110,
    "players": [
-    {
-     "pos": "S",
-     "jersey": "0",
-     "name": "Mikal Harrison-Pilot",
-     "status": "Probable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "2",
-     "name": "Kenny Johnson",
-     "status": "Probable"
-    },
-    {
-     "pos": "S",
-     "jersey": "3",
-     "name": "Peyton Morgan",
-     "status": "Probable"
-    },
     {
      "pos": "WR",
      "jersey": "6",
@@ -1078,27 +1060,9 @@
     },
     {
      "pos": "S",
-     "jersey": "21",
-     "name": "Miquel Dingle Jr.",
-     "status": "Probable"
-    },
-    {
-     "pos": "S",
-     "jersey": "22",
-     "name": "Marcus Ramon-Edwards",
-     "status": "Probable"
-    },
-    {
-     "pos": "S",
      "jersey": "28",
      "name": "Braylan McDonald",
      "status": "Exempt"
-    },
-    {
-     "pos": "OLB",
-     "jersey": "33",
-     "name": "Ansel Nedore",
-     "status": "Probable"
     },
     {
      "pos": "LB",
@@ -1120,12 +1084,6 @@
     },
     {
      "pos": "OL",
-     "jersey": "54",
-     "name": "Jordan Church",
-     "status": "Probable"
-    },
-    {
-     "pos": "OL",
      "jersey": "57",
      "name": "Hunter Zambrano",
      "status": "Exempt"
@@ -1134,5 +1092,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-07T01:27+00:00"
+ "updated": "2026-11-07T03:28+00:00"
 }
