@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-06 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 17:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -11,24 +11,6 @@
    "opponent": "Ole Miss",
    "roster_size": 128,
    "players": [
-    {
-     "pos": "WR",
-     "jersey": "2",
-     "name": "Thomas Blackshear",
-     "status": "Probable"
-    },
-    {
-     "pos": "RB",
-     "jersey": "5",
-     "name": "Chauncey Bowens",
-     "status": "Probable"
-    },
-    {
-     "pos": "TE",
-     "jersey": "10",
-     "name": "Elyiss Williams",
-     "status": "Questionable"
-    },
     {
      "pos": "ILB",
      "jersey": "13",
@@ -706,8 +688,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-06 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 17:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -716,28 +698,10 @@
    "roster_size": 121,
    "players": [
     {
-     "pos": "CB",
-     "jersey": "0",
-     "name": "Jalyn Crawford",
-     "status": "Probable"
-    },
-    {
-     "pos": "DE",
-     "jersey": "5",
-     "name": "Kam Franklin",
-     "status": "Questionable"
-    },
-    {
      "pos": "RB",
      "jersey": "5",
      "name": "Kewan Lacy",
      "status": "Out"
-    },
-    {
-     "pos": "LB",
-     "jersey": "11",
-     "name": "Keaton Thomas",
-     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -762,12 +726,6 @@
      "jersey": "16",
      "name": "George Hamsley",
      "status": "Exempt"
-    },
-    {
-     "pos": "S",
-     "jersey": "19",
-     "name": "MJ Preston",
-     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -1002,5 +960,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-07T19:27+00:00"
+ "updated": "2026-11-07T23:27+00:00"
 }
