@@ -107,8 +107,8 @@
   "2390": null,
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-06 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 12:30:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -120,7 +120,7 @@
      "pos": "WR",
      "jersey": "0",
      "name": "Brandon Inniss",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "QB",
@@ -132,7 +132,7 @@
      "pos": "WR",
      "jersey": "11",
      "name": "Brock Boyd",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -150,7 +150,7 @@
      "pos": "LB",
      "jersey": "33",
      "name": "Eli Lee",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "LS",
@@ -187,8 +187,8 @@
   "84": null,
   "333": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-06 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 13:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -197,40 +197,10 @@
    "roster_size": 127,
    "players": [
     {
-     "pos": "RB",
-     "jersey": "0",
-     "name": "AK Dear",
-     "status": "Probable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "1",
-     "name": "Ryan Coleman-Williams",
-     "status": "Probable"
-    },
-    {
-     "pos": "DB",
-     "jersey": "2",
-     "name": "Zabien Brown",
-     "status": "Questionable"
-    },
-    {
      "pos": "LB",
      "jersey": "9",
      "name": "Desmond Umeozulu",
      "status": "Out"
-    },
-    {
-     "pos": "RB",
-     "jersey": "13",
-     "name": "EJ Crowell",
-     "status": "Questionable"
-    },
-    {
-     "pos": "QB",
-     "jersey": "15",
-     "name": "Jett Thomalla",
-     "status": "Doubtful"
     },
     {
      "pos": "QB",
@@ -372,12 +342,6 @@
     },
     {
      "pos": "OL",
-     "jersey": "55",
-     "name": "Racin Delgatty",
-     "status": "Probable"
-    },
-    {
-     "pos": "OL",
      "jersey": "59",
      "name": "JD Martin",
      "status": "Exempt"
@@ -413,12 +377,6 @@
      "status": "Exempt"
     },
     {
-     "pos": "OL",
-     "jersey": "70",
-     "name": "William Sanders",
-     "status": "Questionable"
-    },
-    {
      "pos": "WR",
      "jersey": "83",
      "name": "Warner Ross",
@@ -435,12 +393,6 @@
      "jersey": "98",
      "name": "Tucker Cornelius",
      "status": "Exempt"
-    },
-    {
-     "pos": "DL",
-     "jersey": "99",
-     "name": "Terrance Green",
-     "status": "Probable"
     }
    ]
   },
@@ -1050,5 +1002,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-07T16:27+00:00"
+ "updated": "2026-11-07T19:27+00:00"
 }
