@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-05 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -15,13 +15,13 @@
      "pos": "WR",
      "jersey": "2",
      "name": "Thomas Blackshear",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "RB",
      "jersey": "5",
      "name": "Chauncey Bowens",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "TE",
@@ -33,7 +33,7 @@
      "pos": "ILB",
      "jersey": "13",
      "name": "AJ Kruah",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "OLB",
@@ -45,7 +45,7 @@
      "pos": "S",
      "jersey": "23",
      "name": "Tyriq Green",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "QB",
@@ -99,7 +99,7 @@
      "pos": "DL",
      "jersey": "99",
      "name": "Joseph Jonah-Ajonye",
-     "status": "Questionable"
+     "status": "Out"
     }
    ]
   },
@@ -107,8 +107,8 @@
   "2390": null,
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-05 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -120,7 +120,7 @@
      "pos": "WR",
      "jersey": "0",
      "name": "Brandon Inniss",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "QB",
@@ -132,7 +132,7 @@
      "pos": "WR",
      "jersey": "11",
      "name": "Brock Boyd",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "RB",
@@ -150,7 +150,7 @@
      "pos": "LB",
      "jersey": "33",
      "name": "Eli Lee",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "LS",
@@ -177,12 +177,6 @@
      "status": "Available"
     },
     {
-     "pos": "OL",
-     "jersey": "69",
-     "name": "Ian Moore",
-     "status": "Questionable"
-    },
-    {
      "pos": "TE",
      "jersey": "88",
      "name": "Maxence LeBlanc",
@@ -193,8 +187,8 @@
   "84": null,
   "333": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-05 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "14:30:00",
@@ -206,13 +200,13 @@
      "pos": "RB",
      "jersey": "0",
      "name": "AK Dear",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
      "jersey": "1",
      "name": "Ryan Coleman-Williams",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -380,7 +374,7 @@
      "pos": "OL",
      "jersey": "55",
      "name": "Racin Delgatty",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "OL",
@@ -446,14 +440,14 @@
      "pos": "DL",
      "jersey": "99",
      "name": "Terrance Green",
-     "status": "Questionable"
+     "status": "Probable"
     }
    ]
   },
   "251": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-05 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -471,7 +465,7 @@
      "pos": "WR",
      "jersey": "1",
      "name": "Ryan Wingo",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "RB",
@@ -489,7 +483,7 @@
      "pos": "DB",
      "jersey": "8",
      "name": "Kade Phillips",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -513,7 +507,7 @@
      "pos": "DB",
      "jersey": "29",
      "name": "Graceson Littleton",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -802,8 +796,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-05 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-06 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "18:30:00",
@@ -833,7 +827,7 @@
      "pos": "LB",
      "jersey": "11",
      "name": "Keaton Thomas",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -1140,5 +1134,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-06T04:27+00:00"
+ "updated": "2026-11-07T01:27+00:00"
 }
