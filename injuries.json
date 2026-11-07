@@ -446,8 +446,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-06 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 9:30:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -456,34 +456,10 @@
    "roster_size": 111,
    "players": [
     {
-     "pos": "EDG",
-     "jersey": "1",
-     "name": "Colin Simmons",
-     "status": "Questionable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "1",
-     "name": "Ryan Wingo",
-     "status": "Probable"
-    },
-    {
      "pos": "RB",
      "jersey": "2",
      "name": "Hollywood Smothers",
      "status": "Out"
-    },
-    {
-     "pos": "WR",
-     "jersey": "8",
-     "name": "Cam Coleman",
-     "status": "Questionable"
-    },
-    {
-     "pos": "DB",
-     "jersey": "8",
-     "name": "Kade Phillips",
-     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -502,12 +478,6 @@
      "jersey": "28",
      "name": "Jett Walker",
      "status": "Exempt"
-    },
-    {
-     "pos": "DB",
-     "jersey": "29",
-     "name": "Graceson Littleton",
-     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -675,8 +645,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-06 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-07 9:30:00",
    "tz": "CT",
    "game_date": "2026-11-07",
    "game_time": "11:00:00",
@@ -688,7 +658,7 @@
      "pos": "CB",
      "jersey": "0",
      "name": "Evan Johnson",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "CB",
@@ -700,13 +670,7 @@
      "pos": "TE",
      "jersey": "2",
      "name": "Roger Saleapaga II",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "RB",
-     "jersey": "4",
-     "name": "LJ Martin",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "LB",
@@ -737,12 +701,6 @@
      "jersey": "43",
      "name": "Ty Smith",
      "status": "Available"
-    },
-    {
-     "pos": "DE",
-     "jersey": "46",
-     "name": "Kendal Wall",
-     "status": "Questionable"
     },
     {
      "pos": "DS",
@@ -1092,5 +1050,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-07T03:28+00:00"
+ "updated": "2026-11-07T16:27+00:00"
 }
