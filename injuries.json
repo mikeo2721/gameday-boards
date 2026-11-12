@@ -759,15 +759,100 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
    "location": "Provo, UT",
    "opponent": "Baylor",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 117,
+   "players": [
+    {
+     "pos": "CB",
+     "jersey": "0",
+     "name": "Evan Johnson",
+     "status": "Doubtful"
+    },
+    {
+     "pos": "TE",
+     "jersey": "2",
+     "name": "Roger Saleapaga II",
+     "status": "Doubtful"
+    },
+    {
+     "pos": "RB",
+     "jersey": "4",
+     "name": "LJ Martin",
+     "status": "Probable"
+    },
+    {
+     "pos": "LB",
+     "jersey": "16",
+     "name": "Isaiah Glasker",
+     "status": "Questionable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "28",
+     "name": "Jovesa Damuni",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "28",
+     "name": "Crew Clark",
+     "status": "Questionable"
+    },
+    {
+     "pos": "DS",
+     "jersey": "43",
+     "name": "Ty Smith",
+     "status": "Available"
+    },
+    {
+     "pos": "DS",
+     "jersey": "47",
+     "name": "Berkley Alfrey",
+     "status": "Available"
+    },
+    {
+     "pos": "DS",
+     "jersey": "49",
+     "name": "Rayden Heintz",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "66",
+     "name": "Brigham Alexander",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "74",
+     "name": "Trevin Ostler",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "75",
+     "name": "Andrew Gentry",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "78",
+     "name": "Ethan Thomason",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "83",
+     "name": "Will Zundel",
+     "status": "Out"
+    }
+   ]
   },
   "145": {
    "source": "SEC",
@@ -1030,17 +1115,114 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "20:30:00",
    "location": "Stillwater, OK",
    "opponent": "Oklahoma State",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 110,
+   "players": [
+    {
+     "pos": "RB",
+     "jersey": "0",
+     "name": "Quinten Joyner",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "3",
+     "name": "Coy Eakin",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "6",
+     "name": "Jalen Jones",
+     "status": "Out"
+    },
+    {
+     "pos": "RB",
+     "jersey": "8",
+     "name": "Cameron Dickey",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "9",
+     "name": "Donte Lee Jr.",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "11",
+     "name": "Malcolm Simmons",
+     "status": "Questionable"
+    },
+    {
+     "pos": "LB",
+     "jersey": "15",
+     "name": "Austin Romaine",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "17",
+     "name": "Leyton Stone",
+     "status": "Questionable"
+    },
+    {
+     "pos": "S",
+     "jersey": "21",
+     "name": "Miquel Dingle Jr.",
+     "status": "Questionable"
+    },
+    {
+     "pos": "S",
+     "jersey": "28",
+     "name": "Braylan McDonald",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OLB",
+     "jersey": "33",
+     "name": "Ansel Nedore",
+     "status": "Out"
+    },
+    {
+     "pos": "LB",
+     "jersey": "43",
+     "name": "Chris Lemons",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "47",
+     "name": "Rylan Vagana",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "53",
+     "name": "Holton Hendrix",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "57",
+     "name": "Hunter Zambrano",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "79",
+     "name": "Howard Sampson",
+     "status": "Probable"
+    }
+   ]
   }
  },
  "errors": [],
- "updated": "2026-11-12T02:28+00:00"
+ "updated": "2026-11-12T04:27+00:00"
 }
