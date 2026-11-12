@@ -2,76 +2,760 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
    "location": "Athens, GA",
    "opponent": "Missouri",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 128,
+   "players": [
+    {
+     "pos": "OLB",
+     "jersey": "17",
+     "name": "Amaris Williams",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "25",
+     "name": "Jake Bobo",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "36",
+     "name": "Jackson St. Clair",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "37",
+     "name": "Benjamin McElreath",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "41",
+     "name": "David Lalaian",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "46",
+     "name": "Danny Curran",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "50",
+     "name": "Colton Dermer",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "51",
+     "name": "Will Snellings",
+     "status": "Available"
+    },
+    {
+     "pos": "DT",
+     "jersey": "81",
+     "name": "Josh Horton",
+     "status": "Questionable"
+    },
+    {
+     "pos": "K",
+     "jersey": "98",
+     "name": "Connor Ferguson",
+     "status": "Exempt"
+    }
+   ]
   },
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-14",
    "game_time": "12:00:00",
    "location": "Miami Gardens, FL",
    "opponent": "Duke",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 115,
+   "players": [
+    {
+     "pos": "WR",
+     "jersey": "1",
+     "name": "Malachi Toney",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "3",
+     "name": "Joshua Moore",
+     "status": "Out"
+    },
+    {
+     "pos": "RB",
+     "jersey": "6",
+     "name": "CharMar Brown",
+     "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "16",
+     "name": "Ja'Boree Antoine",
+     "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "29",
+     "name": "Romanas \"OJ\" Frederique Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "LS",
+     "jersey": "46",
+     "name": "Adam Booker",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "59",
+     "name": "Vance Diepenbrock",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "66",
+     "name": "Max Buchanan",
+     "status": "Out"
+    },
+    {
+     "pos": "TE",
+     "jersey": "88",
+     "name": "Luka Gilbert",
+     "status": "Out"
+    }
+   ]
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:00:00",
    "location": "Columbus, OH",
    "opponent": "Northwestern",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 119,
+   "players": [
+    {
+     "pos": "WR",
+     "jersey": "0",
+     "name": "Brandon Inniss",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "7",
+     "name": "Phillip Bell",
+     "status": "Questionable"
+    },
+    {
+     "pos": "QB",
+     "jersey": "10",
+     "name": "Julian Sayin",
+     "status": "Out"
+    },
+    {
+     "pos": "S",
+     "jersey": "11",
+     "name": "Terry Moore",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "11",
+     "name": "Brock Boyd",
+     "status": "Questionable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "24",
+     "name": "Ja\u2019Kobi Jackson",
+     "status": "Out"
+    },
+    {
+     "pos": "S",
+     "jersey": "29",
+     "name": "Deshawn Stewart",
+     "status": "Out"
+    },
+    {
+     "pos": "LB",
+     "jersey": "33",
+     "name": "Eli Lee",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "34",
+     "name": "Brennen Schramm",
+     "status": "Out"
+    },
+    {
+     "pos": "LS",
+     "jersey": "43",
+     "name": "Brody Jenkins",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "48",
+     "name": "Dalton Riggs",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "60",
+     "name": "Jaxon Powell",
+     "status": "Out"
+    },
+    {
+     "pos": "LS",
+     "jersey": "61",
+     "name": "Landon Beal",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "72",
+     "name": "Deontae Armstrong",
+     "status": "Questionable"
+    },
+    {
+     "pos": "OL",
+     "jersey": "78",
+     "name": "Max Riley",
+     "status": "Questionable"
+    },
+    {
+     "pos": "TE",
+     "jersey": "88",
+     "name": "Maxence LeBlanc",
+     "status": "Out"
+    }
+   ]
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
    "location": "Bloomington, IN",
    "opponent": "USC",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 106,
+   "players": [
+    {
+     "pos": "RB",
+     "jersey": "1",
+     "name": "Turbo Richard",
+     "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "4",
+     "name": "A.J. Harris",
+     "status": "Questionable"
+    },
+    {
+     "pos": "LB",
+     "jersey": "5",
+     "name": "Rolijah Hardy",
+     "status": "Questionable"
+    },
+    {
+     "pos": "DL",
+     "jersey": "18",
+     "name": "Kellan Wyatt",
+     "status": "Out"
+    },
+    {
+     "pos": "LS",
+     "jersey": "45",
+     "name": "Sam Lindsey",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "47",
+     "name": "Jackson Tolle",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "49",
+     "name": "Drew Clausen",
+     "status": "Available"
+    }
+   ]
   },
   "333": {
    "source": "SEC",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:45:00",
    "location": "Nashville, TN",
    "opponent": "Vanderbilt",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 127,
+   "players": [
+    {
+     "pos": "DB",
+     "jersey": "2",
+     "name": "Zabien Brown",
+     "status": "Probable"
+    },
+    {
+     "pos": "LB",
+     "jersey": "9",
+     "name": "Desmond Umeozulu",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "12",
+     "name": "Keelon Russell",
+     "status": "Probable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "13",
+     "name": "EJ Crowell",
+     "status": "Probable"
+    },
+    {
+     "pos": "QB",
+     "jersey": "19",
+     "name": "John Cooper",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "19",
+     "name": "Chuck McDonald III",
+     "status": "Probable"
+    },
+    {
+     "pos": "DB",
+     "jersey": "21",
+     "name": "Dre Kirkpatrick Jr.",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "23",
+     "name": "Cayden Jones",
+     "status": "Out (season)"
+    },
+    {
+     "pos": "RB",
+     "jersey": "25",
+     "name": "J'Alan Terry",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "26",
+     "name": "Mhari Johnson",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "26",
+     "name": "Aubrey Walker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "27",
+     "name": "Elijah Murray",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "29",
+     "name": "Nick Sherman",
+     "status": "Out (season)"
+    },
+    {
+     "pos": "RB",
+     "jersey": "29",
+     "name": "Jaron Jackson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "31",
+     "name": "Cooper Mollison",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "31",
+     "name": "George French II",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "32",
+     "name": "Griffin Hanson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "33",
+     "name": "Preston Landry",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "34",
+     "name": "London Hill",
+     "status": "Exempt"
+    },
+    {
+     "pos": "RB",
+     "jersey": "36",
+     "name": "TC Washington",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "37",
+     "name": "Tailan Hall",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "40",
+     "name": "Josh Ford",
+     "status": "Out (season)"
+    },
+    {
+     "pos": "LB",
+     "jersey": "40",
+     "name": "Torin Craig",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "42",
+     "name": "Ben Jackson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "43",
+     "name": "Camryn Gable",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "45",
+     "name": "Jay Williams",
+     "status": "Available"
+    },
+    {
+     "pos": "LS",
+     "jersey": "47",
+     "name": "Eli Deutsch",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "50",
+     "name": "Casey Poe",
+     "status": "Out (season)"
+    },
+    {
+     "pos": "OL",
+     "jersey": "53",
+     "name": "Mac Smith",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "55",
+     "name": "Alex Rozier",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "59",
+     "name": "JD Martin",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "61",
+     "name": "Ethan Stangle",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "62",
+     "name": "Davis Peterson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "68",
+     "name": "Billy Roby",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "69",
+     "name": "Baker Hickman",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "70",
+     "name": "William Sanders",
+     "status": "Probable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "83",
+     "name": "Warner Ross",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "92",
+     "name": "Jeremiah Beaman",
+     "status": "Out (season)"
+    },
+    {
+     "pos": "K",
+     "jersey": "98",
+     "name": "Tucker Cornelius",
+     "status": "Exempt"
+    }
+   ]
   },
   "251": {
    "source": "SEC",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "18:30:00",
    "location": "Baton Rouge, LA",
    "opponent": "LSU",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 111,
+   "players": [
+    {
+     "pos": "RB",
+     "jersey": "2",
+     "name": "Hollywood Smothers",
+     "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "21",
+     "name": "Hayward Howard Jr.",
+     "status": "Exempt"
+    },
+    {
+     "pos": "QB",
+     "jersey": "25",
+     "name": "Luke Dunham",
+     "status": "Exempt"
+    },
+    {
+     "pos": "RB",
+     "jersey": "28",
+     "name": "Jett Walker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "31",
+     "name": "Yaheim Riley",
+     "status": "Exempt"
+    },
+    {
+     "pos": "RB",
+     "jersey": "33",
+     "name": "Carson Berger",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "35",
+     "name": "McCoy Bruce",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "36",
+     "name": "Nick Hudson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "39",
+     "name": "Evan Enderlin",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "41",
+     "name": "Ziky Umeozulu",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DS",
+     "jersey": "42",
+     "name": "Trott O'Neal",
+     "status": "Available"
+    },
+    {
+     "pos": "LB",
+     "jersey": "43",
+     "name": "Eric Garza",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "44",
+     "name": "Markus Boswell",
+     "status": "Exempt"
+    },
+    {
+     "pos": "K",
+     "jersey": "46",
+     "name": "Spencer Barnett",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DS",
+     "jersey": "47",
+     "name": "Trey Dubuc",
+     "status": "Available"
+    },
+    {
+     "pos": "TE",
+     "jersey": "48",
+     "name": "Bryce Chambers",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DB",
+     "jersey": "48",
+     "name": "Jackson Duffey",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "53",
+     "name": "Isaiah Coleman",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "55",
+     "name": "Elijah Ali",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "64",
+     "name": "Robert Sweeney",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "69",
+     "name": "Brooks Kieschnick Jr.",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "70",
+     "name": "Kaden Scherer",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "72",
+     "name": "Nicolas Robertson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "74",
+     "name": "Trevor Goosby",
+     "status": "Out"
+    },
+    {
+     "pos": "EDG",
+     "jersey": "80",
+     "name": "Brinley Tita",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "81",
+     "name": "Nick Townsend",
+     "status": "Out"
+    },
+    {
+     "pos": "TE",
+     "jersey": "82",
+     "name": "Ridge Barker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "86",
+     "name": "Hudson Powell",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "87",
+     "name": "Will Randle",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
+     "jersey": "89",
+     "name": "Ty Boatright",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "93",
+     "name": "Hero Kanu",
+     "status": "Questionable"
+    },
+    {
+     "pos": "EDG",
+     "jersey": "99",
+     "name": "Richard Wesley",
+     "status": "Out"
+    }
+   ]
   },
   "252": {
    "source": "Big 12",
@@ -87,15 +771,262 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-11 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "15:15:00",
    "location": "Norman, OK",
    "opponent": "Oklahoma",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 121,
+   "players": [
+    {
+     "pos": "WR",
+     "jersey": "1",
+     "name": "Deuce Alexander",
+     "status": "Probable"
+    },
+    {
+     "pos": "DE",
+     "jersey": "5",
+     "name": "Kam Franklin",
+     "status": "Questionable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "5",
+     "name": "Kewan Lacy",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "6",
+     "name": "Trinidad Chambliss",
+     "status": "Probable"
+    },
+    {
+     "pos": "S",
+     "jersey": "7",
+     "name": "Sharif Denson",
+     "status": "Questionable"
+    },
+    {
+     "pos": "LB",
+     "jersey": "11",
+     "name": "Keaton Thomas",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "12",
+     "name": "Izaiah Hartrup",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "13",
+     "name": "Jack Patterson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "14",
+     "name": "Edwin Joseph",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "16",
+     "name": "George Hamsley",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "19",
+     "name": "MJ Preston",
+     "status": "Doubtful"
+    },
+    {
+     "pos": "WR",
+     "jersey": "24",
+     "name": "Case Thomas",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "26",
+     "name": "Ant Davis Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "27",
+     "name": "Kervin Johnson Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "29",
+     "name": "William Jones",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "30",
+     "name": "JaMichael Garrett",
+     "status": "Out"
+    },
+    {
+     "pos": "RB",
+     "jersey": "35",
+     "name": "Damarius Yates",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "36",
+     "name": "Keon Young",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "37",
+     "name": "Cortez Thomas",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "39",
+     "name": "Gerald Lacy Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "CB",
+     "jersey": "41",
+     "name": "John Ross Ashley",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "42",
+     "name": "Jack Harper",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "42",
+     "name": "Bryson Walters",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "44",
+     "name": "Caleb Blankenship",
+     "status": "Available"
+    },
+    {
+     "pos": "LB",
+     "jersey": "44",
+     "name": "Tony Mitchell",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "46",
+     "name": "Nascar McCoy",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "47",
+     "name": "Anthony Aguirre",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DT",
+     "jersey": "52",
+     "name": "Will Echoles",
+     "status": "Probable"
+    },
+    {
+     "pos": "OL",
+     "jersey": "52",
+     "name": "Cooper Johnson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "53",
+     "name": "Ford Beeker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "53",
+     "name": "Trey Nightingale",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DE",
+     "jersey": "54",
+     "name": "Tre Ellis",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DE",
+     "jersey": "55",
+     "name": "Cam Clark",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "56",
+     "name": "Mason Waddle",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "56",
+     "name": "Hayden Parker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "57",
+     "name": "Carius Curne",
+     "status": "Out"
+    },
+    {
+     "pos": "OL",
+     "jersey": "75",
+     "name": "Patrick Kutas",
+     "status": "Out"
+    },
+    {
+     "pos": "LS",
+     "jersey": "83",
+     "name": "Sean Judge",
+     "status": "Available"
+    },
+    {
+     "pos": "WR",
+     "jersey": "89",
+     "name": "Dylan Davis",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DT",
+     "jersey": "91",
+     "name": "Jamarion Owens",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "93",
+     "name": "Richie Bruder",
+     "status": "Exempt"
+    }
+   ]
   },
   "2641": {
    "source": "Big 12",
@@ -111,5 +1042,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-12T00:44+00:00"
+ "updated": "2026-11-12T02:28+00:00"
 }
