@@ -789,8 +789,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-11 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -820,7 +820,7 @@
      "pos": "LB",
      "jersey": "16",
      "name": "Isaiah Glasker",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "RB",
@@ -832,7 +832,7 @@
      "pos": "S",
      "jersey": "28",
      "name": "Crew Clark",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "DS",
@@ -880,6 +880,12 @@
      "pos": "TE",
      "jersey": "83",
      "name": "Will Zundel",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "84",
+     "name": "Kila Keone",
      "status": "Out"
     }
    ]
@@ -1139,8 +1145,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-11 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "20:30:00",
@@ -1248,5 +1254,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-13T02:26+00:00"
+ "updated": "2026-11-13T04:27+00:00"
 }
