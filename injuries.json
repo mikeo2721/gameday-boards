@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -60,6 +60,12 @@
      "status": "Available"
     },
     {
+     "pos": "OL",
+     "jersey": "74",
+     "name": "Drew Bobo",
+     "status": "Questionable"
+    },
+    {
      "pos": "DT",
      "jersey": "81",
      "name": "Josh Horton",
@@ -76,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Initial",
-   "published": "2026-11-11 20:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-14",
    "game_time": "12:00:00",
@@ -102,6 +108,12 @@
      "jersey": "6",
      "name": "CharMar Brown",
      "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "7",
+     "name": "Zechariah Poyser",
+     "status": "Questionable"
     },
     {
      "pos": "DB",
@@ -143,8 +155,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:00:00",
@@ -152,12 +164,6 @@
    "opponent": "Northwestern",
    "roster_size": 119,
    "players": [
-    {
-     "pos": "WR",
-     "jersey": "0",
-     "name": "Brandon Inniss",
-     "status": "Questionable"
-    },
     {
      "pos": "WR",
      "jersey": "7",
@@ -213,10 +219,22 @@
      "status": "Available"
     },
     {
+     "pos": "DE",
+     "jersey": "44",
+     "name": "Epi Sitanilei",
+     "status": "Questionable"
+    },
+    {
      "pos": "LS",
      "jersey": "48",
      "name": "Dalton Riggs",
      "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "51",
+     "name": "Luke Montgomery",
+     "status": "Questionable"
     },
     {
      "pos": "OL",
@@ -252,8 +270,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -271,7 +289,7 @@
      "pos": "DB",
      "jersey": "4",
      "name": "A.J. Harris",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "LB",
@@ -302,13 +320,19 @@
      "jersey": "49",
      "name": "Drew Clausen",
      "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "56",
+     "name": "Joe Brunner",
+     "status": "Out"
     }
    ]
   },
   "333": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:45:00",
@@ -554,8 +578,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "18:30:00",
@@ -672,6 +696,12 @@
      "status": "Exempt"
     },
     {
+     "pos": "OL",
+     "jersey": "54",
+     "name": "Cole Hutson",
+     "status": "Questionable"
+    },
+    {
      "pos": "DL",
      "jersey": "55",
      "name": "Elijah Ali",
@@ -747,7 +777,7 @@
      "pos": "DL",
      "jersey": "93",
      "name": "Hero Kanu",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "EDG",
@@ -856,8 +886,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-11 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-12 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "15:15:00",
@@ -865,12 +895,6 @@
    "opponent": "Oklahoma",
    "roster_size": 121,
    "players": [
-    {
-     "pos": "WR",
-     "jersey": "1",
-     "name": "Deuce Alexander",
-     "status": "Probable"
-    },
     {
      "pos": "DE",
      "jersey": "5",
@@ -882,12 +906,6 @@
      "jersey": "5",
      "name": "Kewan Lacy",
      "status": "Out"
-    },
-    {
-     "pos": "QB",
-     "jersey": "6",
-     "name": "Trinidad Chambliss",
-     "status": "Probable"
     },
     {
      "pos": "S",
@@ -936,6 +954,12 @@
      "jersey": "24",
      "name": "Case Thomas",
      "status": "Exempt"
+    },
+    {
+     "pos": "RB",
+     "jersey": "25",
+     "name": "Makhi Frazier",
+     "status": "Questionable"
     },
     {
      "pos": "LB",
@@ -1224,5 +1248,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-12T04:27+00:00"
+ "updated": "2026-11-13T02:26+00:00"
 }
