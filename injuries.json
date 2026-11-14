@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -63,7 +63,7 @@
      "pos": "OL",
      "jersey": "74",
      "name": "Drew Bobo",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "DT",
@@ -82,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 1",
-   "published": "2026-11-12 20:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-14",
    "game_time": "12:00:00",
@@ -155,8 +155,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:00:00",
@@ -168,7 +168,7 @@
      "pos": "WR",
      "jersey": "7",
      "name": "Phillip Bell",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "QB",
@@ -180,13 +180,13 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "WR",
      "jersey": "11",
      "name": "Brock Boyd",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "RB",
@@ -204,7 +204,7 @@
      "pos": "LB",
      "jersey": "33",
      "name": "Eli Lee",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "WR",
@@ -222,7 +222,7 @@
      "pos": "DE",
      "jersey": "44",
      "name": "Epi Sitanilei",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "LS",
@@ -234,7 +234,7 @@
      "pos": "OL",
      "jersey": "51",
      "name": "Luke Montgomery",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "OL",
@@ -250,9 +250,15 @@
     },
     {
      "pos": "OL",
+     "jersey": "70",
+     "name": "Phillip Daniels",
+     "status": "Questionable"
+    },
+    {
+     "pos": "OL",
      "jersey": "72",
      "name": "Deontae Armstrong",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "OL",
@@ -270,8 +276,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -331,8 +337,8 @@
   },
   "333": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:45:00",
@@ -340,6 +346,12 @@
    "opponent": "Vanderbilt",
    "roster_size": 127,
    "players": [
+    {
+     "pos": "RB",
+     "jersey": "0",
+     "name": "AK Dear",
+     "status": "Out"
+    },
     {
      "pos": "DB",
      "jersey": "2",
@@ -578,8 +590,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "18:30:00",
@@ -892,8 +904,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-12 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "15:15:00",
@@ -953,7 +965,7 @@
      "pos": "S",
      "jersey": "19",
      "name": "MJ Preston",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "WR",
@@ -1254,5 +1266,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-13T04:27+00:00"
+ "updated": "2026-11-14T01:27+00:00"
 }
