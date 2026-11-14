@@ -82,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 2",
-   "published": "2026-11-13 20:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 10:00:00",
    "tz": "ET",
    "game_date": "2026-11-14",
    "game_time": "12:00:00",
@@ -108,12 +108,6 @@
      "jersey": "6",
      "name": "CharMar Brown",
      "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "7",
-     "name": "Zechariah Poyser",
-     "status": "Questionable"
     },
     {
      "pos": "DB",
@@ -155,8 +149,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-13 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 9:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:00:00",
@@ -164,12 +158,6 @@
    "opponent": "Northwestern",
    "roster_size": 119,
    "players": [
-    {
-     "pos": "WR",
-     "jersey": "7",
-     "name": "Phillip Bell",
-     "status": "Probable"
-    },
     {
      "pos": "QB",
      "jersey": "10",
@@ -180,13 +168,13 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "WR",
      "jersey": "11",
      "name": "Brock Boyd",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -204,7 +192,7 @@
      "pos": "LB",
      "jersey": "33",
      "name": "Eli Lee",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "WR",
@@ -219,12 +207,6 @@
      "status": "Available"
     },
     {
-     "pos": "DE",
-     "jersey": "44",
-     "name": "Epi Sitanilei",
-     "status": "Probable"
-    },
-    {
      "pos": "LS",
      "jersey": "48",
      "name": "Dalton Riggs",
@@ -234,7 +216,7 @@
      "pos": "OL",
      "jersey": "51",
      "name": "Luke Montgomery",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -250,21 +232,9 @@
     },
     {
      "pos": "OL",
-     "jersey": "70",
-     "name": "Phillip Daniels",
-     "status": "Questionable"
-    },
-    {
-     "pos": "OL",
-     "jersey": "72",
-     "name": "Deontae Armstrong",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "OL",
      "jersey": "78",
      "name": "Max Riley",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "TE",
@@ -1248,5 +1218,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T05:27+00:00"
+ "updated": "2026-11-14T15:28+00:00"
 }
