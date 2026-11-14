@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-13 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 13:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -63,13 +63,7 @@
      "pos": "OL",
      "jersey": "74",
      "name": "Drew Bobo",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "DT",
-     "jersey": "81",
-     "name": "Josh Horton",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "K",
@@ -246,8 +240,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-13 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 12:30:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -262,16 +256,10 @@
      "status": "Out"
     },
     {
-     "pos": "DB",
-     "jersey": "4",
-     "name": "A.J. Harris",
-     "status": "Probable"
-    },
-    {
      "pos": "LB",
      "jersey": "5",
      "name": "Rolijah Hardy",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "DL",
@@ -1188,5 +1176,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T16:27+00:00"
+ "updated": "2026-11-14T19:27+00:00"
 }
