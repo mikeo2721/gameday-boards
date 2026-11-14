@@ -805,7 +805,7 @@
    "published": "2026-11-13 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
-   "game_time": "14:30:00",
+   "game_time": "18:00:00",
    "location": "Provo, UT",
    "opponent": "Baylor",
    "roster_size": 117,
@@ -1248,5 +1248,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T03:28+00:00"
+ "updated": "2026-11-14T05:27+00:00"
 }
