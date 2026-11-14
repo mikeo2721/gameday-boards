@@ -518,8 +518,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-13 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 17:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "18:30:00",
@@ -636,12 +636,6 @@
      "status": "Exempt"
     },
     {
-     "pos": "OL",
-     "jersey": "54",
-     "name": "Cole Hutson",
-     "status": "Questionable"
-    },
-    {
      "pos": "DL",
      "jersey": "55",
      "name": "Elijah Ali",
@@ -714,12 +708,6 @@
      "status": "Exempt"
     },
     {
-     "pos": "DL",
-     "jersey": "93",
-     "name": "Hero Kanu",
-     "status": "Probable"
-    },
-    {
      "pos": "EDG",
      "jersey": "99",
      "name": "Richard Wesley",
@@ -729,8 +717,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-13 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 16:30:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "18:00:00",
@@ -1176,5 +1164,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T19:27+00:00"
+ "updated": "2026-11-14T23:28+00:00"
 }
