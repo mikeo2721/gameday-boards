@@ -307,8 +307,8 @@
   },
   "333": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-13 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 10:15:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "11:45:00",
@@ -323,12 +323,6 @@
      "status": "Out"
     },
     {
-     "pos": "DB",
-     "jersey": "2",
-     "name": "Zabien Brown",
-     "status": "Probable"
-    },
-    {
      "pos": "LB",
      "jersey": "9",
      "name": "Desmond Umeozulu",
@@ -336,27 +330,9 @@
     },
     {
      "pos": "QB",
-     "jersey": "12",
-     "name": "Keelon Russell",
-     "status": "Probable"
-    },
-    {
-     "pos": "RB",
-     "jersey": "13",
-     "name": "EJ Crowell",
-     "status": "Probable"
-    },
-    {
-     "pos": "QB",
      "jersey": "19",
      "name": "John Cooper",
      "status": "Exempt"
-    },
-    {
-     "pos": "DB",
-     "jersey": "19",
-     "name": "Chuck McDonald III",
-     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -531,12 +507,6 @@
      "jersey": "69",
      "name": "Baker Hickman",
      "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "70",
-     "name": "William Sanders",
-     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -862,11 +832,11 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 2",
+   "report_type": "Update 1",
    "published": "2026-11-13 19:10:00",
    "tz": "CT",
-   "game_date": "2026-11-14",
-   "game_time": "15:15:00",
+   "game_date": "2026-11-15",
+   "game_time": "12:00:00",
    "location": "Norman, OK",
    "opponent": "Oklahoma",
    "roster_size": 121,
@@ -1218,5 +1188,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T15:28+00:00"
+ "updated": "2026-11-14T16:27+00:00"
 }
