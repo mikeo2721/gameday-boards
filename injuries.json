@@ -801,8 +801,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-12 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "14:30:00",
@@ -814,37 +814,25 @@
      "pos": "CB",
      "jersey": "0",
      "name": "Evan Johnson",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "TE",
      "jersey": "2",
      "name": "Roger Saleapaga II",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "RB",
-     "jersey": "4",
-     "name": "LJ Martin",
-     "status": "Probable"
+     "status": "Out"
     },
     {
      "pos": "LB",
      "jersey": "16",
      "name": "Isaiah Glasker",
-     "status": "Probable"
+     "status": "Out"
     },
     {
      "pos": "RB",
      "jersey": "28",
      "name": "Jovesa Damuni",
      "status": "Exempt"
-    },
-    {
-     "pos": "S",
-     "jersey": "28",
-     "name": "Crew Clark",
-     "status": "Probable"
     },
     {
      "pos": "DS",
@@ -1157,8 +1145,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-12 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-13 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "20:30:00",
@@ -1188,7 +1176,7 @@
      "pos": "RB",
      "jersey": "8",
      "name": "Cameron Dickey",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -1200,25 +1188,25 @@
      "pos": "WR",
      "jersey": "11",
      "name": "Malcolm Simmons",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "LB",
      "jersey": "15",
      "name": "Austin Romaine",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
      "jersey": "17",
      "name": "Leyton Stone",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "S",
      "jersey": "21",
      "name": "Miquel Dingle Jr.",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "S",
@@ -1255,16 +1243,10 @@
      "jersey": "57",
      "name": "Hunter Zambrano",
      "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "79",
-     "name": "Howard Sampson",
-     "status": "Probable"
     }
    ]
   }
  },
  "errors": [],
- "updated": "2026-11-14T01:27+00:00"
+ "updated": "2026-11-14T03:28+00:00"
 }
