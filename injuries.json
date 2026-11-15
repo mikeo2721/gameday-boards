@@ -808,8 +808,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-13 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-14 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-15",
    "game_time": "12:00:00",
@@ -1061,8 +1061,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-13 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-14 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-14",
    "game_time": "20:30:00",
@@ -1089,28 +1089,10 @@
      "status": "Out"
     },
     {
-     "pos": "RB",
-     "jersey": "8",
-     "name": "Cameron Dickey",
-     "status": "Probable"
-    },
-    {
      "pos": "WR",
      "jersey": "9",
      "name": "Donte Lee Jr.",
      "status": "Exempt"
-    },
-    {
-     "pos": "WR",
-     "jersey": "11",
-     "name": "Malcolm Simmons",
-     "status": "Probable"
-    },
-    {
-     "pos": "LB",
-     "jersey": "15",
-     "name": "Austin Romaine",
-     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -1164,5 +1146,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-14T23:28+00:00"
+ "updated": "2026-11-15T01:26+00:00"
 }
