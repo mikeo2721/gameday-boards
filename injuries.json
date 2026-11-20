@@ -549,8 +549,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-18 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -641,8 +641,8 @@
   "145": null,
   "2641": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-18 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -681,12 +681,6 @@
      "status": "Questionable"
     },
     {
-     "pos": "QB",
-     "jersey": "4",
-     "name": "Thomas Castellanos",
-     "status": "Probable"
-    },
-    {
      "pos": "WR",
      "jersey": "6",
      "name": "Jalen Jones",
@@ -696,7 +690,7 @@
      "pos": "S",
      "jersey": "7",
      "name": "Brenden Jordan",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -708,13 +702,13 @@
      "pos": "WR",
      "jersey": "17",
      "name": "Leyton Stone",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "S",
      "jersey": "21",
      "name": "Miquel Dingle Jr.",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "S",
@@ -726,13 +720,13 @@
      "pos": "OLB",
      "jersey": "32",
      "name": "LaDamion Guyton",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "OLB",
      "jersey": "33",
      "name": "Ansel Nedore",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "LB",
@@ -762,5 +756,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-20T02:27+00:00"
+ "updated": "2026-11-20T04:28+00:00"
 }
