@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-18 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "18:30:00",
@@ -11,6 +11,12 @@
    "opponent": "South Carolina",
    "roster_size": 128,
    "players": [
+    {
+     "pos": "WR",
+     "jersey": "8",
+     "name": "Landon Roldan",
+     "status": "Out"
+    },
     {
      "pos": "OLB",
      "jersey": "17",
@@ -76,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Initial",
-   "published": "2026-11-18 20:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-21",
    "game_time": "19:00:00",
@@ -149,8 +155,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Initial",
-   "published": "2026-11-18 19:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -168,12 +174,6 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Questionable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "11",
-     "name": "Brock Boyd",
      "status": "Questionable"
     },
     {
@@ -252,8 +252,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Initial",
-   "published": "2026-11-18 19:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -277,7 +277,7 @@
      "pos": "LB",
      "jersey": "5",
      "name": "Rolijah Hardy",
-     "status": "Probable"
+     "status": "Questionable"
     },
     {
      "pos": "DL",
@@ -326,8 +326,8 @@
   "333": null,
   "251": {
    "source": "SEC",
-   "report_type": "Initial",
-   "published": "2026-11-18 19:10:00",
+   "report_type": "Update 1",
+   "published": "2026-11-19 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -448,6 +448,12 @@
      "jersey": "48",
      "name": "Jackson Duffey",
      "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "50",
+     "name": "Laurence Seymore III",
+     "status": "Questionable"
     },
     {
      "pos": "DL",
@@ -756,5 +762,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-19T04:28+00:00"
+ "updated": "2026-11-20T02:27+00:00"
 }
