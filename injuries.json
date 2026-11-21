@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-19 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "18:30:00",
@@ -82,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 1",
-   "published": "2026-11-19 20:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-21",
    "game_time": "19:00:00",
@@ -155,8 +155,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-19 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -174,13 +174,13 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "S",
      "jersey": "21",
      "name": "Brenten \"Inky\" Jones",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -198,7 +198,7 @@
      "pos": "LB",
      "jersey": "33",
      "name": "Eli Lee",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "WR",
@@ -234,7 +234,7 @@
      "pos": "OL",
      "jersey": "70",
      "name": "Phillip Daniels",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -252,8 +252,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-19 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -271,13 +271,13 @@
      "pos": "DB",
      "jersey": "4",
      "name": "A.J. Harris",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "LB",
      "jersey": "5",
      "name": "Rolijah Hardy",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "DL",
@@ -326,8 +326,8 @@
   "333": null,
   "251": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-19 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -357,7 +357,7 @@
      "pos": "DB",
      "jersey": "24",
      "name": "Warren Roberson",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "QB",
@@ -756,5 +756,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-20T04:28+00:00"
+ "updated": "2026-11-21T01:27+00:00"
 }
