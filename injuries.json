@@ -252,8 +252,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-20 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 12:30:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -326,8 +326,8 @@
   "333": null,
   "251": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-20 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 13:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -339,7 +339,7 @@
      "pos": "EDG",
      "jersey": "1",
      "name": "Colin Simmons",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -352,12 +352,6 @@
      "jersey": "21",
      "name": "Hayward Howard Jr.",
      "status": "Exempt"
-    },
-    {
-     "pos": "DB",
-     "jersey": "24",
-     "name": "Warren Roberson",
-     "status": "Probable"
     },
     {
      "pos": "QB",
@@ -448,12 +442,6 @@
      "jersey": "48",
      "name": "Jackson Duffey",
      "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "50",
-     "name": "Laurence Seymore III",
-     "status": "Questionable"
     },
     {
      "pos": "DL",
@@ -647,8 +635,8 @@
   "145": null,
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-20 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 13:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -664,30 +652,6 @@
     },
     {
      "pos": "WR",
-     "jersey": "1",
-     "name": "Micah Hudson",
-     "status": "Questionable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "2",
-     "name": "Kenny Johnson",
-     "status": "Probable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "3",
-     "name": "Coy Eakin",
-     "status": "Probable"
-    },
-    {
-     "pos": "S",
-     "jersey": "3",
-     "name": "Peyton Morgan",
-     "status": "Questionable"
-    },
-    {
-     "pos": "WR",
      "jersey": "6",
      "name": "Jalen Jones",
      "status": "Out"
@@ -697,12 +661,6 @@
      "jersey": "9",
      "name": "Donte Lee Jr.",
      "status": "Exempt"
-    },
-    {
-     "pos": "CB",
-     "jersey": "14",
-     "name": "Brice Pollock",
-     "status": "Probable"
     },
     {
      "pos": "S",
@@ -750,5 +708,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T16:27+00:00"
+ "updated": "2026-11-21T19:27+00:00"
 }
