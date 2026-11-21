@@ -155,8 +155,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-20 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 9:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -750,5 +750,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T03:29+00:00"
+ "updated": "2026-11-21T15:27+00:00"
 }
