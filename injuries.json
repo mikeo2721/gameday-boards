@@ -2,8 +2,8 @@
  "teams": {
   "61": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-20 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 17:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "18:30:00",
@@ -69,7 +69,7 @@
      "pos": "OL",
      "jersey": "74",
      "name": "Drew Bobo",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "K",
@@ -702,5 +702,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T22:27+00:00"
+ "updated": "2026-11-21T23:27+00:00"
 }
