@@ -549,8 +549,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-20 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 9:30:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -562,13 +562,13 @@
      "pos": "CB",
      "jersey": "0",
      "name": "Evan Johnson",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "TE",
      "jersey": "2",
      "name": "Roger Saleapaga II",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "LB",
@@ -610,7 +610,7 @@
      "pos": "DT",
      "jersey": "57",
      "name": "Keanu Tanuvasa",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -750,5 +750,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T15:27+00:00"
+ "updated": "2026-11-21T16:27+00:00"
 }
