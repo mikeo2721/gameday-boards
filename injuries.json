@@ -549,8 +549,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-19 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "11:00:00",
@@ -607,6 +607,12 @@
      "status": "Available"
     },
     {
+     "pos": "DT",
+     "jersey": "57",
+     "name": "Keanu Tanuvasa",
+     "status": "Questionable"
+    },
+    {
      "pos": "OL",
      "jersey": "66",
      "name": "Brigham Alexander",
@@ -641,8 +647,8 @@
   "145": null,
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-19 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-20 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-21",
    "game_time": "14:30:00",
@@ -666,13 +672,13 @@
      "pos": "WR",
      "jersey": "2",
      "name": "Kenny Johnson",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
      "jersey": "3",
      "name": "Coy Eakin",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "S",
@@ -687,21 +693,15 @@
      "status": "Out"
     },
     {
-     "pos": "S",
-     "jersey": "7",
-     "name": "Brenden Jordan",
-     "status": "Probable"
-    },
-    {
      "pos": "WR",
      "jersey": "9",
      "name": "Donte Lee Jr.",
      "status": "Exempt"
     },
     {
-     "pos": "WR",
-     "jersey": "17",
-     "name": "Leyton Stone",
+     "pos": "CB",
+     "jersey": "14",
+     "name": "Brice Pollock",
      "status": "Probable"
     },
     {
@@ -720,13 +720,7 @@
      "pos": "OLB",
      "jersey": "32",
      "name": "LaDamion Guyton",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "OLB",
-     "jersey": "33",
-     "name": "Ansel Nedore",
-     "status": "Probable"
+     "status": "Out"
     },
     {
      "pos": "LB",
@@ -756,5 +750,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T01:27+00:00"
+ "updated": "2026-11-21T03:29+00:00"
 }
