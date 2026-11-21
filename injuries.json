@@ -82,8 +82,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 2",
-   "published": "2026-11-20 20:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-21 17:00:00",
    "tz": "ET",
    "game_date": "2026-11-21",
    "game_time": "19:00:00",
@@ -108,12 +108,6 @@
      "jersey": "6",
      "name": "CharMar Brown",
      "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "7",
-     "name": "Zechariah Poyser",
-     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -708,5 +702,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-21T19:27+00:00"
+ "updated": "2026-11-21T22:27+00:00"
 }
