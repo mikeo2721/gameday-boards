@@ -1,344 +1,82 @@
 {
  "teams": {
-  "61": {
-   "source": "SEC",
-   "report_type": "Game Day",
-   "published": "2026-11-21 17:00:00",
-   "tz": "CT",
-   "game_date": "2026-11-21",
-   "game_time": "18:30:00",
-   "location": "Columbia, SC",
-   "opponent": "South Carolina",
-   "roster_size": 128,
-   "players": [
-    {
-     "pos": "WR",
-     "jersey": "8",
-     "name": "Landon Roldan",
-     "status": "Out"
-    },
-    {
-     "pos": "OLB",
-     "jersey": "17",
-     "name": "Amaris Williams",
-     "status": "Out"
-    },
-    {
-     "pos": "QB",
-     "jersey": "25",
-     "name": "Jake Bobo",
-     "status": "Exempt"
-    },
-    {
-     "pos": "WR",
-     "jersey": "36",
-     "name": "Jackson St. Clair",
-     "status": "Exempt"
-    },
-    {
-     "pos": "WR",
-     "jersey": "37",
-     "name": "Benjamin McElreath",
-     "status": "Exempt"
-    },
-    {
-     "pos": "TE",
-     "jersey": "41",
-     "name": "David Lalaian",
-     "status": "Exempt"
-    },
-    {
-     "pos": "WR",
-     "jersey": "46",
-     "name": "Danny Curran",
-     "status": "Exempt"
-    },
-    {
-     "pos": "LS",
-     "jersey": "50",
-     "name": "Colton Dermer",
-     "status": "Available"
-    },
-    {
-     "pos": "LS",
-     "jersey": "51",
-     "name": "Will Snellings",
-     "status": "Available"
-    },
-    {
-     "pos": "OL",
-     "jersey": "74",
-     "name": "Drew Bobo",
-     "status": "Out"
-    },
-    {
-     "pos": "K",
-     "jersey": "98",
-     "name": "Connor Ferguson",
-     "status": "Exempt"
-    }
-   ]
-  },
+  "61": null,
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Game Day",
-   "published": "2026-11-21 17:00:00",
+   "report_type": "Report Pending",
+   "published": "2026-11-25 20:00:00",
    "tz": "ET",
-   "game_date": "2026-11-21",
-   "game_time": "19:00:00",
+   "game_date": "2026-11-28",
+   "game_time": "12:00:00",
    "location": "Miami Gardens, FL",
-   "opponent": "Virginia Tech",
-   "roster_size": 115,
-   "players": [
-    {
-     "pos": "WR",
-     "jersey": "1",
-     "name": "Malachi Toney",
-     "status": "Out"
-    },
-    {
-     "pos": "WR",
-     "jersey": "3",
-     "name": "Joshua Moore",
-     "status": "Out"
-    },
-    {
-     "pos": "RB",
-     "jersey": "6",
-     "name": "CharMar Brown",
-     "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "16",
-     "name": "Ja'Boree Antoine",
-     "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "29",
-     "name": "Romanas \"OJ\" Frederique Jr.",
-     "status": "Out"
-    },
-    {
-     "pos": "LS",
-     "jersey": "46",
-     "name": "Adam Booker",
-     "status": "Available"
-    },
-    {
-     "pos": "LS",
-     "jersey": "59",
-     "name": "Vance Diepenbrock",
-     "status": "Available"
-    },
-    {
-     "pos": "OL",
-     "jersey": "66",
-     "name": "Max Buchanan",
-     "status": "Out"
-    },
-    {
-     "pos": "TE",
-     "jersey": "88",
-     "name": "Luka Gilbert",
-     "status": "Out"
-    }
-   ]
+   "opponent": "Boston College",
+   "roster_size": 0,
+   "players": []
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Game Day",
-   "published": "2026-11-21 9:00:00",
+   "report_type": "Report Pending",
+   "published": "2026-11-25 19:00:00",
    "tz": "CT",
-   "game_date": "2026-11-21",
+   "game_date": "2026-11-28",
    "game_time": "11:00:00",
-   "location": "Lincoln, NE",
-   "opponent": "Nebraska",
-   "roster_size": 119,
-   "players": [
-    {
-     "pos": "QB",
-     "jersey": "10",
-     "name": "Julian Sayin",
-     "status": "Out"
-    },
-    {
-     "pos": "S",
-     "jersey": "11",
-     "name": "Terry Moore",
-     "status": "Out"
-    },
-    {
-     "pos": "S",
-     "jersey": "21",
-     "name": "Brenten \"Inky\" Jones",
-     "status": "Out"
-    },
-    {
-     "pos": "RB",
-     "jersey": "24",
-     "name": "Ja\u2019Kobi Jackson",
-     "status": "Out"
-    },
-    {
-     "pos": "S",
-     "jersey": "29",
-     "name": "Deshawn Stewart",
-     "status": "Out"
-    },
-    {
-     "pos": "LB",
-     "jersey": "33",
-     "name": "Eli Lee",
-     "status": "Out"
-    },
-    {
-     "pos": "WR",
-     "jersey": "34",
-     "name": "Brennen Schramm",
-     "status": "Out"
-    },
-    {
-     "pos": "LS",
-     "jersey": "43",
-     "name": "Brody Jenkins",
-     "status": "Available"
-    },
-    {
-     "pos": "LS",
-     "jersey": "48",
-     "name": "Dalton Riggs",
-     "status": "Available"
-    },
-    {
-     "pos": "OL",
-     "jersey": "60",
-     "name": "Jaxon Powell",
-     "status": "Out"
-    },
-    {
-     "pos": "LS",
-     "jersey": "61",
-     "name": "Landon Beal",
-     "status": "Available"
-    },
-    {
-     "pos": "OL",
-     "jersey": "70",
-     "name": "Phillip Daniels",
-     "status": "Out"
-    },
-    {
-     "pos": "OL",
-     "jersey": "78",
-     "name": "Max Riley",
-     "status": "Out"
-    },
-    {
-     "pos": "TE",
-     "jersey": "88",
-     "name": "Maxence LeBlanc",
-     "status": "Out"
-    }
-   ]
+   "location": "Columbus, OH",
+   "opponent": "Michigan",
+   "roster_size": 0,
+   "players": []
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Game Day",
-   "published": "2026-11-21 12:30:00",
+   "report_type": "Report Pending",
+   "published": "2026-11-25 19:00:00",
    "tz": "CT",
-   "game_date": "2026-11-21",
-   "game_time": "14:30:00",
-   "location": "Seattle, WA",
-   "opponent": "Washington",
-   "roster_size": 106,
-   "players": [
-    {
-     "pos": "RB",
-     "jersey": "1",
-     "name": "Turbo Richard",
-     "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "4",
-     "name": "A.J. Harris",
-     "status": "Out"
-    },
-    {
-     "pos": "LB",
-     "jersey": "5",
-     "name": "Rolijah Hardy",
-     "status": "Out"
-    },
-    {
-     "pos": "DL",
-     "jersey": "18",
-     "name": "Kellan Wyatt",
-     "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "33",
-     "name": "Garrett Reese",
-     "status": "Out"
-    },
-    {
-     "pos": "LS",
-     "jersey": "45",
-     "name": "Sam Lindsey",
-     "status": "Available"
-    },
-    {
-     "pos": "LS",
-     "jersey": "47",
-     "name": "Jackson Tolle",
-     "status": "Available"
-    },
-    {
-     "pos": "LS",
-     "jersey": "49",
-     "name": "Drew Clausen",
-     "status": "Out"
-    },
-    {
-     "pos": "LB",
-     "jersey": "52",
-     "name": "Clayton Allen",
-     "status": "Out"
-    },
-    {
-     "pos": "OL",
-     "jersey": "56",
-     "name": "Joe Brunner",
-     "status": "Out"
-    }
-   ]
+   "game_date": "2026-11-28",
+   "game_time": "18:00:00",
+   "location": "Bloomington, IN",
+   "opponent": "Purdue",
+   "roster_size": 0,
+   "players": []
   },
-  "333": null,
+  "333": {
+   "source": "SEC",
+   "report_type": "Report Pending",
+   "published": "2026-11-25 19:10:00",
+   "tz": "CT",
+   "game_date": "2026-11-28",
+   "game_time": "18:30:00",
+   "location": "Tuscaloosa, AL",
+   "opponent": "Auburn",
+   "roster_size": 0,
+   "players": []
+  },
   "251": {
    "source": "SEC",
-   "report_type": "Game Day",
-   "published": "2026-11-21 13:00:00",
+   "report_type": "Initial",
+   "published": "2026-11-24 19:10:00",
    "tz": "CT",
-   "game_date": "2026-11-21",
-   "game_time": "14:30:00",
-   "location": "Austin, TX",
-   "opponent": "Arkansas",
+   "game_date": "2026-11-27",
+   "game_time": "18:30:00",
+   "location": "College Station, TX",
+   "opponent": "Texas A&M",
    "roster_size": 111,
    "players": [
     {
      "pos": "EDG",
      "jersey": "1",
      "name": "Colin Simmons",
-     "status": "Out"
+     "status": "Questionable"
     },
     {
      "pos": "RB",
      "jersey": "2",
      "name": "Hollywood Smothers",
+     "status": "Out"
+    },
+    {
+     "pos": "DB",
+     "jersey": "6",
+     "name": "Kobe Black",
      "status": "Out"
     },
     {
@@ -480,6 +218,12 @@
      "status": "Out"
     },
     {
+     "pos": "OL",
+     "jersey": "77",
+     "name": "Andre Cojoe",
+     "status": "Questionable"
+    },
+    {
      "pos": "EDG",
      "jersey": "80",
      "name": "Brinley Tita",
@@ -525,117 +269,302 @@
      "pos": "EDG",
      "jersey": "99",
      "name": "Richard Wesley",
-     "status": "Out"
+     "status": "Questionable"
     }
    ]
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Game Day",
-   "published": "2026-11-21 9:30:00",
+   "report_type": "Report Pending",
+   "published": "2026-11-25 21:00:00",
    "tz": "CT",
-   "game_date": "2026-11-21",
+   "game_date": "2026-11-28",
+   "game_time": "14:30:00",
+   "location": "Provo, UT",
+   "opponent": "Cincinnati",
+   "roster_size": 0,
+   "players": []
+  },
+  "145": {
+   "source": "SEC",
+   "report_type": "Initial",
+   "published": "2026-11-24 19:10:00",
+   "tz": "CT",
+   "game_date": "2026-11-27",
    "game_time": "11:00:00",
-   "location": "Lawrence, KS",
-   "opponent": "Kansas",
-   "roster_size": 117,
+   "location": "Oxford, MS",
+   "opponent": "Mississippi State",
+   "roster_size": 121,
    "players": [
     {
-     "pos": "CB",
+     "pos": "WR",
      "jersey": "0",
-     "name": "Evan Johnson",
-     "status": "Out"
+     "name": "Johntay Cook II",
+     "status": "Probable"
+    },
+    {
+     "pos": "QB",
+     "jersey": "2",
+     "name": "Deuce Knight",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "3",
+     "name": "Caleb Cunningham",
+     "status": "Probable"
     },
     {
      "pos": "TE",
-     "jersey": "2",
-     "name": "Roger Saleapaga II",
+     "jersey": "4",
+     "name": "Caleb Odom",
+     "status": "Questionable"
+    },
+    {
+     "pos": "DE",
+     "jersey": "5",
+     "name": "Kam Franklin",
+     "status": "Probable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "5",
+     "name": "Kewan Lacy",
      "status": "Out"
+    },
+    {
+     "pos": "S",
+     "jersey": "7",
+     "name": "Sharif Denson",
+     "status": "Probable"
     },
     {
      "pos": "LB",
+     "jersey": "11",
+     "name": "Keaton Thomas",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "12",
+     "name": "Izaiah Hartrup",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
+     "jersey": "13",
+     "name": "Jack Patterson",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "14",
+     "name": "Edwin Joseph",
+     "status": "Out"
+    },
+    {
+     "pos": "QB",
      "jersey": "16",
-     "name": "Isaiah Glasker",
-     "status": "Out"
-    },
-    {
-     "pos": "RB",
-     "jersey": "28",
-     "name": "Jovesa Damuni",
+     "name": "George Hamsley",
      "status": "Exempt"
     },
     {
-     "pos": "RB",
+     "pos": "S",
+     "jersey": "19",
+     "name": "MJ Preston",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "24",
+     "name": "Case Thomas",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "26",
+     "name": "Ant Davis Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "27",
+     "name": "Kervin Johnson Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "29",
+     "name": "William Jones",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
      "jersey": "30",
-     "name": "Sione Moa",
+     "name": "JaMichael Garrett",
      "status": "Out"
     },
     {
-     "pos": "DS",
-     "jersey": "43",
-     "name": "Ty Smith",
+     "pos": "RB",
+     "jersey": "33",
+     "name": "Shekai Mills-Knight",
+     "status": "Questionable"
+    },
+    {
+     "pos": "RB",
+     "jersey": "35",
+     "name": "Damarius Yates",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "36",
+     "name": "Keon Young",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "37",
+     "name": "Cortez Thomas",
+     "status": "Exempt"
+    },
+    {
+     "pos": "S",
+     "jersey": "39",
+     "name": "Gerald Lacy Jr.",
+     "status": "Out"
+    },
+    {
+     "pos": "CB",
+     "jersey": "41",
+     "name": "John Ross Ashley",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "42",
+     "name": "Jack Harper",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "42",
+     "name": "Bryson Walters",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "44",
+     "name": "Caleb Blankenship",
      "status": "Available"
     },
     {
-     "pos": "DS",
+     "pos": "LB",
+     "jersey": "44",
+     "name": "Tony Mitchell",
+     "status": "Exempt"
+    },
+    {
+     "pos": "WR",
      "jersey": "47",
-     "name": "Berkley Alfrey",
-     "status": "Available"
+     "name": "Anthony Aguirre",
+     "status": "Exempt"
     },
     {
-     "pos": "DS",
-     "jersey": "49",
-     "name": "Rayden Heintz",
-     "status": "Available"
+     "pos": "OL",
+     "jersey": "52",
+     "name": "Cooper Johnson",
+     "status": "Exempt"
     },
     {
-     "pos": "DT",
+     "pos": "LB",
+     "jersey": "53",
+     "name": "Ford Beeker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "53",
+     "name": "Trey Nightingale",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DE",
+     "jersey": "54",
+     "name": "Tre Ellis",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DE",
+     "jersey": "55",
+     "name": "Cam Clark",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "56",
+     "name": "Mason Waddle",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LB",
+     "jersey": "56",
+     "name": "Hayden Parker",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
      "jersey": "57",
-     "name": "Keanu Tanuvasa",
+     "name": "Carius Curne",
      "status": "Out"
-    },
-    {
-     "pos": "OL",
-     "jersey": "66",
-     "name": "Brigham Alexander",
-     "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "74",
-     "name": "Trevin Ostler",
-     "status": "Exempt"
     },
     {
      "pos": "OL",
      "jersey": "75",
-     "name": "Andrew Gentry",
-     "status": "Exempt"
+     "name": "Patrick Kutas",
+     "status": "Doubtful"
     },
     {
-     "pos": "OL",
-     "jersey": "78",
-     "name": "Ethan Thomason",
-     "status": "Exempt"
+     "pos": "LS",
+     "jersey": "83",
+     "name": "Sean Judge",
+     "status": "Available"
     },
     {
      "pos": "TE",
-     "jersey": "83",
-     "name": "Will Zundel",
+     "jersey": "86",
+     "name": "Brady Prieskorn",
      "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "89",
+     "name": "Dylan Davis",
+     "status": "Exempt"
+    },
+    {
+     "pos": "DT",
+     "jersey": "91",
+     "name": "Jamarion Owens",
+     "status": "Exempt"
+    },
+    {
+     "pos": "LS",
+     "jersey": "93",
+     "name": "Richie Bruder",
+     "status": "Exempt"
     }
    ]
   },
-  "145": null,
   "2641": {
    "source": "Big 12",
-   "report_type": "Game Day",
-   "published": "2026-11-21 13:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-24 21:00:00",
    "tz": "CT",
-   "game_date": "2026-11-21",
-   "game_time": "14:30:00",
-   "location": "Waco, TX",
-   "opponent": "Baylor",
+   "game_date": "2026-11-26",
+   "game_time": "19:00:00",
+   "location": "Lubbock, TX",
+   "opponent": "TCU",
    "roster_size": 110,
    "players": [
     {
@@ -643,6 +572,30 @@
      "jersey": "0",
      "name": "Quinten Joyner",
      "status": "Out"
+    },
+    {
+     "pos": "WR",
+     "jersey": "1",
+     "name": "Micah Hudson",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "2",
+     "name": "Kenny Johnson",
+     "status": "Questionable"
+    },
+    {
+     "pos": "WR",
+     "jersey": "3",
+     "name": "Coy Eakin",
+     "status": "Probable"
+    },
+    {
+     "pos": "S",
+     "jersey": "3",
+     "name": "Peyton Morgan",
+     "status": "Probable"
     },
     {
      "pos": "WR",
@@ -657,10 +610,22 @@
      "status": "Exempt"
     },
     {
+     "pos": "CB",
+     "jersey": "14",
+     "name": "Brice Pollock",
+     "status": "Probable"
+    },
+    {
      "pos": "S",
      "jersey": "21",
      "name": "Miquel Dingle Jr.",
      "status": "Out"
+    },
+    {
+     "pos": "S",
+     "jersey": "22",
+     "name": "Marcus Ramon-Edwards",
+     "status": "Doubtful"
     },
     {
      "pos": "S",
@@ -672,7 +637,7 @@
      "pos": "OLB",
      "jersey": "32",
      "name": "LaDamion Guyton",
-     "status": "Out"
+     "status": "Doubtful"
     },
     {
      "pos": "LB",
@@ -688,6 +653,12 @@
     },
     {
      "pos": "OL",
+     "jersey": "52",
+     "name": "Cash Cleveland",
+     "status": "Questionable"
+    },
+    {
+     "pos": "OL",
      "jersey": "53",
      "name": "Holton Hendrix",
      "status": "Exempt"
@@ -697,10 +668,16 @@
      "jersey": "57",
      "name": "Hunter Zambrano",
      "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "92",
+     "name": "Bryce Butler",
+     "status": "Questionable"
     }
    ]
   }
  },
  "errors": [],
- "updated": "2026-11-21T23:27+00:00"
+ "updated": "2026-11-26T00:43+00:00"
 }
