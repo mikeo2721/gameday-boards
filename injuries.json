@@ -741,15 +741,94 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Report Pending",
+   "report_type": "Initial",
    "published": "2026-11-25 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "14:30:00",
    "location": "Provo, UT",
    "opponent": "Cincinnati",
-   "roster_size": 0,
-   "players": []
+   "roster_size": 117,
+   "players": [
+    {
+     "pos": "CB",
+     "jersey": "0",
+     "name": "Evan Johnson",
+     "status": "Probable"
+    },
+    {
+     "pos": "TE",
+     "jersey": "2",
+     "name": "Roger Saleapaga II",
+     "status": "Doubtful"
+    },
+    {
+     "pos": "LB",
+     "jersey": "16",
+     "name": "Isaiah Glasker",
+     "status": "Doubtful"
+    },
+    {
+     "pos": "RB",
+     "jersey": "28",
+     "name": "Jovesa Damuni",
+     "status": "Exempt"
+    },
+    {
+     "pos": "RB",
+     "jersey": "30",
+     "name": "Sione Moa",
+     "status": "Out"
+    },
+    {
+     "pos": "DS",
+     "jersey": "43",
+     "name": "Ty Smith",
+     "status": "Available"
+    },
+    {
+     "pos": "DS",
+     "jersey": "47",
+     "name": "Berkley Alfrey",
+     "status": "Available"
+    },
+    {
+     "pos": "DS",
+     "jersey": "49",
+     "name": "Rayden Heintz",
+     "status": "Available"
+    },
+    {
+     "pos": "OL",
+     "jersey": "66",
+     "name": "Brigham Alexander",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "74",
+     "name": "Trevin Ostler",
+     "status": "Exempt"
+    },
+    {
+     "pos": "OL",
+     "jersey": "75",
+     "name": "Andrew Gentry",
+     "status": "Probable"
+    },
+    {
+     "pos": "OL",
+     "jersey": "78",
+     "name": "Ethan Thomason",
+     "status": "Exempt"
+    },
+    {
+     "pos": "TE",
+     "jersey": "83",
+     "name": "Will Zundel",
+     "status": "Out"
+    }
+   ]
   },
   "145": {
    "source": "SEC",
@@ -1000,8 +1079,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-24 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-25 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-26",
    "game_time": "19:00:00",
@@ -1019,24 +1098,12 @@
      "pos": "WR",
      "jersey": "1",
      "name": "Micah Hudson",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "WR",
      "jersey": "2",
      "name": "Kenny Johnson",
-     "status": "Questionable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "3",
-     "name": "Coy Eakin",
-     "status": "Probable"
-    },
-    {
-     "pos": "S",
-     "jersey": "3",
-     "name": "Peyton Morgan",
      "status": "Probable"
     },
     {
@@ -1067,7 +1134,7 @@
      "pos": "S",
      "jersey": "22",
      "name": "Marcus Ramon-Edwards",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "S",
@@ -1079,7 +1146,7 @@
      "pos": "OLB",
      "jersey": "32",
      "name": "LaDamion Guyton",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "LB",
@@ -1097,7 +1164,7 @@
      "pos": "OL",
      "jersey": "52",
      "name": "Cash Cleveland",
-     "status": "Questionable"
+     "status": "Probable"
     },
     {
      "pos": "OL",
@@ -1115,11 +1182,11 @@
      "pos": "DL",
      "jersey": "92",
      "name": "Bryce Butler",
-     "status": "Questionable"
+     "status": "Probable"
     }
    ]
   }
  },
  "errors": [],
- "updated": "2026-11-26T02:29+00:00"
+ "updated": "2026-11-26T04:29+00:00"
 }
