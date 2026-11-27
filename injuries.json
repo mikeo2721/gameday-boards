@@ -808,8 +808,8 @@
   },
   "145": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-26 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-27 9:30:00",
    "tz": "CT",
    "game_date": "2026-11-27",
    "game_time": "11:00:00",
@@ -817,18 +817,6 @@
    "opponent": "Mississippi State",
    "roster_size": 121,
    "players": [
-    {
-     "pos": "QB",
-     "jersey": "2",
-     "name": "Deuce Knight",
-     "status": "Probable"
-    },
-    {
-     "pos": "TE",
-     "jersey": "4",
-     "name": "Caleb Odom",
-     "status": "Probable"
-    },
     {
      "pos": "RB",
      "jersey": "5",
@@ -900,12 +888,6 @@
      "jersey": "30",
      "name": "JaMichael Garrett",
      "status": "Out"
-    },
-    {
-     "pos": "RB",
-     "jersey": "33",
-     "name": "Shekai Mills-Knight",
-     "status": "Questionable"
     },
     {
      "pos": "RB",
@@ -1134,5 +1116,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-27T04:29+00:00"
+ "updated": "2026-11-27T16:27+00:00"
 }
