@@ -717,8 +717,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Initial",
-   "published": "2026-11-25 21:00:00",
+   "report_type": "Update 1",
+   "published": "2026-11-26 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "14:30:00",
@@ -1134,5 +1134,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-27T02:29+00:00"
+ "updated": "2026-11-27T04:29+00:00"
 }
