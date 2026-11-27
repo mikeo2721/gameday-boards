@@ -1079,8 +1079,8 @@
   },
   "2641": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-25 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-26 17:30:00",
    "tz": "CT",
    "game_date": "2026-11-26",
    "game_time": "19:00:00",
@@ -1096,18 +1096,6 @@
     },
     {
      "pos": "WR",
-     "jersey": "1",
-     "name": "Micah Hudson",
-     "status": "Probable"
-    },
-    {
-     "pos": "WR",
-     "jersey": "2",
-     "name": "Kenny Johnson",
-     "status": "Probable"
-    },
-    {
-     "pos": "WR",
      "jersey": "6",
      "name": "Jalen Jones",
      "status": "Out"
@@ -1117,12 +1105,6 @@
      "jersey": "9",
      "name": "Donte Lee Jr.",
      "status": "Exempt"
-    },
-    {
-     "pos": "CB",
-     "jersey": "14",
-     "name": "Brice Pollock",
-     "status": "Probable"
     },
     {
      "pos": "S",
@@ -1162,12 +1144,6 @@
     },
     {
      "pos": "OL",
-     "jersey": "52",
-     "name": "Cash Cleveland",
-     "status": "Probable"
-    },
-    {
-     "pos": "OL",
      "jersey": "53",
      "name": "Holton Hendrix",
      "status": "Exempt"
@@ -1177,16 +1153,10 @@
      "jersey": "57",
      "name": "Hunter Zambrano",
      "status": "Exempt"
-    },
-    {
-     "pos": "DL",
-     "jersey": "92",
-     "name": "Bryce Butler",
-     "status": "Probable"
     }
    ]
   }
  },
  "errors": [],
- "updated": "2026-11-26T04:29+00:00"
+ "updated": "2026-11-27T00:44+00:00"
 }
