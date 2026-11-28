@@ -494,8 +494,8 @@
   },
   "251": {
    "source": "SEC",
-   "report_type": "Update 2",
-   "published": "2026-11-26 19:10:00",
+   "report_type": "Game Day",
+   "published": "2026-11-27 17:00:00",
    "tz": "CT",
    "game_date": "2026-11-27",
    "game_time": "18:30:00",
@@ -507,7 +507,7 @@
      "pos": "EDG",
      "jersey": "1",
      "name": "Colin Simmons",
-     "status": "Questionable"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -660,12 +660,6 @@
      "status": "Out"
     },
     {
-     "pos": "OL",
-     "jersey": "77",
-     "name": "Andre Cojoe",
-     "status": "Questionable"
-    },
-    {
      "pos": "EDG",
      "jersey": "80",
      "name": "Brinley Tita",
@@ -706,12 +700,6 @@
      "jersey": "93",
      "name": "Hero Kanu",
      "status": "Out"
-    },
-    {
-     "pos": "EDG",
-     "jersey": "99",
-     "name": "Richard Wesley",
-     "status": "Probable"
     }
    ]
   },
@@ -1116,5 +1104,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-27T16:27+00:00"
+ "updated": "2026-11-28T00:43+00:00"
 }
