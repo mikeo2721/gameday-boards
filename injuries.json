@@ -669,8 +669,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 2",
-   "published": "2026-11-27 21:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-28 13:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "14:30:00",
@@ -682,13 +682,7 @@
      "pos": "TE",
      "jersey": "2",
      "name": "Roger Saleapaga II",
-     "status": "Doubtful"
-    },
-    {
-     "pos": "LB",
-     "jersey": "16",
-     "name": "Isaiah Glasker",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "RB",
@@ -1056,5 +1050,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-28T15:27+00:00"
+ "updated": "2026-11-28T19:27+00:00"
 }
