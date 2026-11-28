@@ -711,8 +711,8 @@
   },
   "252": {
    "source": "Big 12",
-   "report_type": "Update 1",
-   "published": "2026-11-26 21:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-27 21:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "14:30:00",
@@ -720,12 +720,6 @@
    "opponent": "Cincinnati",
    "roster_size": 117,
    "players": [
-    {
-     "pos": "CB",
-     "jersey": "0",
-     "name": "Evan Johnson",
-     "status": "Probable"
-    },
     {
      "pos": "TE",
      "jersey": "2",
@@ -779,12 +773,6 @@
      "jersey": "74",
      "name": "Trevin Ostler",
      "status": "Exempt"
-    },
-    {
-     "pos": "OL",
-     "jersey": "75",
-     "name": "Andrew Gentry",
-     "status": "Probable"
     },
     {
      "pos": "OL",
@@ -1110,5 +1098,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-28T01:27+00:00"
+ "updated": "2026-11-28T03:30+00:00"
 }
