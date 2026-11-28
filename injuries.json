@@ -4,8 +4,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 1",
-   "published": "2026-11-26 20:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-27 20:00:00",
    "tz": "ET",
    "game_date": "2026-11-28",
    "game_time": "12:00:00",
@@ -89,8 +89,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-26 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-27 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "11:00:00",
@@ -114,7 +114,7 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "LB",
@@ -174,7 +174,7 @@
      "pos": "OL",
      "jersey": "70",
      "name": "Phillip Daniels",
-     "status": "Questionable"
+     "status": "Doubtful"
     },
     {
      "pos": "OL",
@@ -192,8 +192,8 @@
   },
   "84": {
    "source": "Big Ten",
-   "report_type": "Update 1",
-   "published": "2026-11-26 19:00:00",
+   "report_type": "Update 2",
+   "published": "2026-11-27 19:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "18:00:00",
@@ -265,8 +265,8 @@
   },
   "333": {
    "source": "SEC",
-   "report_type": "Update 1",
-   "published": "2026-11-26 19:10:00",
+   "report_type": "Update 2",
+   "published": "2026-11-27 19:10:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "18:30:00",
@@ -279,6 +279,12 @@
      "jersey": "0",
      "name": "AK Dear",
      "status": "Exempt"
+    },
+    {
+     "pos": "DL",
+     "jersey": "1",
+     "name": "Devan Thompkins",
+     "status": "Probable"
     },
     {
      "pos": "LB",
@@ -1104,5 +1110,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-28T00:43+00:00"
+ "updated": "2026-11-28T01:27+00:00"
 }
