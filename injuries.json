@@ -4,8 +4,8 @@
   "87": null,
   "2390": {
    "source": "ACC",
-   "report_type": "Update 2",
-   "published": "2026-11-27 20:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-28 10:00:00",
    "tz": "ET",
    "game_date": "2026-11-28",
    "game_time": "12:00:00",
@@ -13,12 +13,6 @@
    "opponent": "Boston College",
    "roster_size": 115,
    "players": [
-    {
-     "pos": "WR",
-     "jersey": "1",
-     "name": "Malachi Toney",
-     "status": "Doubtful"
-    },
     {
      "pos": "WR",
      "jersey": "3",
@@ -30,24 +24,6 @@
      "jersey": "6",
      "name": "CharMar Brown",
      "status": "Out"
-    },
-    {
-     "pos": "DB",
-     "jersey": "7",
-     "name": "Zechariah Poyser",
-     "status": "Probable"
-    },
-    {
-     "pos": "TE",
-     "jersey": "9",
-     "name": "Elija Lofton",
-     "status": "Probable"
-    },
-    {
-     "pos": "DB",
-     "jersey": "16",
-     "name": "Ja'Boree Antoine",
-     "status": "Probable"
     },
     {
      "pos": "DB",
@@ -69,15 +45,9 @@
     },
     {
      "pos": "OL",
-     "jersey": "66",
-     "name": "Max Buchanan",
-     "status": "Probable"
-    },
-    {
-     "pos": "OL",
      "jersey": "79",
      "name": "Jackson Cantwell",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "TE",
@@ -89,8 +59,8 @@
   },
   "194": {
    "source": "Big Ten",
-   "report_type": "Update 2",
-   "published": "2026-11-27 19:00:00",
+   "report_type": "Game Day",
+   "published": "2026-11-28 9:00:00",
    "tz": "CT",
    "game_date": "2026-11-28",
    "game_time": "11:00:00",
@@ -98,12 +68,6 @@
    "opponent": "Michigan",
    "roster_size": 119,
    "players": [
-    {
-     "pos": "CB",
-     "jersey": "7",
-     "name": "Jermaine Mathews Jr.",
-     "status": "Questionable"
-    },
     {
      "pos": "QB",
      "jersey": "10",
@@ -114,7 +78,7 @@
      "pos": "S",
      "jersey": "11",
      "name": "Terry Moore",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "LB",
@@ -127,12 +91,6 @@
      "jersey": "24",
      "name": "Ja\u2019Kobi Jackson",
      "status": "Out"
-    },
-    {
-     "pos": "CB",
-     "jersey": "25",
-     "name": "Jay Timmons",
-     "status": "Questionable"
     },
     {
      "pos": "S",
@@ -174,7 +132,7 @@
      "pos": "OL",
      "jersey": "70",
      "name": "Phillip Daniels",
-     "status": "Doubtful"
+     "status": "Out"
     },
     {
      "pos": "OL",
@@ -1098,5 +1056,5 @@
   }
  },
  "errors": [],
- "updated": "2026-11-28T03:30+00:00"
+ "updated": "2026-11-28T15:27+00:00"
 }
